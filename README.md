@@ -1,7 +1,7 @@
-# \<Insegnamento\>
+# Laboratori fra pari
 
-Una raccolta di risorse per l'insegnamento di \<Insegnamento\> del Corso di
-Laurea in Informatica.
+Una raccolta di materiali usati durante i laboratori fra pari (da studenti a
+studenti).
 
 ## Presentazione
 
