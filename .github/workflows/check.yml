@@ -18,4 +18,4 @@ jobs:
         with:
           path: "."
           pattern: '^(\.gitkeep|([a-z0-9]+(-[a-z0-9]+)*\.[a-zA-Z]+))$'
-          recursive: "true"
+          recursive: "false"
