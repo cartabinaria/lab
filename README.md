@@ -5,7 +5,7 @@ studenti).
 
 ## Presentazione
 
-[Questo sito](https://csunibo.github.io/<insegnamento>) elenca staticamente
+[Questo sito](https://csunibo.github.io/lab) elenca staticamente
 i contenuti della raccolta. Qui, documenti e presentazioni con estensione
 `.md`, `.tex`, `.doc`, `.docx`, `.ppt` o `.pptx` sono automaticamente
 convertiti in formato PDF.
