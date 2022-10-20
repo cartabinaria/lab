@@ -12,9 +12,6 @@
 
 \AtBeginSection[]{
   \begin{frame}
-    \beamer@sectionpages
-  \end{frame}
-  \begin{frame}
     \frametitle{In questa sezione}
     \setcounter{tocdepth}{2}
     \tableofcontents[currentsection]
@@ -23,10 +20,11 @@
 
 \begin{document}
 
-\frame{\titlepage}
+\begin{frame} 
+  \titlepage
+\end{frame}
 
 \section{Controllo di versione}
-\frame{\beamer@sectionpages}
 
 \subsection{Problemi}
 \begin{frame}{Problemi}
@@ -43,7 +41,6 @@
 \end{frame}
 
 \section{Basi di \texttt{git}}
-\frame{\beamer@sectionpages}
 
 \subsection{\texttt{git init}}
 \begin{frame}
