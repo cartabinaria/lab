@@ -12,7 +12,12 @@
 
 \AtBeginSection[]{
   \begin{frame}
+    \beamer@sectionpages
+  \end{frame}
+  \begin{frame}
     \frametitle{In questa sezione}
+    \setcounter{tocdepth}{2}
+    \tableofcontents[currentsection]
   \end{frame}
 }
 
@@ -20,55 +25,49 @@
 
 \frame{\titlepage}
 
-\begin{frame}
-  \frametitle{In questo laboratorio}
-  \tableofcontents
-\end{frame}
-
 \section{Controllo di versione}
+\frame{\beamer@sectionpages}
 
 \subsection{Problemi}
-\begin{frame}
-  \frametitle{}
+\begin{frame}{Problemi}
 \end{frame}
 
 \subsection{Rimedi}
 \begin{frame}
-  \frametitle{}
+  \frametitle{Rimedi}
 \end{frame}
 
 \subsection{Ambiente di lavoro}
 \begin{frame}
-  \frametitle{}
+  \frametitle{Ambiente di lavoro}
 \end{frame}
 
--- non usiamo gui
-
 \section{Basi di \texttt{git}}
+\frame{\beamer@sectionpages}
 
 \subsection{\texttt{git init}}
 \begin{frame}
-  \frametitle{}
+  \frametitle{\texttt{git init}}
 \end{frame}
 
 \subsection{\texttt{git add}}
 \begin{frame}
-  \frametitle{}
+  \frametitle{\texttt{git add}}
 \end{frame}
 
 \subsection{\texttt{git status, commit}}
 \begin{frame}
-  \frametitle{}
+  \frametitle{\texttt{git status, commit}}
 \end{frame}
 
 \subsection{\texttt{git log}}
 \begin{frame}
-  \frametitle{}
+  \frametitle{\texttt{git log}}
 \end{frame}
 
 \subsection{\texttt{git branch, checkout, switch}}
 \begin{frame}
-  \frametitle{}
+  \frametitle{\texttt{git branch, checkout, switch}}
 \end{frame}
 
 \end{document}
