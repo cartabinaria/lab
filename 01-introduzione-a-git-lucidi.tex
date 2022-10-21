@@ -67,4 +67,71 @@
   \frametitle{\texttt{git branch, checkout, switch}}
 \end{frame}
 
+\section{Collaborazione remota}
+
+\subsection{\texttt{git remote}}
+\begin{frame}
+  \frametitle{\texttt{git remote [show]}}
+  Una repository locale pu\`o essere collegata ad una remota per facilitare la
+  collaborazione, per la distribuzione del codice o per ragioni di backup.
+  Per gestire gli endpoint remoti a cui si vuole essere collegati si usano i
+  sottocomandi della famiglia \texttt{git remote}. \\
+  Per ottenere una lista di remoti collegati alla nostra repository e delle
+  loro propriet\`a si ha il comando:
+  \begin{semiverbatim}
+  \$ git remote [-v]
+  \end{semiverbatim}
+  Alternativamente si possono ottenere ancora pi\`u informazioni con il comando:
+  \begin{semiverbatim}
+  \$ git remote show [name]
+  \end{semiverbatim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{git remote add, remove}}
+  Per configurare un nuovo remoto per la nostra repository possiamo usare il
+  comando:
+  \begin{semiverbatim}
+  \$ git remote add <name> <uri>
+  \end{semiverbatim}
+  passando un opportuno \texttt{URI}. L'indirizzo pu\`o essere di tipo
+  \texttt{HTTP}, \texttt{SSH} ma anche un percorso sul proprio filesystem
+  contenente una opportuna repository. Il nome standard per il remoto principale
+  \`e \emph{origin}. Nella maggior parte dei provider moderni l'utilizzo di
+  \texttt{HTTP(S)} \`e stato deprecato per ragioni di sicurezza. In questa guida
+  useremo sempre remoti con protocollo \texttt{SSH} e voi dovreste fare
+  altrettando. \\
+  \texttt{remove} \`e il sottocomando speculare ad \texttt{add} che consente di
+  rimuovere un remoto dato il nome:
+  \begin{semiverbatim}
+  \$ git remote remove <name>
+  \end{semiverbatim}
+\end{frame}
+
+\subsection{\texttt{git push}}
+\begin{frame}
+  \frametitle{\texttt{git push}}
+  Una volta aggiunto un endpoint \`e possibile caricare i propri commit alla
+  repository remota:
+  \begin{semiverbatim}
+  \$ git push [-u] [<name>]
+  \end{semiverbatim}
+  Dover specificare il nome del remoto ogni volta pu\`o diventare tedioso, di
+  conseguenza \`e tipico configurare un remoto predefinito, denominato
+  \emph{upstream}, eseguendo un \texttt{push} con la flag \texttt{-u}. \\
+  % TODO: mhhh
+  Nel tempo si \`e esteso il significato del termine \emph{upstream} per
+  indicare la repository "originale" nel contesto fork tra progetti.
+\end{frame}
+
+\subsection{\texttt{git fetch, pull}}
+\begin{frame}
+  \frametitle{\texttt{git fetch, pull}}
+\end{frame}
+
+\subsection{\texttt{git merge}}
+\begin{frame}
+  \frametitle{\texttt{git merge}}
+\end{frame}
+
 \end{document}
