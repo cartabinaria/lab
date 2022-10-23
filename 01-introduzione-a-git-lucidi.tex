@@ -28,16 +28,77 @@
 
 \subsection{Problemi}
 \begin{frame}{Problemi}
+  Quando lavoriamo con molti \emph{file} (redigiamo documenti, creiamo arte
+  digitale, scriviamo codice...), ricorrono alcuni \textbf{problemi}:\pause
+  \begin{itemize}
+    \item<1-> mantenere una \textbf{cronologia} delle modifiche;\pause
+    \item<2-> \textbf{ripristinare} subito un qualsiasi stato precedente;\pause
+    \item<3-> collaborare a \textbf{copie diverse} dello stesso progetto.\pause
+  \end{itemize}
+  Copie di cartelle e blocchi note condivisi in rete non bastano più!
 \end{frame}
 
 \subsection{Rimedi}
-\begin{frame}
-  \frametitle{Rimedi}
+\begin{frame}{Rimedi}
+  Un \textbf{sistema per il controllo di versione} (o VCS, \emph{version control
+  system}) è un applicativo che risolve (anche) questi problemi.\pause
+  \begin{figure}
+    \includegraphics[width=\textwidth]{assets/vcs-popularity.png}
+    \caption{popolarità su Google dei cinque principali VCS
+    (\textcolor{cyan}{Git}, \textcolor{red}{SVN},
+    \textcolor{orange}{Mercurial}, \textcolor{green}{Perforce},
+    \textcolor{violet}{CVS}) negli ultimi cinque anni. In ordinata, 100 indica il
+    massimo storico del più popolare di questi in tale lasso di tempo.}
+  \end{figure}
 \end{frame}
 
 \subsection{Ambiente di lavoro}
-\begin{frame}
-  \frametitle{Ambiente di lavoro}
+\begin{frame}{Ambiente di lavoro | Scopo}
+  Nei prossimi lucidi, collegandoci alle macchine di laboratorio con i nostri
+  utenti, useremo \texttt{git} da linea di comando.\pause
+  \begin{block}{Consiglio}
+    Tenete aperta questa presentazione anche sulla vostra macchina durante il
+    laboratorio: potete trovarla su
+    \href{https://csunibo.github.io/lab}{\beamergotobutton{csunibo.github.io/lab}}.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Ambiente di lavoro | Materiali}
+  Materiali:
+  \begin{enumerate}
+    \item<1->un utente nella rete dipartimentale (es. \texttt{stefano.volpe2});
+      \begin{alertblock}{Se siete senza utente...}
+        ... (e non avete \texttt{git} neanche sulla vostra macchina), seguite con
+        chi siede al vostro fianco.
+      \end{alertblock}\pause
+    \item<2->un client \texttt{ssh}. Su Linux e macOS è già installato; su
+      Windows potete, ad esempio, usare
+      \href{https://chrome.google.com/webstore/detail/secure-shell/iodihamcpbpeioajjeobimgagajmlibd}{\beamergotobutton{un'estensione
+      per \emph{browser}}}.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Ambiente di lavoro | Preparazione}
+  Preparazione:
+  \begin{enumerate}
+    \item<1->scegliere una delle \href{https://disi.unibo.it/it/dipartimento/servizi-tecnici-e-amministrativi/servizi-informatici/accesso-remoto}{\beamergotobutton{macchine
+      di laboratorio}} (es. \texttt{XXX.cs.unibo.it}, dove \texttt{XXX} è il
+      nome della macchina scelta)
+    \item<2-> collegarsi:
+      \begin{semiverbatim}
+        \$ ssh stefano.volpe2@XXX.cs.unibo.it
+      \end{semiverbatim}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Ambiente di lavoro | Preparazione (2)}
+  \begin{semiverbatim}
+  \lbrack ...\rbrack \newline
+  Are you sure you want to continue connecting \newline (yes/no/\lbrack
+  fingerprint\rbrack)? yes \newline
+  \lbrack ...\rbrack \newline
+  stefano.volpe2@XXX.cs.unibo.it's password:
+  \end{semiverbatim}
 \end{frame}
 
 \section{Basi di \texttt{git}}
