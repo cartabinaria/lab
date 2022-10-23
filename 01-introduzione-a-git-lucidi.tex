@@ -131,44 +131,52 @@
 \end{frame}
 
 \section{Collaborazione remota}
+\begin{frame}{Perch\`e?}
+  Una repository locale pu\`o essere collegata ad una \textbf{remota} per
+  semplificare una serie di operazioni comuni e desiderabili:
+  \begin{itemize}
+    \item<1-> Collaborazione tra sviluppatori, interni o esterni al proprio gruppo di lavoro
+    \item<2-> Distribuzione del codice (versionamento e rilascio)
+    \item<3-> Backup del codice
+  \end{itemize}
+\end{frame}
 
 \subsection{\texttt{git remote}}
 \begin{frame}
   \frametitle{\texttt{git remote [show]}}
-  Una repository locale pu\`o essere collegata ad una remota per facilitare la
-  collaborazione, per la distribuzione del codice o per ragioni di backup.
-  La gestione degli endpoint remoti a cui si vuole collegare avviene tramite la
-  famiglia di comandi \texttt{git remote}. \\
-  Per ottenere una lista di remoti collegati alla nostra repository e delle
-  loro propriet\`a si ha il comando:
+  La gestione degli \emph{endpoint} remoti a cui si vuole collegare la propria
+  repository avviene tramite la famiglia di comandi \texttt{git remote}.
+  Per ottenere la lista dei remoti collegati ad un albero di git si pu\`o usare:
   \begin{semiverbatim}
   \$ git remote [-v]
   \end{semiverbatim}
-  Alternativamente si possono ottenere ancora pi\`u informazioni con il comando:
-  \begin{semiverbatim}
-  \$ git remote show [name]
-  \end{semiverbatim}
+  Applicando la flag \texttt{-v} si rende la risposta verbosa e si ottengono
+  ancora pi\`u dettagli, ad esempio gli \texttt{URI} degli endpoint\footnote{
+    Per ottenere ancora pi\`u informazioni si pu\`o usare il comando \texttt{git remote show <name>}
+  }.
 \end{frame}
 
 \begin{frame}
   \frametitle{\texttt{git remote add, remove}}
-  Per configurare un nuovo remoto per la nostra repository possiamo usare il
-  comando:
+  Per aggiungere un nuovo remoto alla repository possiamo usare il comando:
   \begin{semiverbatim}
   \$ git remote add <name> <uri>
   \end{semiverbatim}
-  passando un opportuno \texttt{URI}. L'indirizzo pu\`o essere di tipo
-  \texttt{HTTP}, \texttt{SSH} ma anche un percorso sul proprio filesystem
-  contenente una opportuna repository. Il nome standard per il remoto principale
-  \`e \emph{origin}. Nella maggior parte dei provider moderni l'utilizzo di
-  \texttt{HTTP(S)} \`e stato deprecato per ragioni di sicurezza. In questa guida
-  useremo sempre remoti con protocollo \texttt{SSH} e voi dovreste fare
-  altrettando. \\
+  Il nome standard per il remoto principale \`e \emph{origin}. L'\texttt{URI}
+  deve usare uno dei protoccoli accettati\footnote{Vedi: https://stackoverflow.com/a/51112344}.
   \texttt{remove} \`e il sottocomando speculare ad \texttt{add} che consente di
   rimuovere un remoto dato il nome:
   \begin{semiverbatim}
   \$ git remote remove <name>
   \end{semiverbatim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{git remote add, remove} | Nota sugli URI}
+  Nella maggior parte dei servizi moderni che ospitano repository di Git
+  l'utilizzo di \texttt{HTTP(S)} come protocollo per un remoto \`e stato
+  deprecato per ragioni di sicurezza. In questa guida useremo sempre remoti con
+  protocollo \texttt{SSH} e voi dovreste fare altrettanto.
 \end{frame}
 
 \subsection{\texttt{git push}}
@@ -178,18 +186,18 @@
   repository remota:
   \begin{semiverbatim}
   \$ git push [-u] [<name>]
-  \end{semiverbatim}
-  Dover specificare il nome del remoto ogni volta pu\`o diventare tedioso, di
-  conseguenza \`e tipico configurare un remoto predefinito, denominato
-  \emph{upstream}, eseguendo un \texttt{push} con la flag \texttt{-u}. \\
-  % TODO: mhhh
-  Nel tempo si \`e esteso il significato del termine \emph{upstream} per
-  indicare la repository "originale" nel contesto fork tra progetti.
+  \end{semiverbatim} \pause
+  \begin{block}{Consiglio}
+    Dover specificare il nome del remoto ogni volta pu\`o diventare tedioso, di
+    conseguenza \`e tipico identificare un remoto "di default" (\emph{upstream})
+    a cui inviare i cambiamenti. La flag \texttt{-u} del comando \texttt{push}
+    imposta un remoto come \texttt{upstream}.
+  \end{block}
 \end{frame}
 
-\subsection{\texttt{git fetch, pull}}
+\subsection{\texttt{git fetch}}
 \begin{frame}
-  \frametitle{\texttt{git fetch, pull}}
+  \frametitle{\texttt{git fetch}}
 \end{frame}
 
 \subsection{\texttt{git merge}}
