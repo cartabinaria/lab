@@ -25,7 +25,7 @@ studentessa o lo studente:
 1. fa uso di comandi di base di `git` (`init`, `add`, `status`, `commit`, `log`,
 `branch`, `checkout`, `switch`) per la gestione di un progetto locale;
 2. fa uso di specifici comandi di `git` (`remote`, `push`, `fetch`, `pull`,
-`merge`) per la collaborazione remota.
+`rebase`, `merge`) per la collaborazione remota.
 
 ## Materiali
 
