@@ -14,9 +14,8 @@ L'obiettivo di questo incontro non e' proporre un seminario da seguire passivi, 
 Detto cio', e' ovviamente necessario venire muniti del proprio pc, indipendentemente dalla tipologia di sistema operativo che utilizziate: Linux, Windows o MacOS.  
 
 Per partecipare registratevi , accedendo con la vostra mail istituzionale, al seguente link:  
-#### [Form di partecipazione](https://forms.office.com/r/WmYdNct2s4)
+### [Form di partecipazione](https://forms.office.com/r/WmYdNct2s4)
 
 Unico requisito, prima di presentarsi, e' effetuare l'abilitazione all'utilizzo delle macchine che noi useremo da remoto, presenti nei Laboratori di via Ercolani e Ranzani.  
 Abilitazione che potete fare al seguente link:  
-#### [Abilitazione utilizzo macchine laboratorio](https://disi.unibo.it/it/dipartimento/servizi-tecnici-e-amministrativi/servizi-informatici/account-linux)
-
+### [Abilitazione utilizzo macchine laboratorio](https://disi.unibo.it/it/dipartimento/servizi-tecnici-e-amministrativi/servizi-informatici/account-linux)
