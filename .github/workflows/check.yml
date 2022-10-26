@@ -17,5 +17,5 @@ jobs:
         name: Lint file names under ./appunti
         with:
           path: "."
-          pattern: '^(\.gitignore|README\.md|LICENSE|([a-z0-9]+(-[a-z0-9]+)*\.[a-zA-Z]+))$'
+          pattern: '^(\.gitignore|\.gitattributes|README\.md|LICENSE|([a-z0-9]+(-[a-z0-9]+)*\.[a-zA-Z]+))$'
           recursive: "false"
