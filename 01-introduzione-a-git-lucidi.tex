@@ -3,6 +3,8 @@
 \usepackage[italian]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{hyperref}
 
 \title{Introduzione a \texttt{git}}
 \author{Luca Tagliavini, Stefano Volpe}
@@ -120,9 +122,13 @@
   \frametitle{\texttt{git status, commit}}
 \end{frame}
 
-\subsection{\texttt{git log}}
+\subsection{\texttt{git log, show}}
 \begin{frame}
   \frametitle{\texttt{git log}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{git show}}
 \end{frame}
 
 \subsection{\texttt{git branch, checkout, switch}}
@@ -130,15 +136,105 @@
   \frametitle{\texttt{git branch, checkout, switch}}
 \end{frame}
 
+\begin{frame}[c]
+  \centering
+  Pausa
+\end{frame}
+
+\subsection{\texttt{git merge, rebase}}
+\begin{frame}
+  \frametitle{\texttt{git merge, rebase}}
+  Per unire il lavoro svolto su branch separate si hanno due opzioni che operano
+  in modo diverso ed hanno casi d'uso separati:
+  \begin{enumerate}
+    \item<1-> \texttt{git merge <name>}: applica tutti i \emph{nuovi commit}\footnotemark{}
+      presenti sulla branch \texttt{<name>} nella branch in cui ci troviamo;
+    \item<2-> \texttt{git rebase <name>}: mette da parte i
+      \emph{nuovi commit}\footnotemark[\value{footnote}], avanza la branch
+      all'ultimo commit su \texttt{<name>} e riapplica i commit "messi da parte".
+  \end{enumerate}
+      \footnotetext{Tutti quelli a partire dal \emph{fork-point}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{git merge} | Pregi e difetti}
+  \begin{itemize}
+    \item Pregi: \begin{itemize}
+      \item Preserva \emph{chiaramente} la storia dei commit;
+      \item Pu\`o essere usato su branch pubbliche.
+    \end{itemize}
+    \item Difetti: \begin{itemize}
+      \item Aggiunge un nuovo commit alla storia;
+      \item Tutti i commit della branch vengono condensati in uno\footnote{
+          Sar\`a comunque possibile visionare tutti i commit della branch unita,
+          anche dopo la sua rimozione.
+        }.
+    \end{itemize}
+  \end{itemize}
+
+  Da usare quando si collabora con altre persone e si vuole rendere la storia
+  dei cambiamenti facilmente comprensibile.
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{git rebase} | Pregi e difetti}
+  \begin{itemize}
+    \item Pregi: \begin{itemize}
+      \item Non crea commit aggiuntivi, rende la storia lineare;
+      \item Si possono compiere modifiche ai commit precedenti durante l'unione
+        delle due branch.
+    \end{itemize}
+    \item Difetti: \begin{itemize}
+      \item Non \`e possibile collegare i commit riapplicati a quelli originali;
+      \item \textbf{Non} pu\`o essere usato su branch pubbliche;
+      \item Pu\`o sovrascrivere la storia e di conseguenza potrebbe
+        richiedere un \texttt{push} forzato.
+    \end{itemize}
+  \end{itemize}
+
+  Torna utile quando si lavora in locale o su branch private, per coprire i
+  propri sbagli o ripulire una storia dei commit poco ordinata.
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{git merge}}
+  \begin{figure}
+  \only<1>{
+    \includegraphics[width=5cm]{assets/pre-merge.png}
+    \caption{Log dei commit prima di un merge}
+  }
+  \only<2>{
+    \includegraphics[width=5cm]{assets/post-merge.png}
+    \caption{Log dei commit dopo un merge}
+  }
+  \end{figure}
+\end{frame}
+
 \section{Collaborazione remota}
 \begin{frame}{Perch\`e?}
   Una repository locale pu\`o essere collegata ad una \textbf{remota} per
   semplificare una serie di operazioni comuni e desiderabili:
   \begin{itemize}
-    \item<1-> Collaborazione tra sviluppatori, interni o esterni al proprio gruppo di lavoro
-    \item<2-> Distribuzione del codice (versionamento e rilascio)
-    \item<3-> Backup del codice
+    \item<1-> collaborazione tra sviluppatori, interni o esterni al proprio gruppo di lavoro;
+    \item<2-> distribuzione del codice (versionamento e rilascio);
+    \item<3-> backup del codice.
   \end{itemize}
+\end{frame}
+
+\subsection{\texttt{git clone}}
+\begin{frame}
+  \frametitle{\texttt{git clone}}
+  Per duplicare una repository remota sul proprio sistema si ha a disposizione
+  il comando:
+  \begin{semiverbatim}
+  \$ git clone [-b <branch>] <uri>
+  \end{semiverbatim}
+  Dove l'\texttt{URI} \`e l'indirizzo dove \`e salvato il vostro codice.
+  \pause
+  \begin{block}{Consiglio}
+    Per clonare una specifica branch si pu\`o usare la flag \texttt{-b}
+    specificando subito dopo il nome della branch remota desiderata.
+  \end{block}
 \end{frame}
 
 \subsection{\texttt{git remote}}
@@ -163,7 +259,10 @@
   \$ git remote add <name> <uri>
   \end{semiverbatim}
   Il nome standard per il remoto principale \`e \emph{origin}. L'\texttt{URI}
-  deve usare uno dei protoccoli accettati\footnote{Vedi: https://stackoverflow.com/a/51112344}.
+  deve usare uno dei protoccoli accettati\footnote{Vedi:
+    \href{https://stackoverflow.com/a/51112344}{\beamergotobutton{stackoverflow.com/a/51112344}}}.
+
+    \pause
   \texttt{remove} \`e il sottocomando speculare ad \texttt{add} che consente di
   rimuovere un remoto dato il nome:
   \begin{semiverbatim}
@@ -174,9 +273,9 @@
 \begin{frame}
   \frametitle{\texttt{git remote add, remove} | Nota sugli URI}
   Nella maggior parte dei servizi moderni che ospitano repository di Git
-  l'utilizzo di \texttt{HTTP(S)} come protocollo per un remoto \`e stato
-  deprecato per ragioni di sicurezza. In questa guida useremo sempre remoti con
-  protocollo \texttt{SSH} e voi dovreste fare altrettanto.
+  l'utilizzo di \texttt{HTTP(S)} come protocollo per il collegamento remoto \`e
+  stato deprecato per ragioni di sicurezza. In questa guida useremo sempre
+  remoti con protocollo \texttt{SSH} e voi dovreste fare altrettanto.
 \end{frame}
 
 \subsection{\texttt{git push}}
@@ -189,20 +288,15 @@
   \end{semiverbatim} \pause
   \begin{block}{Consiglio}
     Dover specificare il nome del remoto ogni volta pu\`o diventare tedioso, di
-    conseguenza \`e tipico identificare un remoto "di default" (\emph{upstream})
-    a cui inviare i cambiamenti. La flag \texttt{-u} del comando \texttt{push}
-    imposta un remoto come \texttt{upstream}.
+    conseguenza \`e tipico identificare un remoto "di default"\footnote{Denominato \emph{upstream}}
+    \emph{per branch} a cui inviare i cambiamenti. La flag \texttt{-u} del
+    comando \texttt{push} imposta un remoto come \texttt{upstream}.
   \end{block}
 \end{frame}
 
-\subsection{\texttt{git fetch}}
+\subsection{\texttt{git fetch, pull}}
 \begin{frame}
   \frametitle{\texttt{git fetch}}
-\end{frame}
-
-\subsection{\texttt{git merge}}
-\begin{frame}
-  \frametitle{\texttt{git merge}}
 \end{frame}
 
 \end{document}
