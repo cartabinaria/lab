@@ -50,7 +50,7 @@
   \begin{figure}
     \includegraphics[width=\textwidth]{assets/vcs-popularity.png}
     \caption{popolarità su Google dei cinque principali VCS
-    (\textcolor{cyan}{Git}, \textcolor{red}{SVN},
+    (\textcolor{cyan}{\texttt{git}}, \textcolor{red}{SVN},
     \textcolor{orange}{Mercurial}, \textcolor{green}{Perforce},
     \textcolor{violet}{CVS}) negli ultimi cinque anni. In ordinata, 100 indica il
     massimo storico del più popolare di questi in tale lasso di tempo.}
@@ -103,6 +103,17 @@
   \lbrack ...\rbrack \newline
   stefano.volpe2@XXX.cs.unibo.it's password:
   \end{semiverbatim}
+\end{frame}
+
+\begin{frame}{Ambiente di lavoro | Preparazione (3)}
+  \begin{enumerate}
+    \setcounter{enumi}{3}
+    \item configurare il programma \texttt{git} con i vostri dati:
+    \begin{semiverbatim}
+    \$ git config --global user.name "Luca Tagliavini"
+    \$ git config --global user.email luca.tagliavini5@studio.unibo.it
+    \end{semiverbatim}
+  \end{enumerate}
 \end{frame}
 
 \section{Basi di \texttt{git}}
@@ -245,6 +256,7 @@
 \end{frame}
 
 \begin{frame}
+  \label{trivial}
   \frametitle{\texttt{git merge, rebase} | Caso triviale}
   In un caso triviale, ovvero quando tra le branch da unificare solo una contiene
   cambiamenti dopo il \emph{fork-point}, i comandi \texttt{merge} e \texttt{rebase}
@@ -260,9 +272,10 @@
 \end{frame}
 
 \begin{frame}
+  \label{conflict}
   \frametitle{\texttt{git merge, rebase} | Conflitti}
   Quando si vanno a unire due branch \`e possibile che si trovino conflitti tra
-  i vari commit che si stanno provando ad unire. Git si comporta in modo diverso
+  i vari commit che si stanno provando ad unire. \texttt{git} si comporta in modo diverso
   in base al tipo di unione che si sta svolgendo.
   \begin{itemize}
     \item<1-> Nel caso di un \texttt{merge} tutti i commit vengono applicati e 
@@ -273,9 +286,12 @@
       correggerli e far ripartire la procedura di \texttt{rebase}, iterando
       in questo modo fino al completamento.
   \end{itemize}
+  In entrambi i casi il comando \texttt{git status} mostra informazioni utili
+  sullo stato della procedura di unione.
 \end{frame}
 
 \begin{frame}
+  \label{conflict-end}
   \frametitle{\texttt{git rebase} | Conflitti}
   Quando si incontrano conflitti durante un \texttt{rebase} si hanno in
   realt\`a tre scelte:
@@ -335,7 +351,7 @@
 
 \begin{frame}
   \frametitle{\texttt{git remote add, remove} | Nota sugli URI}
-  Nella maggior parte dei servizi moderni che ospitano repository di Git
+  Nella maggior parte dei servizi moderni che ospitano repository di \texttt{git}
   l'utilizzo di \texttt{HTTP(S)} come protocollo per il collegamento remoto \`e
   stato deprecato per ragioni di sicurezza. In questa guida useremo sempre
   remoti con protocollo \texttt{SSH} e voi dovreste fare altrettanto.
@@ -361,10 +377,50 @@
 \subsection{\texttt{git fetch, pull}}
 \begin{frame}
   \frametitle{\texttt{git fetch}}
+  Per ricevere i cambiamenti caricati ad un remoto si pu\`o usare il comando:
+  \begin{semiverbatim}
+  \$ git fetch [<remote>]
+  \end{semiverbatim} \pause
+  Quando viene omesso \texttt{<remote>} il comando scarica aggiornamenti dal
+  remoto \emph{origin} o dal remoto configurato come \emph{upstream} per la
+  branch attuale.
 \end{frame}
 
 \begin{frame}
   \frametitle{\texttt{git pull}}
+  Quasi sempre si deisdera anche unire la branch attuale con quella remota.
+  Il comando \texttt{git pull} esegue \texttt{fetch} e in seguito \texttt{merge}
+  o \texttt{rebase} in base alla configurazione di \texttt{git} per riconciliare l'albero
+  locale con quello remoto. \\ \pause
+  \begin{itemize}
+    \item Nel caso non ci siano cambiamenti locali non caricati viene eseguito
+      un \emph{fast-forward}\footnote{Vedi Lucido \ref{trivial}}.
+    \item Se ci sono cambiamenti non presenti in alcun commit che causerebbero
+      conflitti il \texttt{pull} viene interrotto in attesa che essi vengano
+      inseriti in un commit o rimossi.
+    \item Altrimenti \texttt{git} esegue \texttt{merge} o \texttt{rebase} e lascia il
+      controllo all'utente in caso di conflitti come descritto nei
+      Lucidi \ref{conflict}-\ref{conflict-end}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{git pull} | Nota}
+  La prima volta che si esegue un pull che incontrer\`a conflitti verr\`a
+  mostrato un messaggio chiedendovi di configurare il metodo di riconciliazione.
+  La \emph{best practice} in questo caso \`e usare la tecnica di rebase, in
+  quanto i cambiamenti in locale che hanno portato ai conflitti sono per
+  definizione \emph{privati} ed \`e preferibile mantenere la storia dei commit
+  lineare. Si pu\`o impostare questa come default tramite:
+  \begin{semiverbatim}
+  \$ git config --global pull.rebase true
+  \end{semiverbatim}
+  \pause
+  Se, dopo aver impostato la propria preferenza, si desidera eseguire un
+  \texttt{pull} con un altro metodo di riconciliazione, si pu\`o specificare tramite:
+  \begin{semiverbatim}
+  \$ git pull [--rebase] [--merge]
+  \end{semiverbatim}
 \end{frame}
 
 \subsection{\texttt{git clone}}
