@@ -249,7 +249,7 @@
   In un caso triviale, ovvero quando tra le branch da unificare solo una contiene
   cambiamenti dopo il \emph{fork-point}, i comandi \texttt{merge} e \texttt{rebase}
   hanno lo stesso effetto\footnote{Nel caso del \texttt{merge} non viene
-  aggiunto nessun commit, si dice viene fatto un \emph{fast forward}}:
+  aggiunto nessun commit, si dice che viene fatto un \emph{fast forward}}:
   \begin{figure}
     \centering
     \subfloat{\includegraphics[width=5cm]{assets/pre-trivial.png}}
@@ -261,6 +261,32 @@
 
 \begin{frame}
   \frametitle{\texttt{git merge, rebase} | Conflitti}
+  Quando si vanno a unire due branch \`e possibile che si trovino conflitti tra
+  i vari commit che si stanno provando ad unire. Git si comporta in modo diverso
+  in base al tipo di unione che si sta svolgendo.
+  \begin{itemize}
+    \item<1-> Nel caso di un \texttt{merge} tutti i commit vengono applicati e 
+      i file contenenti conflitti vengono segnalati all'utente. Sar\`a suo
+      compito correggerli e creare il merge commit;
+    \item<2-> Nel caso di un \texttt{rebase} i commit vengono applicati uno ad
+      uno, fermandosi quando si trovano conflitti. L'utente ha il compito di
+      correggerli e far ripartire la procedura di \texttt{rebase}, iterando
+      in questo modo fino al completamento.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{git rebase} | Conflitti}
+  Quando si incontrano conflitti durante un \texttt{rebase} si hanno in
+  realt\`a tre scelte:
+  \begin{itemize}
+    \item<1-> Correggere i conflitti e lanciare \texttt{git rebase --continue}: questo
+      modificher\`a il diff del commit originale e consentir\`a di produrre un
+      commit che non provoca errori con l'attuale albero di lavoro;
+    \item<2-> Ignorare i cambiamenti apportati da questo particolare commit (che
+      sta causando i conflitti) con \texttt{git rebase --skip};
+    \item<3-> Annullare l'intera operazione con \texttt{git rebase --abort}
+  \end{itemize}
 \end{frame}
 
 \section{Collaborazione remota}
@@ -272,22 +298,6 @@
     \item<2-> distribuzione del codice (versionamento e rilascio);
     \item<3-> backup del codice.
   \end{itemize}
-\end{frame}
-
-\subsection{\texttt{git clone}}
-\begin{frame}
-  \frametitle{\texttt{git clone}}
-  Per duplicare una repository remota sul proprio sistema si ha a disposizione
-  il comando:
-  \begin{semiverbatim}
-  \$ git clone [-b <branch>] <uri>
-  \end{semiverbatim}
-  Dove l'\texttt{URI} \`e l'indirizzo dove \`e salvato il vostro codice.
-  \pause
-  \begin{block}{Consiglio}
-    Per clonare una specifica branch si pu\`o usare la flag \texttt{-b}
-    specificando subito dopo il nome della branch remota desiderata.
-  \end{block}
 \end{frame}
 
 \subsection{\texttt{git remote}}
@@ -339,17 +349,38 @@
   \begin{semiverbatim}
   \$ git push [-u] [<name>]
   \end{semiverbatim} \pause
-  \begin{block}{Consiglio}
+  \begin{block}{Nota}
     Dover specificare il nome del remoto ogni volta pu\`o diventare tedioso, di
     conseguenza \`e tipico identificare un remoto "di default"\footnote{Denominato \emph{upstream}}
-    \emph{per branch} a cui inviare i cambiamenti. La flag \texttt{-u} del
-    comando \texttt{push} imposta un remoto come \texttt{upstream}.
+    \emph{per ogni branch}. Questo sar\`a il remoto a cui inviare i cambiamenti
+    quando \texttt{<name>} \`e omesso. La flag \texttt{-u} del comando \texttt{push}
+    imposta un remoto come \texttt{upstream}.
   \end{block}
 \end{frame}
 
 \subsection{\texttt{git fetch, pull}}
 \begin{frame}
   \frametitle{\texttt{git fetch}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{git pull}}
+\end{frame}
+
+\subsection{\texttt{git clone}}
+\begin{frame}
+  \frametitle{\texttt{git clone}}
+  Per duplicare una repository remota sul proprio sistema si ha a disposizione
+  il comando:
+  \begin{semiverbatim}
+  \$ git clone [-b <branch>] <uri>
+  \end{semiverbatim}
+  Dove l'\texttt{URI} \`e l'indirizzo dove \`e salvato il vostro codice.
+  \pause
+  \begin{block}{Consiglio}
+    Per clonare una specifica branch si pu\`o usare la flag \texttt{-b}
+    specificando subito dopo il nome della branch remota desiderata.
+  \end{block}
 \end{frame}
 
 \end{document}
