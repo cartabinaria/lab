@@ -198,6 +198,12 @@
 
 \begin{frame}
   \frametitle{\texttt{git merge}}
+  Il caso d'uso tipico per il comando \texttt{merge} \`e l'unione di una branch
+  secondaria con quella principale. Il comando ha la seguente sintassi:
+  \begin{semiverbatim}
+  \$ git merge <branch>
+  \end{semiverbatim}
+
   \begin{figure}
   \only<1>{
     \includegraphics[width=5cm]{assets/pre-merge.png}
@@ -208,6 +214,53 @@
     \caption{Log dei commit dopo un merge}
   }
   \end{figure}
+
+  \pause
+  \begin{block}{Nota}
+    \`E sconsigliato usare \texttt{merge} con un spazio di lavoro sporco
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{git rebase}}
+  Il comando \texttt{rebase} si usa quando si vuole cambiare il ramo su cui si
+  basa la branch attuale. Tipicamente questo si rende necessario perch\`e il
+  ramo su cui ci si basa \`e stato unito con la branch di sviluppo principale.
+  La sintassi \`e la seguente:
+  \begin{semiverbatim}
+  \$ git rebase <branch>
+  \end{semiverbatim}
+  Di seguito \`e raffigurata una casistica d'esempio.
+
+  \begin{figure}
+  \only<1>{
+    \includegraphics[width=5cm]{assets/pre-rebase.png}
+    \caption{Log dei commit prima di un rebase}
+  }
+  \only<2>{
+    \includegraphics[width=7cm]{assets/post-rebase.png}
+    \caption{Log dei commit dopo \texttt{git rebase main}}
+  }
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{git merge, rebase} | Caso triviale}
+  In un caso triviale, ovvero quando tra le branch da unificare solo una contiene
+  cambiamenti dopo il \emph{fork-point}, i comandi \texttt{merge} e \texttt{rebase}
+  hanno lo stesso effetto\footnote{Nel caso del \texttt{merge} non viene
+  aggiunto nessun commit, si dice viene fatto un \emph{fast forward}}:
+  \begin{figure}
+    \centering
+    \subfloat{\includegraphics[width=5cm]{assets/pre-trivial.png}}
+    \quad
+    \subfloat{\includegraphics[width=5cm]{assets/post-trivial.png}}
+    \caption{Prima e dopo un \texttt{git merge feat} o \texttt{git rebase feat}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{git merge, rebase} | Conflitti}
 \end{frame}
 
 \section{Collaborazione remota}
