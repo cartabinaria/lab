@@ -6,6 +6,8 @@
 \usepackage{subfig}
 \usepackage{hyperref}
 
+\usepackage{fancyvrb}
+
 \title{Introduzione a \texttt{git}}
 \author{Luca Tagliavini, Stefano Volpe}
 \institute{Università di Bologna, corso di Laurea in Informatica}
@@ -107,11 +109,16 @@
 
 \begin{frame}{Ambiente di lavoro | Preparazione (3)}
   \begin{enumerate}
-    \setcounter{enumi}{3}
-    \item configurare il programma \texttt{git} con i vostri dati:
+    \setcounter{enumi}{2}
+    \item configurare \texttt{git} con i vostri dati:
     \begin{semiverbatim}
     \$ git config --global user.name "Luca Tagliavini"
-    \$ git config --global user.email luca.tagliavini5@studio.unibo.it
+    \end{semiverbatim}
+    \begin{semiverbatim}
+    \$ git config --global user.email \\
+    \end{semiverbatim}
+    \begin{semiverbatim}
+        \qquad"luca.tagliavini5@studio.unibo.it"
     \end{semiverbatim}
   \end{enumerate}
 \end{frame}
