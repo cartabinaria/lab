@@ -6,8 +6,6 @@
 \usepackage{subfig}
 \usepackage{hyperref}
 
-\usepackage{fancyvrb}
-
 \title{Introduzione a \texttt{git}}
 \author{Luca Tagliavini, Stefano Volpe}
 \institute{Università di Bologna, corso di Laurea in Informatica}
@@ -310,6 +308,38 @@
       sta causando i conflitti) con \texttt{git rebase --skip};
     \item<3-> Annullare l'intera operazione con \texttt{git rebase --abort}
   \end{itemize}
+\end{frame}
+
+\subsection{\texttt{git stash}}
+\begin{frame}
+  \frametitle{\texttt{git stash [push]}}
+  La famiglia di comandi \texttt{git stash} \`e usata per pulire l'albero di
+  lavoro memorizzando i cambiamenti nella cosiddetta \emph{stashing area} per
+  poterli riapplicare in seguito. Quest'area si comporta come una coda LIFO. \\
+  Per portare i propri cambiamenti locali nell'area di \emph{stashing}:
+  \begin{semiverbatim}
+  \$ git stash [push]
+  \end{semiverbatim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{git stash pop, apply}}
+  Per riportare l'ultimo set di cambiamenti nella stash nel nostro albero di
+  lavoro si possono usare i comandi:
+  \begin{semiverbatim}
+  \$ git stash pop \text{ o } \$git stash apply
+  \end{semiverbatim}
+  Entrambi riportano le modifiche dell'ultimo stash sull'albero di lavoro, ma il
+  \texttt{pop} rimuove anche la \emph{stash entry} dalla \emph{stashing area}.
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{git stash} | Utilizzo}
+  Un tipico utilizzo di \texttt{git stash} \`e quando si vuole effettuare un
+  \texttt{pull} con risoluzione tramite \texttt{rebase}. Questo richiede che
+  l'albero di lavoro sia pulito. Possiamo allora mettere da parte i cambiamenti
+  locali con un \texttt{git stash}, eseguire \texttt{git pull} e riapplicare i
+  nostri cambiamenti con \texttt{git stash pop}.
 \end{frame}
 
 \section{Collaborazione remota}
