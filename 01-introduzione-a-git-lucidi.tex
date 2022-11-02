@@ -117,6 +117,13 @@
     \begin{semiverbatim}
         \qquad"stefano.volpe2@studio.unibo.it"
     \end{semiverbatim}
+  \item generare una chiave ssh:
+    \begin{semiverbatim}
+    \$ ssh-keygen -t ed25519 -C \\
+    \end{semiverbatim}
+    \begin{semiverbatim}
+        \qquad"stefano.volpe2@studio.unibo.it"
+    \end{semiverbatim}
   \end{enumerate}
 \end{frame}
 
@@ -165,6 +172,21 @@
   \end{figure}\pause
   Con \texttt{git status}, mostriamo lo stato attuale del nostro "albero di
   lavoro".
+\end{frame}
+
+\begin{frame}{\texttt{.gitignore}}
+  Si possono ignorare file che non si desiera vengano aggiunti alla
+  \emph{repository}, come binari compilati e file di caching, elencandoli in un
+  file denominato \texttt{.gitignore} situato nella radice dell'albero di
+  lavoro. \\
+  La sintassi \`e dettata dalle seguenti regole:
+  \begin{enumerate}
+    \item una riga contiene il percorso ad un file da ignorare;
+    \item si possono usare raggruppamenti \emph{glob} per selezionare pi\`u file
+      in modo conciso;
+    \item iniziando la linea con un \texttt{!} il file viene \textbf{incluso}
+      anche se ignorato.
+  \end{enumerate}
 \end{frame}
 
 \subsection{\texttt{git add, commit}}
@@ -287,13 +309,13 @@
 \begin{frame}
   \frametitle{\texttt{git merge} | Pregi e difetti}
   \begin{itemize}
-    \item Pregi: \begin{itemize}
-      \item Preserva \emph{chiaramente} la storia dei commit;
-      \item Pu\`o essere usato su branch pubbliche.
+    \item pregi: \begin{itemize}
+      \item preserva \emph{chiaramente} la storia dei commit;
+      \item pu\`o essere usato su branch pubbliche.
     \end{itemize}
-    \item Difetti: \begin{itemize}
-      \item Aggiunge un nuovo commit alla storia;
-      \item Tutti i commit della branch vengono condensati in uno\footnote{
+    \item difetti: \begin{itemize}
+      \item aggiunge un nuovo commit alla storia;
+      \item tutti i commit della branch vengono condensati in uno\footnote{
           Sar\`a comunque possibile visionare tutti i commit della branch unita,
           anche dopo la sua rimozione.
         }.
@@ -307,15 +329,15 @@
 \begin{frame}
   \frametitle{\texttt{git rebase} | Pregi e difetti}
   \begin{itemize}
-    \item Pregi: \begin{itemize}
-      \item Non crea commit aggiuntivi, rende la storia lineare;
-      \item Si possono compiere modifiche ai commit precedenti durante l'unione
+    \item pregi: \begin{itemize}
+      \item non crea commit aggiuntivi, rende la storia lineare;
+      \item si possono compiere modifiche ai commit precedenti durante l'unione
         delle due branch.
     \end{itemize}
-    \item Difetti: \begin{itemize}
-      \item Non \`e possibile collegare i commit riapplicati a quelli originali;
-      \item \textbf{Non} pu\`o essere usato su branch pubbliche;
-      \item Pu\`o sovrascrivere la storia e di conseguenza potrebbe
+    \item difetti: \begin{itemize}
+      \item non \`e possibile collegare i commit riapplicati a quelli originali;
+      \item \textbf{non} pu\`o essere usato su branch pubbliche;
+      \item pu\`o sovrascrivere la storia e di conseguenza potrebbe
         richiedere un \texttt{push} forzato.
     \end{itemize}
   \end{itemize}
@@ -395,10 +417,10 @@
   i vari commit che si stanno provando ad unire. \texttt{git} si comporta in modo diverso
   in base al tipo di unione che si sta svolgendo.
   \begin{itemize}
-    \item<1-> Nel caso di un \texttt{merge} tutti i commit vengono applicati e 
+    \item<1-> nel caso di un \texttt{merge} tutti i commit vengono applicati e 
       i file contenenti conflitti vengono segnalati all'utente. Sar\`a suo
       compito correggerli e creare il merge commit;
-    \item<2-> Nel caso di un \texttt{rebase} i commit vengono applicati uno ad
+    \item<2-> nel caso di un \texttt{rebase} i commit vengono applicati uno ad
       uno, fermandosi quando si trovano conflitti. L'utente ha il compito di
       correggerli e far ripartire la procedura di \texttt{rebase}, iterando
       in questo modo fino al completamento.
@@ -413,12 +435,12 @@
   Quando si incontrano conflitti durante un \texttt{rebase} si hanno in
   realt\`a tre scelte:
   \begin{itemize}
-    \item<1-> Correggere i conflitti e lanciare \texttt{git rebase --continue}: questo
+    \item<1-> correggere i conflitti e lanciare \texttt{git rebase --continue}: questo
       modificher\`a il diff del commit originale e consentir\`a di produrre un
       commit che non provoca errori con l'attuale albero di lavoro;
-    \item<2-> Ignorare i cambiamenti apportati da questo particolare commit (che
+    \item<2-> ignorare i cambiamenti apportati da questo particolare commit (che
       sta causando i conflitti) con \texttt{git rebase --skip};
-    \item<3-> Annullare l'intera operazione con \texttt{git rebase --abort}
+    \item<3-> annullare l'intera operazione con \texttt{git rebase --abort}
   \end{itemize}
 \end{frame}
 
@@ -542,12 +564,12 @@
   o \texttt{rebase} in base alla configurazione di \texttt{git} per riconciliare l'albero
   locale con quello remoto. \\ \pause
   \begin{itemize}
-    \item Nel caso non ci siano cambiamenti locali non caricati viene eseguito
+    \item nel caso non ci siano cambiamenti locali non caricati viene eseguito
       un \emph{fast-forward}\footnote{Vedi Lucido \ref{trivial}}.
-    \item Se ci sono cambiamenti non presenti in alcun commit che causerebbero
+    \item se ci sono cambiamenti non presenti in alcun commit che causerebbero
       conflitti il \texttt{pull} viene interrotto in attesa che essi vengano
       inseriti in un commit o rimossi.
-    \item Altrimenti \texttt{git} esegue \texttt{merge} o \texttt{rebase} e lascia il
+    \item altrimenti \texttt{git} esegue \texttt{merge} o \texttt{rebase} e lascia il
       controllo all'utente in caso di conflitti come descritto nei
       Lucidi \ref{conflict}-\ref{conflict-end}.
   \end{itemize}
