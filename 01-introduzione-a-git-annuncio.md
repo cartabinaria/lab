@@ -30,7 +30,10 @@ studentessa o lo studente:
 Prima del laboratorio, è richiesto:
 
 - avere attivato il proprio utente di laboratorio dipartimentale;
-- avere un _client_ per la connessione `ssh`.
+- avere un _client_ per la connessione `ssh`;
+- avere un profilo ad almeno un servizio di _hosting_ per progetti basati su
+  `git`.
+
 I materiali usati durante il laboratorio sono disponibili
 [in rete](https://csunibo.github.io/lab).
 
@@ -41,5 +44,11 @@ I materiali usati durante il laboratorio sono disponibili
 
 ## Data, ora, luogo 
 
+### Parte 1
+
 Martedì 8 novembre 2022, ore 18:00, dipartimento di Matematica, Piazza di Porta
 San Donato, aula Cremona (piano 4).
+
+### Parte 2
+
+TBD
