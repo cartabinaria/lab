@@ -110,13 +110,13 @@
     \setcounter{enumi}{2}
     \item configurare \texttt{git} con i vostri dati:
     \begin{semiverbatim}
-    \$ git config --global user.name "Luca Tagliavini"
+    \$ git config --global user.name "Stefano Volpe"
     \end{semiverbatim}
     \begin{semiverbatim}
     \$ git config --global user.email \\
     \end{semiverbatim}
     \begin{semiverbatim}
-        \qquad"luca.tagliavini5@studio.unibo.it"
+        \qquad"stefano.volpe@studio.unibo.it"
     \end{semiverbatim}
   \end{enumerate}
 \end{frame}
@@ -124,32 +124,71 @@
 \section{Basi di \texttt{git}}
 
 \subsection{\texttt{git init}}
-\begin{frame}
-  \frametitle{\texttt{git init}}
+\begin{frame}{\texttt{git init}}
+  \begin{definition}
+    Una \emph{repository} è un progetto manutenuto con \texttt{git}.
+  \end{definition}\pause
+
+  Per inizializzare una \emph{repository} Git vuota in una nuova cartella
+  \texttt{<directory>}:
+  \begin{semiverbatim}
+  \$ git init [<directory>]
+  \end{semiverbatim}
+  I file interni di \texttt{git} sono nella sottocartella
+  \texttt{<directory>/.git/}; se \texttt{<directory>} non è specificata, viene
+  usata la cartella corrente.
+\end{frame}
+
+\subsection{\texttt{git status}}
+\begin{frame}{Stati dei \emph{file}}
+  I \emph{file} di una \emph{repository} sono sempre in esattamente uno dei
+  seguenti quattro stati:
+  \begin{enumerate}
+    \item<1->\emph{untracked} (non tracciato da \texttt{git});
+    \item<2->\emph{unmodified} (non modificato rispetto all'ultima
+      "istantanea" di \texttt{git});
+    \item<3->\emph{modified} (modificato rispetto all'ultima
+      "istantanea" di \texttt{git});
+    \item<4->\emph{staged}(modificato rispetto all'ultima "istantanea" di
+      \texttt{git} e pronto a essere registrato).
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{\texttt{git status}}
+  \begin{figure}
+    \includegraphics[width=\textwidth]{assets/lifecycle.png}
+    \caption{Gli stati fra cui i \emph{file} di una \emph{repository} si
+    muovono.}
+  \end{figure}\pause
+  Con \texttt{git status}, mostriamo lo stato attuale del nostro "albero di
+  lavoro".
 \end{frame}
 
 \subsection{\texttt{git add}}
-\begin{frame}
-  \frametitle{\texttt{git add}}
+\begin{frame}{\texttt{git add}}
+  \begin{figure}
+    \includegraphics[width=\textwidth]{assets/lifecycle-add.png}
+  \end{figure}
+  Aggiunge \texttt{<pathspec>} (non tracciato o modificato) agli
+  \emph{staged files}:
+  \begin{semiverbatim}
+    \$ git add [<pathspec>...]
+  \end{semiverbatim}
 \end{frame}
 
-\subsection{\texttt{git status, commit}}
-\begin{frame}
-  \frametitle{\texttt{git status, commit}}
+\subsection{\texttt{git commit}}
+\begin{frame}{\texttt{git commit}}
 \end{frame}
 
 \subsection{\texttt{git log, show}}
-\begin{frame}
-  \frametitle{\texttt{git log}}
+\begin{frame}{\texttt{git log}}
 \end{frame}
 
-\begin{frame}
-  \frametitle{\texttt{git show}}
+\begin{frame}{\texttt{git show}}
 \end{frame}
 
 \subsection{\texttt{git branch, checkout, switch}}
-\begin{frame}
-  \frametitle{\texttt{git branch, checkout, switch}}
+\begin{frame}{\texttt{git branch, checkout, switch}}
 \end{frame}
 
 \begin{frame}[c]
