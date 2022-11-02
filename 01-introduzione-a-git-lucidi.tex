@@ -77,7 +77,9 @@
       \end{alertblock}\pause
     \item<2->un client \texttt{ssh}. Su Linux e macOS è già installato; su
       Windows, se vi manca, c'è
-      \href{https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html}{\beamergotobutton{PuTTY}}.
+      \href{https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html}{\beamergotobutton{PuTTY}};
+    \item<3->un utente su una piattaforma di \emph{hosting} per progetti
+      \texttt{git}.
   \end{enumerate}
 \end{frame}
 
@@ -166,9 +168,12 @@
 
 \begin{frame}{\texttt{git status}}
   \begin{figure}
-    \includegraphics[width=\textwidth]{assets/lifecycle.png}
+    \includegraphics[width=0.75\textwidth]{assets/lifecycle.png}
     \caption{Gli stati fra cui i \emph{file} di una \emph{repository} si
-    muovono.}
+    muovono. \href{https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository}{\emph{Pro Git},
+    figura 8} di Scott Chacon e Ben Straub, rilasciata sotto licenza
+    \href{https://creativecommons.org/licenses/by-nc-sa/3.0/}{CC
+    BY\_NC\_SA 3.0}.}
   \end{figure}\pause
   Con \texttt{git status}, mostriamo lo stato attuale del nostro "albero di
   lavoro".
@@ -192,7 +197,12 @@
 \subsection{\texttt{git add, commit}}
 \begin{frame}{\texttt{git add}}
   \begin{figure}
-    \includegraphics[width=\textwidth]{assets/lifecycle-add.png}
+    \includegraphics[width=0.75\textwidth]{assets/lifecycle-add.png}
+    \caption{Gli stati fra cui i \emph{file} di una \emph{repository} si
+    muovono. \href{https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository}{\emph{Pro Git},
+    figura 8} di Scott Chacon e Ben Straub, rilasciata sotto licenza
+    \href{https://creativecommons.org/licenses/by-nc-sa/3.0/}{CC
+    BY\_NC\_SA 3.0} / Parz. ricolorata.}
   \end{figure}
   Aggiunge \texttt{<pathspec>} (non tracciato o modificato) agli
   \emph{staged files}:
@@ -203,7 +213,12 @@
 
 \begin{frame}{\texttt{git commit}}
   \begin{figure}
-    \includegraphics[width=\textwidth]{assets/lifecycle-commit.png}
+    \includegraphics[width=0.75\textwidth]{assets/lifecycle-commit.png}
+    \caption{Gli stati fra cui i \emph{file} di una \emph{repository} si
+    muovono. \href{https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository}{\emph{Pro Git},
+    figura 8} di Scott Chacon e Ben Straub, rilasciata sotto licenza
+    \href{https://creativecommons.org/licenses/by-nc-sa/3.0/}{CC
+    BY\_NC\_SA 3.0} / Parz. ricolorata.}
   \end{figure}
   Registra le modifiche agli \emph{staged files} commentadole con \texttt{msg}:
   \emph{staged files}:
@@ -260,14 +275,29 @@
   \begin{semiverbatim}
     \$ git checkout -b <branch> \# crea <branch> e vi si sposta
   \end{semiverbatim}
+\end{frame}
+
+\begin{frame}{\texttt{git branch, checkout}}
   \begin{figure}
     \includegraphics[width=\textwidth]{assets/head-to-testing.png}
+    \caption{
+      \href{https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell}{\emph{Pro Git},
+      figura 14} di Scott Chacon e Ben Straub, rilasciata sotto licenza
+      \href{https://creativecommons.org/licenses/by-nc-sa/3.0/}{CC
+      BY\_NC\_SA 3.0} / Testo modificato.
+    }
   \end{figure}
 \end{frame}
 
 \begin{frame}{\texttt{git branch, checkout}}
   \begin{figure}
     \includegraphics[width=\textwidth]{assets/advance-testing.png}
+    \caption{
+      \href{https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell}{\emph{Pro Git},
+      figura 15} di Scott Chacon e Ben Straub, rilasciata sotto licenza
+      \href{https://creativecommons.org/licenses/by-nc-sa/3.0/}{CC
+      BY\_NC\_SA 3.0} / Testo modificato.
+    }
   \end{figure}
 \end{frame}
 
@@ -275,9 +305,20 @@
   \begin{semiverbatim}
     \$ git checkout <branch> \# si sposta su branch
   \end{semiverbatim}
+\end{frame}
+
+\begin{frame}{\texttt{git branch, checkout}}
+  \begin{semiverbatim}
   \begin{figure}
     \includegraphics[width=\textwidth]{assets/advance-main.png}
+    \caption{
+      \href{https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell}{\emph{Pro Git},
+      figura 17} di Scott Chacon e Ben Straub, rilasciata sotto licenza
+      \href{https://creativecommons.org/licenses/by-nc-sa/3.0/}{CC
+      BY\_NC\_SA 3.0} / Testo modificato.
+    }
   \end{figure}
+  \end{semiverbatim}
 \end{frame}
 
 \begin{frame}{\texttt{git branch, checkout}}
