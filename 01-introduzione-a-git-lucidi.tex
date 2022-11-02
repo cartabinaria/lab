@@ -28,7 +28,7 @@
 
 \section{Controllo di versione}
 
-\subsection{Problemi}
+\subsection{Problemi e rimedi}
 \begin{frame}{Problemi}
   Quando lavoriamo con molti \emph{file} (redigiamo documenti, creiamo arte
   digitale, scriviamo codice...), ricorrono alcuni \textbf{problemi}:\pause
@@ -40,7 +40,6 @@
   Copie di cartelle e blocchi note condivisi in rete non bastano più!
 \end{frame}
 
-\subsection{Rimedi}
 \begin{frame}{Rimedi}
   \begin{definition}
     Un \textbf{sistema per il controllo di versione} (o VCS, \emph{version control
@@ -123,7 +122,7 @@
 
 \section{Basi di \texttt{git}}
 
-\subsection{\texttt{git init}}
+\subsection{\texttt{git init, status}}
 \begin{frame}{\texttt{git init}}
   \begin{definition}
     Una \emph{repository} è un progetto manutenuto con \texttt{git}.
@@ -139,7 +138,6 @@
   usata la cartella corrente.
 \end{frame}
 
-\subsection{\texttt{git status}}
 \begin{frame}{Stati dei \emph{file}}
   I \emph{file} di una \emph{repository} sono sempre in esattamente uno dei
   seguenti quattro stati:
@@ -149,7 +147,7 @@
       "istantanea" di \texttt{git});
     \item<3->\emph{modified} (modificato rispetto all'ultima
       "istantanea" di \texttt{git});
-    \item<4->\emph{staged}(modificato rispetto all'ultima "istantanea" di
+    \item<4->\emph{staged} (modificato rispetto all'ultima "istantanea" di
       \texttt{git} e pronto a essere registrato).
   \end{enumerate}
 \end{frame}
@@ -164,7 +162,7 @@
   lavoro".
 \end{frame}
 
-\subsection{\texttt{git add}}
+\subsection{\texttt{git add, commit}}
 \begin{frame}{\texttt{git add}}
   \begin{figure}
     \includegraphics[width=\textwidth]{assets/lifecycle-add.png}
@@ -176,19 +174,62 @@
   \end{semiverbatim}
 \end{frame}
 
-\subsection{\texttt{git commit}}
 \begin{frame}{\texttt{git commit}}
+  \begin{figure}
+    \includegraphics[width=\textwidth]{assets/lifecycle-commit.png}
+  \end{figure}
+  Registra le modifiche agli \emph{staged files} commentadole con \texttt{msg}:
+  \emph{staged files}:
+  \begin{semiverbatim}
+    \$ git commit [--amend] [-m <msg>]
+  \end{semiverbatim}
+  Se non uso \texttt{-m}, viene aperto un \emph{buffer} di testo in cui posso
+  specificare il messaggio. Con \texttt{--amend}, correggo il \emph{commit}
+  precedente.
 \end{frame}
 
 \subsection{\texttt{git log, show}}
 \begin{frame}{\texttt{git log}}
+  Mostriamo il registro dei \emph{commit}:
+  \begin{semiverbatim}
+    \$ git log
+  \end{semiverbatim}
+  \begin{itemize}
+    \item<1-> \texttt{-p} mostra le differenze che ciascun \emph{commit} ha
+      introdotto;
+    \item<2-> \texttt{-<n>} mostra solo gli ultimi \texttt{<n>} \emph{commit};
+    \item<3-> \texttt{--stat} e \texttt{--shortstat} mostrano statistiche;
+    \item<4-> \texttt{--graph} disegna un grafo;
+    \item<4-> \dots
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{\texttt{git show}}
+  Possiamo mostrare dettagli su uno o più \emph{commit} a scelta:
+  \begin{semiverbatim}
+    \$ git show [<object> ...]
+  \end{semiverbatim}
+  Un modo di riferirsi a un \texttt{<object>} è un prefisso univoco del codice
+  \texttt{sha1} del \emph{commit}. \pause Se non si specifica nulla, viene usato
+  \texttt{HEAD}, il \emph{commit} corrente.
 \end{frame}
 
 \subsection{\texttt{git branch, checkout, switch}}
-\begin{frame}{\texttt{git branch, checkout, switch}}
+\begin{frame}{\texttt{git branch}}
+  Per evitare confusione, vogliamo mantenere più versioni dello stesso progetto:
+  \begin{itemize}
+    \item quella "buona";
+    \item quella su cui stiamo sviluppando una funzione ancora sperimentale;
+    \item quella su cui stiamo correggendo un problema...
+  \end{itemize}\pause
+  In \texttt{git}, ogni versione (\emph{branch}, ramificazione) si alterna
+  nella stessa cartella.
+\end{frame}
+
+\begin{frame}{\texttt{git checkout}}
+\end{frame}
+
+\begin{frame}{\texttt{git switch}}
 \end{frame}
 
 \begin{frame}[c]
