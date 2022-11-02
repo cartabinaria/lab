@@ -41,11 +41,11 @@
 \end{frame}
 
 \begin{frame}{Rimedi}
-  \begin{definition}
+  \begin{block}{Definizione}
     Un \textbf{sistema per il controllo di versione} (o VCS, \emph{version control
     system}) è un applicativo che gestisce modifiche a grandi insiemi di
     informazioni.
-  \end{definition}\pause
+  \end{block}\pause
   \begin{figure}
     \includegraphics[width=\textwidth]{assets/vcs-popularity.png}
     \caption{popolarità su Google dei cinque principali VCS
@@ -124,18 +124,23 @@
 
 \subsection{\texttt{git init, status}}
 \begin{frame}{\texttt{git init}}
-  \begin{definition}
+  \begin{block}{Definizione}
     Una \emph{repository} è un progetto manutenuto con \texttt{git}.
-  \end{definition}\pause
+  \end{block}\pause
 
   Per inizializzare una \emph{repository} Git vuota in una nuova cartella
   \texttt{<directory>}:
   \begin{semiverbatim}
   \$ git init [<directory>]
   \end{semiverbatim}
-  I file interni di \texttt{git} sono nella sottocartella
-  \texttt{<directory>/.git/}; se \texttt{<directory>} non è specificata, viene
-  usata la cartella corrente.
+  \begin{block}{Nota}
+    I file interni di \texttt{git} sono nella sottocartella
+    \texttt{<directory>/.git/}
+  \end{block}
+  \begin{block}{Nota 2}
+    Se \texttt{<directory>} non è specificata, viene
+    usata la cartella corrente.
+  \end{block}
 \end{frame}
 
 \begin{frame}{Stati dei \emph{file}}
@@ -183,25 +188,25 @@
   \begin{semiverbatim}
     \$ git commit [--amend] [-m <msg>]
   \end{semiverbatim}
-  Se non uso \texttt{-m}, viene aperto un \emph{buffer} di testo in cui posso
-  specificare il messaggio. Con \texttt{--amend}, correggo il \emph{commit}
-  precedente.
 \end{frame}
 
+\begin{frame}{\texttt{git commit}}
+  \begin{block}{Nota}
+    Se non uso \texttt{-m}, viene aperto un \emph{buffer} di testo in cui posso
+    specificare il messaggio.
+  \end{block}
+  \begin{block}{Nota 2}
+    Con \texttt{--amend}, correggo nome e/o contenuti del \emph{commit}
+    precedente.
+  \end{block}
+\end{frame}
 \subsection{\texttt{git log, show}}
 \begin{frame}{\texttt{git log}}
   Mostriamo il registro dei \emph{commit}:
   \begin{semiverbatim}
-    \$ git log
+    \$ git log [--graph]
   \end{semiverbatim}
-  \begin{itemize}
-    \item<1-> \texttt{-p} mostra le differenze che ciascun \emph{commit} ha
-      introdotto;
-    \item<2-> \texttt{-<n>} mostra solo gli ultimi \texttt{<n>} \emph{commit};
-    \item<3-> \texttt{--stat} e \texttt{--shortstat} mostrano statistiche;
-    \item<4-> \texttt{--graph} disegna un grafo;
-    \item<4-> \dots
-  \end{itemize}
+  Se aggiungiamo \texttt{--graph}, il registro è rappresentato come grafo.
 \end{frame}
 
 \begin{frame}{\texttt{git show}}
@@ -214,8 +219,8 @@
   \texttt{HEAD}, il \emph{commit} corrente.
 \end{frame}
 
-\subsection{\texttt{git branch, checkout, switch}}
-\begin{frame}{\texttt{git branch}}
+\subsection{\texttt{git branch, checkout}}
+\begin{frame}{\texttt{git branch, checkout }}
   Per evitare confusione, vogliamo mantenere più versioni dello stesso progetto:
   \begin{itemize}
     \item quella "buona";
@@ -224,12 +229,39 @@
   \end{itemize}\pause
   In \texttt{git}, ogni versione (\emph{branch}, ramificazione) si alterna
   nella stessa cartella.
+  \begin{semiverbatim}
+    \$ git branch \# elenca le branch
+  \end{semiverbatim}
 \end{frame}
 
-\begin{frame}{\texttt{git checkout}}
+\begin{frame}{\texttt{git branch, checkout}}
+  \begin{semiverbatim}
+    \$ git checkout -b <branch> \# crea <branch> e vi si sposta
+  \end{semiverbatim}
+  \begin{figure}
+    \includegraphics[width=\textwidth]{assets/head-to-testing.png}
+  \end{figure}
 \end{frame}
 
-\begin{frame}{\texttt{git switch}}
+\begin{frame}{\texttt{git branch, checkout}}
+  \begin{figure}
+    \includegraphics[width=\textwidth]{assets/advance-testing.png}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{\texttt{git branch, checkout}}
+  \begin{semiverbatim}
+    \$ git checkout <branch> \# si sposta su branch
+  \end{semiverbatim}
+  \begin{figure}
+    \includegraphics[width=\textwidth]{assets/advance-main.png}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{\texttt{git branch, checkout}}
+  \begin{semiverbatim}
+    \$ git branch -d <branch> \# rimuove <branch>
+  \end{semiverbatim}
 \end{frame}
 
 \begin{frame}[c]
