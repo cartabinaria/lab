@@ -528,15 +528,15 @@
   La \emph{best practice} in questo caso \`e usare la tecnica di rebase, in
   quanto i cambiamenti in locale che hanno portato ai conflitti sono per
   definizione \emph{privati} ed \`e preferibile mantenere la storia dei commit
-  lineare. Si pu\`o impostare questa come default tramite:
+  lineare. Si pu\`o impostare questa opzione come default tramite:
   \begin{semiverbatim}
-  \$ git config --global pull.rebase true
+  \$ git config [--global] pull.rebase true
   \end{semiverbatim}
   \pause
   Se, dopo aver impostato la propria preferenza, si desidera eseguire un
   \texttt{pull} con un altro metodo di riconciliazione, si pu\`o specificare tramite:
   \begin{semiverbatim}
-  \$ git pull [--rebase] [--merge]
+  \$ git pull [--rebase] [--no-rebase]
   \end{semiverbatim}
 \end{frame}
 
@@ -554,6 +554,11 @@
     Per clonare una specifica branch si pu\`o usare la flag \texttt{-b}
     specificando subito dopo il nome della branch remota desiderata.
   \end{block}
+\end{frame}
+
+\begin{frame}[c]
+  \centering
+  It's demo time
 \end{frame}
 
 \end{document}
