@@ -327,11 +327,114 @@
   \end{semiverbatim}
 \end{frame}
 
+\section{Collaborazione remota}
+\begin{frame}{Perch\`e?}
+  Una repository locale pu\`o essere collegata ad una \textbf{remota} per
+  semplificare una serie di operazioni comuni e desiderabili:
+  \begin{itemize}
+    \item<1-> collaborazione tra sviluppatori, interni o esterni al proprio gruppo di lavoro;
+    \item<2-> distribuzione del codice (versionamento e rilascio);
+    \item<3-> backup del codice.
+  \end{itemize}
+\end{frame}
+
+\subsection{\texttt{git remote}}
+\begin{frame}
+  \frametitle{\texttt{git remote [show]}}
+  La gestione degli \emph{endpoint} remoti a cui si vuole collegare la propria
+  repository avviene tramite la famiglia di comandi \texttt{git remote}.
+  Per ottenere la lista dei remoti collegati ad un albero di git si pu\`o usare:
+  \begin{semiverbatim}
+  \$ git remote [-v]
+  \end{semiverbatim}
+  Applicando la flag \texttt{-v} si rende la risposta verbosa e si ottengono
+  ancora pi\`u dettagli, ad esempio gli \texttt{URI} degli endpoint\footnote{
+    Per ottenere ancora pi\`u informazioni si pu\`o usare il comando \texttt{git remote show <name>}
+  }.
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{git remote add, remove}}
+  Per aggiungere un nuovo remoto alla repository possiamo usare il comando:
+  \begin{semiverbatim}
+  \$ git remote add <name> <uri>
+  \end{semiverbatim}
+  Il nome standard per il remoto principale \`e \emph{origin}. L'\texttt{URI}
+  deve usare uno dei protoccoli accettati\footnote{Vedi:
+    \href{https://stackoverflow.com/a/51112344}{\beamergotobutton{stackoverflow.com/a/51112344}}}.
+
+    \pause
+  \texttt{remove} \`e il sottocomando speculare ad \texttt{add} che consente di
+  rimuovere un remoto dato il nome:
+  \begin{semiverbatim}
+  \$ git remote remove <name>
+  \end{semiverbatim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{git remote add, remove} | Nota sugli URI}
+  Nella maggior parte dei servizi moderni che ospitano repository di \texttt{git}
+  l'utilizzo di \texttt{HTTP(S)} come protocollo per il collegamento remoto \`e
+  stato deprecato (per effettuare \texttt{push}) per ragioni di sicurezza. In
+  questa guida useremo sempre remoti con protocollo \texttt{SSH} e voi dovreste
+  fare altrettanto.
+\end{frame}
+
+\subsection{\texttt{git push}}
+\begin{frame}
+  \frametitle{\texttt{git push}}
+  Una volta aggiunto un endpoint \`e possibile caricare i propri commit alla
+  repository remota:
+  \begin{semiverbatim}
+  \$ git push [-u <remote>] [<name>]
+  \end{semiverbatim} \pause
+  \begin{block}{Nota}
+    Al primo \texttt{push} per una nuova branch sar\`a necessario impostare
+    l'\emph{upstream} per questo ramo, ovvero la branch remota a cui caricare i
+    cambiamenti. La flag \texttt{-u} del comando \texttt{push} imposta una
+    branch su un remoto come \texttt{upstream}.
+  \end{block}
+\end{frame}
+
+\subsection{\texttt{git clone}}
+\begin{frame}
+  \frametitle{\texttt{git clone}}
+  Per duplicare una repository remota sul proprio sistema si ha a disposizione
+  il comando:
+  \begin{semiverbatim}
+  \$ git clone [-b <branch>] <uri>
+  \end{semiverbatim}
+  Dove l'\texttt{URI} \`e l'indirizzo dove \`e salvato il vostro codice.
+  \pause
+  \begin{block}{Consiglio}
+    Per clonare una specifica branch si pu\`o usare la flag \texttt{-b}
+    specificando subito dopo il nome della branch remota desiderata.
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{git pull} | Nota}
+  La prima volta che si esegue un pull che incontrer\`a conflitti verr\`a
+  mostrato un messaggio chiedendovi di configurare il metodo di riconciliazione.
+  La \emph{best practice} in questo caso \`e usare la tecnica di rebase, in
+  quanto i cambiamenti in locale che hanno portato ai conflitti sono per
+  definizione \emph{privati} ed \`e preferibile mantenere la storia dei commit
+  lineare. Si pu\`o impostare questa opzione come default tramite:
+  \begin{semiverbatim}
+  \$ git config [--global] pull.rebase true
+  \end{semiverbatim}
+  \pause
+  Se, dopo aver impostato la propria preferenza, si desidera eseguire un
+  \texttt{pull} con un altro metodo di riconciliazione, si pu\`o specificare tramite:
+  \begin{semiverbatim}
+  \$ git pull [--rebase] [--no-rebase]
+  \end{semiverbatim}
+\end{frame}
+
 \subsection{\texttt{git merge, rebase}}
 \begin{frame}
   \frametitle{\texttt{git merge, rebase}}
-  Per unire il lavoro svolto su branch separate si hanno due opzioni che operano
-  in modo diverso ed hanno casi d'uso separati:
+  Per unire il lavoro svolto su branch separate si hanno due opzioni:
   \begin{enumerate}
     \item<1-> \texttt{git merge <name>}: applica tutti i \emph{nuovi commit}\footnotemark{}
       presenti sulla branch \texttt{<name>} nella branch in cui ci troviamo;
@@ -340,46 +443,6 @@
       all'ultimo commit su \texttt{<name>} e riapplica i commit "messi da parte".
   \end{enumerate}
       \footnotetext{Tutti quelli a partire dal \emph{fork-point}}
-\end{frame}
-
-\begin{frame}
-  \frametitle{\texttt{git merge} | Pregi e difetti}
-  \begin{itemize}
-    \item pregi: \begin{itemize}
-      \item preserva \emph{chiaramente} la storia dei commit;
-      \item pu\`o essere usato su branch pubbliche.
-    \end{itemize}
-    \item difetti: \begin{itemize}
-      \item aggiunge un nuovo commit alla storia;
-      \item tutti i commit della branch vengono condensati in uno\footnote{
-          Sar\`a comunque possibile visionare tutti i commit della branch unita,
-          anche dopo la sua rimozione.
-        }.
-    \end{itemize}
-  \end{itemize}
-
-  Da usare quando si collabora con altre persone e si vuole rendere la storia
-  dei cambiamenti facilmente comprensibile.
-\end{frame}
-
-\begin{frame}
-  \frametitle{\texttt{git rebase} | Pregi e difetti}
-  \begin{itemize}
-    \item pregi: \begin{itemize}
-      \item non crea commit aggiuntivi, rende la storia lineare;
-      \item si possono compiere modifiche ai commit precedenti durante l'unione
-        delle due branch.
-    \end{itemize}
-    \item difetti: \begin{itemize}
-      \item non \`e possibile collegare i commit riapplicati a quelli originali;
-      \item \textbf{non} pu\`o essere usato su branch pubbliche;
-      \item pu\`o sovrascrivere la storia e di conseguenza potrebbe
-        richiedere un \texttt{push} forzato.
-    \end{itemize}
-  \end{itemize}
-
-  Torna utile quando si lavora in locale o su branch private, per coprire i
-  propri sbagli o ripulire una storia dei commit poco ordinata.
 \end{frame}
 
 \begin{frame}
@@ -408,11 +471,29 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{\texttt{git merge} | Pregi e difetti}
+  \begin{itemize}
+    \item pregi: \begin{itemize}
+      \item preserva \emph{chiaramente} la storia dei commit;
+      \item pu\`o essere usato su branch pubbliche.
+    \end{itemize}
+    \item difetti: \begin{itemize}
+      \item aggiunge un nuovo commit alla storia;
+      \item appare come un solo commit sulla branch a cui ci si \`e uniti\footnote{
+          I singoli commit della branch unita rimarranno comunque visibili, anche
+          anche dopo la sua rimozione.
+        }.
+    \end{itemize}
+  \end{itemize}
+
+  Da usare quando si collabora con altre persone e/o si vuole rendere la storia
+  dei cambiamenti facilmente comprensibile.
+\end{frame}
+
+\begin{frame}
   \frametitle{\texttt{git rebase}}
-  Il comando \texttt{rebase} si usa quando si vuole cambiare il ramo su cui si
-  basa la branch attuale. Tipicamente questo si rende necessario perch\`e il
-  ramo su cui ci si basa \`e stato unito con la branch di sviluppo principale.
-  La sintassi \`e la seguente:
+  Il comando \texttt{rebase} si usa quando si vuole cambiare il commit da cui si
+  dirama la branch attuale. La sintassi \`e la seguente:
   \begin{semiverbatim}
   \$ git rebase <branch>
   \end{semiverbatim}
@@ -428,6 +509,26 @@
     \caption{Log dei commit dopo \texttt{git rebase main}}
   }
   \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{git rebase} | Pregi e difetti}
+  \begin{itemize}
+    \item pregi: \begin{itemize}
+      \item non crea commit aggiuntivi, rende la storia lineare;
+      \item si possono compiere modifiche ai commit precedenti durante l'unione
+        delle due branch.
+    \end{itemize}
+    \item difetti: \begin{itemize}
+      \item non \`e possibile collegare i commit riapplicati a quelli originali;
+      \item \textbf{non} pu\`o essere usato su branch pubbliche;
+      \item pu\`o sovrascrivere la storia e di conseguenza potrebbe
+        richiedere un \texttt{push} forzato.
+    \end{itemize}
+  \end{itemize}
+
+  Torna utile quando si lavora in locale o su branch private, per coprire i
+  propri sbagli o ripulire una storia dei commit poco ordinata.
 \end{frame}
 
 \begin{frame}
@@ -512,75 +613,6 @@
   nostri cambiamenti con \texttt{git stash pop}.
 \end{frame}
 
-\section{Collaborazione remota}
-\begin{frame}{Perch\`e?}
-  Una repository locale pu\`o essere collegata ad una \textbf{remota} per
-  semplificare una serie di operazioni comuni e desiderabili:
-  \begin{itemize}
-    \item<1-> collaborazione tra sviluppatori, interni o esterni al proprio gruppo di lavoro;
-    \item<2-> distribuzione del codice (versionamento e rilascio);
-    \item<3-> backup del codice.
-  \end{itemize}
-\end{frame}
-
-\subsection{\texttt{git remote}}
-\begin{frame}
-  \frametitle{\texttt{git remote [show]}}
-  La gestione degli \emph{endpoint} remoti a cui si vuole collegare la propria
-  repository avviene tramite la famiglia di comandi \texttt{git remote}.
-  Per ottenere la lista dei remoti collegati ad un albero di git si pu\`o usare:
-  \begin{semiverbatim}
-  \$ git remote [-v]
-  \end{semiverbatim}
-  Applicando la flag \texttt{-v} si rende la risposta verbosa e si ottengono
-  ancora pi\`u dettagli, ad esempio gli \texttt{URI} degli endpoint\footnote{
-    Per ottenere ancora pi\`u informazioni si pu\`o usare il comando \texttt{git remote show <name>}
-  }.
-\end{frame}
-
-\begin{frame}
-  \frametitle{\texttt{git remote add, remove}}
-  Per aggiungere un nuovo remoto alla repository possiamo usare il comando:
-  \begin{semiverbatim}
-  \$ git remote add <name> <uri>
-  \end{semiverbatim}
-  Il nome standard per il remoto principale \`e \emph{origin}. L'\texttt{URI}
-  deve usare uno dei protoccoli accettati\footnote{Vedi:
-    \href{https://stackoverflow.com/a/51112344}{\beamergotobutton{stackoverflow.com/a/51112344}}}.
-
-    \pause
-  \texttt{remove} \`e il sottocomando speculare ad \texttt{add} che consente di
-  rimuovere un remoto dato il nome:
-  \begin{semiverbatim}
-  \$ git remote remove <name>
-  \end{semiverbatim}
-\end{frame}
-
-\begin{frame}
-  \frametitle{\texttt{git remote add, remove} | Nota sugli URI}
-  Nella maggior parte dei servizi moderni che ospitano repository di \texttt{git}
-  l'utilizzo di \texttt{HTTP(S)} come protocollo per il collegamento remoto \`e
-  stato deprecato per ragioni di sicurezza. In questa guida useremo sempre
-  remoti con protocollo \texttt{SSH} e voi dovreste fare altrettanto.
-\end{frame}
-
-\subsection{\texttt{git push}}
-\begin{frame}
-  \frametitle{\texttt{git push}}
-  Una volta aggiunto un endpoint \`e possibile caricare i propri commit alla
-  repository remota:
-  \begin{semiverbatim}
-  \$ git push [-u] [<name>]
-  \end{semiverbatim} \pause
-  \begin{block}{Nota}
-    Dover specificare il nome del remoto ogni volta pu\`o diventare tedioso, di
-    conseguenza \`e tipico identificare un remoto "di default"\footnote{Denominato \emph{upstream}}
-    \emph{per ogni branch}. Questo sar\`a il remoto a cui inviare i cambiamenti
-    quando \texttt{<name>} \`e omesso. La flag \texttt{-u} del comando \texttt{push}
-    imposta un remoto come \texttt{upstream}.
-  \end{block}
-\end{frame}
-
 \subsection{\texttt{git fetch, pull}}
 \begin{frame}
   \frametitle{\texttt{git fetch}}
@@ -609,41 +641,6 @@
       controllo all'utente in caso di conflitti come descritto nei
       Lucidi \ref{conflict}-\ref{conflict-end}.
   \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{\texttt{git pull} | Nota}
-  La prima volta che si esegue un pull che incontrer\`a conflitti verr\`a
-  mostrato un messaggio chiedendovi di configurare il metodo di riconciliazione.
-  La \emph{best practice} in questo caso \`e usare la tecnica di rebase, in
-  quanto i cambiamenti in locale che hanno portato ai conflitti sono per
-  definizione \emph{privati} ed \`e preferibile mantenere la storia dei commit
-  lineare. Si pu\`o impostare questa opzione come default tramite:
-  \begin{semiverbatim}
-  \$ git config [--global] pull.rebase true
-  \end{semiverbatim}
-  \pause
-  Se, dopo aver impostato la propria preferenza, si desidera eseguire un
-  \texttt{pull} con un altro metodo di riconciliazione, si pu\`o specificare tramite:
-  \begin{semiverbatim}
-  \$ git pull [--rebase] [--no-rebase]
-  \end{semiverbatim}
-\end{frame}
-
-\subsection{\texttt{git clone}}
-\begin{frame}
-  \frametitle{\texttt{git clone}}
-  Per duplicare una repository remota sul proprio sistema si ha a disposizione
-  il comando:
-  \begin{semiverbatim}
-  \$ git clone [-b <branch>] <uri>
-  \end{semiverbatim}
-  Dove l'\texttt{URI} \`e l'indirizzo dove \`e salvato il vostro codice.
-  \pause
-  \begin{block}{Consiglio}
-    Per clonare una specifica branch si pu\`o usare la flag \texttt{-b}
-    specificando subito dopo il nome della branch remota desiderata.
-  \end{block}
 \end{frame}
 
 \begin{frame}[c]

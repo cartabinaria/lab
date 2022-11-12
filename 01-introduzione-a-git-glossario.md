@@ -72,7 +72,18 @@ Lo stato di un file attualmente non considerato da `git`.
 
 Applicativo che gestisce modifiche a grandi insiemi di informazioni.
 
-## _working tree_, albero di lavoro
+## _working tree_, albero di lavoro, spazio di lavoro
 
 Lo stato attuale della copia locale della _repository_, eccezion fatta per la
 cartella `.git/`.
+
+## _dity working tree_, albero/spazio di lavoro _sporco_
+
+Quando il proprio _working tree_ contiene cambiamenti locali non ancora
+inseriti in un commit.
+
+## _fast forward_, avvolgimento veloce
+
+Quando per l'unione di due branch \`e sufficiente applicare i cambiamenti
+provenienti da una sola di esse. Si copiano i commit e si avanza la _HEAD_
+(da qui il nome).

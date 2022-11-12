@@ -67,3 +67,21 @@ vi hello-world.c
 git add .
 git status
 git commit -m "Serious business"
+
+# GitHub
+cat .ssh/id_ed25519.pub
+# Impostare la chiave ssh su GitHub
+# Creare una repo (su GH) per il lavoro fatto l'altra volta
+
+# git remote (add)
+cd hello-git
+git remote -v
+git remote add origin git@github.com:lucat1/hello-git.git
+
+# push e set upstream, poi remote show
+git push # poi -u origin main
+git remote -v
+git remote show origin
+
+# git clone
+git clone git@github.com:csunibo/xxx.git
