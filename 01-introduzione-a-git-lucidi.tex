@@ -532,8 +532,8 @@
   \label{conflict}
   \frametitle{\texttt{git merge, rebase} | Conflitti}
   Quando si vanno a unire due branch \`e possibile che si trovino conflitti tra
-  i vari commit che si stanno provando ad unire. \texttt{git} si comporta in modo diverso
-  in base al tipo di unione che si sta svolgendo:
+  i vari commit che si stanno provando ad unire. \texttt{git} si comporta in
+  modo diverso in base al tipo di unione che si sta svolgendo:
   \begin{itemize}
     \item<1-> nel caso di un \texttt{merge} tutti i commit vengono applicati e 
       i file contenenti conflitti vengono segnalati all'utente. Sar\`a suo
@@ -600,23 +600,22 @@
   \begin{semiverbatim}
   \$ git fetch [<remote>]
   \end{semiverbatim} \pause
-  Quando viene omesso \texttt{<remote>} il comando scarica aggiornamenti dal
-  remoto \emph{origin} o dal remoto configurato come \emph{upstream} per la
-  branch attuale.
+  Quando viene omesso \texttt{<remote>} il comando scarica gli aggiornamenti dal
+  remoto configurato come \emph{upstream} per la branch attuale o dal remoto
+  \emph{origin}.
 \end{frame}
 
 \begin{frame}
   \frametitle{\texttt{git pull}}
   Quasi sempre si deisdera anche unire la branch attuale con quella remota.
   Il comando \texttt{git pull} esegue \texttt{fetch} e in seguito \texttt{merge}
-  o \texttt{rebase} in base alla configurazione di \texttt{git} per riconciliare l'albero
-  locale con quello remoto. \\ \pause
+  o \texttt{rebase} (in base alla configurazione di \texttt{git}) per riconciliare
+  l'albero locale con quello remoto. \\ \pause
   \begin{itemize}
     \item nel caso non ci siano cambiamenti locali non caricati viene eseguito
       un \emph{fast-forward}\footnote{Vedi Lucido \ref{trivial}}.
-    \item se ci sono cambiamenti non presenti in alcun commit che causerebbero
-      conflitti il \texttt{pull} viene interrotto in attesa che essi vengano
-      inseriti in un commit o rimossi.
+    \item se l'albero di lavoro \`e sporco con cambiamenti locali il \texttt{pull}
+      viene interrotto in attesa che essi vengano inseriti in un commit o rimossi.
     \item altrimenti \texttt{git} esegue \texttt{merge} o \texttt{rebase} e lascia il
       controllo all'utente in caso di conflitti come descritto nei
       Lucidi \ref{conflict}-\ref{conflict-end}.
