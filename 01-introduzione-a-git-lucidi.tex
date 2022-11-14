@@ -533,7 +533,7 @@
   \frametitle{\texttt{git merge, rebase} | Conflitti}
   Quando si vanno a unire due branch \`e possibile che si trovino conflitti tra
   i vari commit che si stanno provando ad unire. \texttt{git} si comporta in modo diverso
-  in base al tipo di unione che si sta svolgendo.
+  in base al tipo di unione che si sta svolgendo:
   \begin{itemize}
     \item<1-> nel caso di un \texttt{merge} tutti i commit vengono applicati e 
       i file contenenti conflitti vengono segnalati all'utente. Sar\`a suo
@@ -547,20 +547,20 @@
   sullo stato della procedura di unione.
 \end{frame}
 
-\begin{frame}
-  \label{conflict-end}
-  \frametitle{\texttt{git rebase} | Conflitti}
-  Quando si incontrano conflitti durante un \texttt{rebase} si hanno in
-  realt\`a tre scelte:
-  \begin{itemize}
-    \item<1-> correggere i conflitti e lanciare \texttt{git rebase --continue}: questo
-      modificher\`a il diff del commit originale e consentir\`a di produrre un
-      commit che non provoca errori con l'attuale albero di lavoro;
-    \item<2-> ignorare i cambiamenti apportati da questo particolare commit (che
-      sta causando i conflitti) con \texttt{git rebase --skip};
-    \item<3-> annullare l'intera operazione con \texttt{git rebase --abort}
-  \end{itemize}
-\end{frame}
+% \begin{frame}
+%   \label{conflict-end}
+%   \frametitle{\texttt{git rebase} | Conflitti}
+%   Quando si incontrano conflitti durante un \texttt{rebase} si hanno in
+%   realt\`a tre scelte:
+%   \begin{itemize}
+%     \item<1-> correggere i conflitti e lanciare \texttt{git rebase --continue}: questo
+%       modificher\`a il diff del commit originale e consentir\`a di produrre un
+%       commit che non provoca errori con l'attuale albero di lavoro;
+%     \item<2-> ignorare i cambiamenti apportati da questo particolare commit (che
+%       sta causando i conflitti) con \texttt{git rebase --skip};
+%     \item<3-> annullare l'intera operazione con \texttt{git rebase --abort}
+%   \end{itemize}
+% \end{frame}
 
 \subsection{\texttt{git stash}}
 \begin{frame}
@@ -579,7 +579,7 @@
   Per riportare l'ultimo set di cambiamenti nella stash nel nostro albero di
   lavoro si possono usare i comandi:
   \begin{semiverbatim}
-  \$ git stash pop \text{ o } \$git stash apply
+  \$ git stash pop \text{ o } \$ git stash apply
   \end{semiverbatim}
   Entrambi riportano le modifiche dell'ultimo stash sull'albero di lavoro, ma il
   \texttt{pop} rimuove anche la \emph{stash entry} dalla \emph{stashing area}.
@@ -588,10 +588,9 @@
 \begin{frame}
   \frametitle{\texttt{git stash} | Utilizzo}
   Un tipico utilizzo di \texttt{git stash} \`e quando si vuole effettuare un
-  \texttt{pull} con risoluzione tramite \texttt{rebase}. Questo richiede che
-  l'albero di lavoro sia pulito. Possiamo allora mettere da parte i cambiamenti
-  locali con un \texttt{git stash}, eseguire \texttt{git pull} e riapplicare i
-  nostri cambiamenti con \texttt{git stash pop}.
+  \texttt{rebase}, che richiede l'albero di lavoro pulito. Possiamo allora
+  mettere da parte i cambiamenti locali con un \texttt{git stash}, eseguire
+  \texttt{git rebase} e riapplicare i nostri cambiamenti con \texttt{git stash pop}.
 \end{frame}
 
 \subsection{\texttt{git fetch, pull}}

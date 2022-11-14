@@ -85,4 +85,20 @@ git remote -v
 git remote show origin
 
 # git clone
-git clone git@github.com:csunibo/xxx.git
+git clone git@github.com:csunibo/lab-example-fib.git
+cd lab-example-fib
+
+# git merge
+git branch
+git log --oneline --all --graph
+git merge fix-fib
+# fix conflicts in fib.c
+git merge --continue
+git log --oneline --all --graph
+
+# git rebase
+git checkout quick-fib
+git rebase main
+# fix conflicts in fib.c
+git rebase --continue
+git log --oneline --all --graph
