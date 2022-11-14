@@ -62,7 +62,7 @@ vi hello-world.c
 git add .
 git status
 git commit -m "Some nasty testing"
-git checkout -b main
+git checkout main
 vi hello-world.c
 git add .
 git status
@@ -77,6 +77,7 @@ cat .ssh/id_ed25519.pub
 cd hello-git
 git remote -v
 git remote add origin git@github.com:lucat1/hello-git.git
+git remote -v
 
 # push e set upstream, poi remote show
 git push # poi -u origin main
