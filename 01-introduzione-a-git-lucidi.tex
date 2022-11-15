@@ -562,6 +562,33 @@
 %   \end{itemize}
 % \end{frame}
 
+\subsection{\texttt{git fetch, pull}}
+\begin{frame}
+  \frametitle{\texttt{git fetch}}
+  Per ricevere i cambiamenti caricati ad un remoto si pu\`o usare il comando:
+  \begin{semiverbatim}
+  \$ git fetch [<remote>]
+  \end{semiverbatim} \pause
+  Quando viene omesso \texttt{<remote>} il comando scarica gli aggiornamenti dal
+  remoto configurato come \emph{upstream} per la branch attuale o dal remoto
+  \emph{origin}.
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{git pull}}
+  Quasi sempre si deisdera anche unire la branch attuale con quella remota.
+  Il comando \texttt{git pull} esegue \texttt{fetch} e in seguito \texttt{merge}
+  o \texttt{rebase} (in base alla configurazione di \texttt{git}) per riconciliare
+  l'albero locale con quello remoto. \\\pause
+  La \emph{best practice} in questo caso \`e usare la tecnica di rebase, in
+  quanto i cambiamenti in locale che hanno portato ai conflitti sono per
+  definizione \emph{privati} ed \`e preferibile mantenere la storia dei commit
+  lineare. Si pu\`o impostare questa opzione come default tramite:
+  \begin{semiverbatim}
+  \$ git config [--global] pull.rebase true
+  \end{semiverbatim}
+\end{frame}
+
 \subsection{\texttt{git stash}}
 \begin{frame}
   \frametitle{\texttt{git stash [push]}}
@@ -591,33 +618,6 @@
   \texttt{rebase}, che richiede l'albero di lavoro pulito. Possiamo allora
   mettere da parte i cambiamenti locali con un \texttt{git stash}, eseguire
   \texttt{git rebase} e riapplicare i nostri cambiamenti con \texttt{git stash pop}.
-\end{frame}
-
-\subsection{\texttt{git fetch, pull}}
-\begin{frame}
-  \frametitle{\texttt{git fetch}}
-  Per ricevere i cambiamenti caricati ad un remoto si pu\`o usare il comando:
-  \begin{semiverbatim}
-  \$ git fetch [<remote>]
-  \end{semiverbatim} \pause
-  Quando viene omesso \texttt{<remote>} il comando scarica gli aggiornamenti dal
-  remoto configurato come \emph{upstream} per la branch attuale o dal remoto
-  \emph{origin}.
-\end{frame}
-
-\begin{frame}
-  \frametitle{\texttt{git pull}}
-  Quasi sempre si deisdera anche unire la branch attuale con quella remota.
-  Il comando \texttt{git pull} esegue \texttt{fetch} e in seguito \texttt{merge}
-  o \texttt{rebase} (in base alla configurazione di \texttt{git}) per riconciliare
-  l'albero locale con quello remoto. \\\pause
-  La \emph{best practice} in questo caso \`e usare la tecnica di rebase, in
-  quanto i cambiamenti in locale che hanno portato ai conflitti sono per
-  definizione \emph{privati} ed \`e preferibile mantenere la storia dei commit
-  lineare. Si pu\`o impostare questa opzione come default tramite:
-  \begin{semiverbatim}
-  \$ git config [--global] pull.rebase true
-  \end{semiverbatim}
 \end{frame}
 
 \begin{frame}[c]
