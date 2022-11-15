@@ -102,3 +102,22 @@ git rebase main
 # fix conflicts in fib.c
 git rebase --continue
 git log --oneline --all --graph
+
+# git clone & pull
+git clone git@github.com:csunibo/lab-example-hello.git
+# io sul mio pc:
+#   vi hello.c # cambiare Hello in Howdy
+#   git commit -m "change message"
+#   git push
+git pull
+
+# Pull request
+vi hello.c # cambiare Hello World in altro
+git commit -m "changed hello world to .."
+git push # errore
+
+# creare un fork su github
+git remote remove origin
+git remote add origin git@github.com:xxx/lab-example-hello.git
+git push --set-upstream origin main
+# Aprire una PR alla repository

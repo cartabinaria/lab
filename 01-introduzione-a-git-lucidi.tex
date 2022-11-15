@@ -452,26 +452,6 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{\texttt{git merge} | Pregi e difetti}
-  \begin{itemize}
-    \item pregi: \begin{itemize}
-      \item preserva \emph{chiaramente} la storia dei commit;
-      \item pu\`o essere usato su branch pubbliche.
-    \end{itemize}
-    \item difetti: \begin{itemize}
-      \item aggiunge un nuovo commit alla storia;
-      \item appare come un solo commit sulla branch a cui ci si \`e uniti\footnote{
-          I singoli commit della branch unita rimarranno comunque visibili, anche
-          anche dopo la sua rimozione.
-        }.
-    \end{itemize}
-  \end{itemize}
-
-  Da usare quando si collabora con altre persone e/o si vuole rendere la storia
-  dei cambiamenti facilmente comprensibile.
-\end{frame}
-
-\begin{frame}
   \frametitle{\texttt{git rebase}}
   Il comando \texttt{rebase} si usa quando si vuole cambiare il commit da cui si
   dirama la branch attuale. La sintassi \`e la seguente:
@@ -490,26 +470,6 @@
     \caption{Log dei commit dopo \texttt{git rebase main}}
   }
   \end{figure}
-\end{frame}
-
-\begin{frame}
-  \frametitle{\texttt{git rebase} | Pregi e difetti}
-  \begin{itemize}
-    \item pregi: \begin{itemize}
-      \item non crea commit aggiuntivi, rende la storia lineare;
-      \item si possono compiere modifiche ai commit precedenti durante l'unione
-        delle due branch.
-    \end{itemize}
-    \item difetti: \begin{itemize}
-      \item non \`e possibile collegare i commit riapplicati a quelli originali;
-      \item \textbf{non} pu\`o essere usato su branch pubbliche;
-      \item pu\`o sovrascrivere la storia e di conseguenza potrebbe
-        richiedere un \texttt{push} forzato.
-    \end{itemize}
-  \end{itemize}
-
-  Torna utile quando si lavora in locale o su branch private, per coprire i
-  propri sbagli o ripulire una storia dei commit poco ordinata.
 \end{frame}
 
 \begin{frame}
@@ -535,9 +495,9 @@
   i vari commit che si stanno provando ad unire. \texttt{git} si comporta in
   modo diverso in base al tipo di unione che si sta svolgendo:
   \begin{itemize}
-    \item<1-> nel caso di un \texttt{merge} tutti i commit vengono applicati e 
-      i file contenenti conflitti vengono segnalati all'utente. Sar\`a suo
-      compito correggerli e creare il merge commit;
+    \item<1-> nel caso di un \texttt{merge} tutti i cambiamenti vengono
+      applicati e i file contenenti conflitti vengono segnalati all'utente.
+      Sar\`a suo compito correggerli e creare il merge commit;
     \item<2-> nel caso di un \texttt{rebase} i commit vengono applicati uno ad
       uno, fermandosi quando si trovano conflitti. L'utente ha il compito di
       correggerli e far ripartire la procedura di \texttt{rebase}, iterando
@@ -545,6 +505,46 @@
   \end{itemize}
   In entrambi i casi il comando \texttt{git status} mostra informazioni utili
   sullo stato della procedura di unione.
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{git merge} | Pregi e difetti}
+  \begin{itemize}
+    \item pregi: \begin{itemize}
+      \item preserva \emph{chiaramente} la storia dei commit;
+      \item pu\`o essere usato su branch pubbliche.
+    \end{itemize}
+    \item difetti: \begin{itemize}
+      \item aggiunge un nuovo commit alla storia;
+      \item appare come un solo commit sulla branch a cui ci si \`e uniti\footnote{
+          I singoli commit della branch unita rimarranno comunque visibili, anche
+          anche dopo la sua rimozione.
+        }.
+    \end{itemize}
+  \end{itemize}
+
+  Da usare quando si collabora con altre persone e/o si vuole rendere la storia
+  dei cambiamenti facilmente comprensibile.
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{git rebase} | Pregi e difetti}
+  \begin{itemize}
+    \item pregi: \begin{itemize}
+      \item non crea commit aggiuntivi, rende la storia lineare;
+      \item si possono compiere modifiche ai commit precedenti durante l'unione
+        delle due branch.
+    \end{itemize}
+    \item difetti: \begin{itemize}
+      \item non \`e possibile collegare i commit riapplicati a quelli originali;
+      \item \textbf{non} pu\`o essere usato su branch pubbliche;
+      \item pu\`o sovrascrivere la storia e di conseguenza potrebbe
+        richiedere un \texttt{push} forzato.
+    \end{itemize}
+  \end{itemize}
+
+  Torna utile quando si lavora in locale o su branch private, per coprire i
+  propri sbagli o ripulire una storia dei commit poco ordinata.
 \end{frame}
 
 % \begin{frame}
@@ -610,34 +610,14 @@
   Quasi sempre si deisdera anche unire la branch attuale con quella remota.
   Il comando \texttt{git pull} esegue \texttt{fetch} e in seguito \texttt{merge}
   o \texttt{rebase} (in base alla configurazione di \texttt{git}) per riconciliare
-  l'albero locale con quello remoto. \\ \pause
-  \begin{itemize}
-    \item nel caso non ci siano cambiamenti locali non caricati viene eseguito
-      un \emph{fast-forward}\footnote{Vedi Lucido \ref{trivial}}.
-    \item se l'albero di lavoro \`e sporco con cambiamenti locali il \texttt{pull}
-      viene interrotto in attesa che essi vengano inseriti in un commit o rimossi.
-    \item altrimenti \texttt{git} esegue \texttt{merge} o \texttt{rebase} e lascia il
-      controllo all'utente in caso di conflitti come descritto nei
-      Lucidi \ref{conflict}-\ref{conflict-end}.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
+  l'albero locale con quello remoto.
   \frametitle{\texttt{git pull} | Nota}
-  La prima volta che si esegue un pull che incontrer\`a conflitti verr\`a
-  mostrato un messaggio chiedendovi di configurare il metodo di riconciliazione.
   La \emph{best practice} in questo caso \`e usare la tecnica di rebase, in
   quanto i cambiamenti in locale che hanno portato ai conflitti sono per
   definizione \emph{privati} ed \`e preferibile mantenere la storia dei commit
   lineare. Si pu\`o impostare questa opzione come default tramite:
   \begin{semiverbatim}
   \$ git config [--global] pull.rebase true
-  \end{semiverbatim}
-  \pause
-  Se, dopo aver impostato la propria preferenza, si desidera eseguire un
-  \texttt{pull} con un altro metodo di riconciliazione, si pu\`o specificare tramite:
-  \begin{semiverbatim}
-  \$ git pull [--rebase] [--no-rebase]
   \end{semiverbatim}
 \end{frame}
 
