@@ -6,9 +6,10 @@
 \usepackage{subfig}
 \usepackage{hyperref}
 \usepackage{tikz}
-\usetikzlibrary{shapes}
+\usetikzlibrary{shapes, calc, positioning}
+\usepackage{tabularx}
 
-\title{Introduzione al \texttt{terminale}}
+\title{Linux e \texttt{terminali}}
 \author{Samuele Musiani, Alice Benatti}
 \institute{Università di Bologna, corso di Laurea in Informatica}
 \date{14 settembre 2023}
@@ -33,13 +34,57 @@
   \titlepage
 \end{frame}
 
-\section{Perché tutto questo}
+\section{Linux}
 
 \begin{frame}{Perché tutto questo}
   \begin{enumerate}
-    \item <1-> Introduzione su Linux e uso del terminale
-    \item <2-> Argomenti NON trattati al primo anno
+    \item <1-> Argomenti NON trattati al primo anno
+    \item <2-> Estremamente importanti per diventare dei bravi informatici
+    \item <3-> Linux è GRATIS
+    \item <4-> Linux FUNZIONA BENE
+    \item <5-> Linux è open source
   \end{enumerate}
+\end{frame}
+
+\begin{frame}{Linux}
+  \begin{enumerate}
+    \item <1-> Sistema operativo open source sviluppato da Linus Torvalds
+    \item <2-> Esistono varie \textit{distribuzioni}: Debian, Fedora, Arch, ecc.
+    \item <3-> Include una \textit{shell} potentissima
+    \item <4-> Rispetto a Windows ha una gestione delle risorse estremamente più
+      efficiente
+    \item <5-> Estremamente affidabile e usato in tutti gli ambiti server
+    \item <6-> Le varie distribuzioni hanno ottimi package manager!
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Intallare per la prima volta Linux}
+  Esistono vari modi per utilizzare e provare Linux. I due principali sono:
+  \begin{enumerate}
+    \item <1-> Installarlo in \textbf{dual-boot}: Se avete un pc con installato
+      Windows potete installarci "a fianco" una distribuzione Linux. 
+
+      \only<1> {\bigskip ATTENZIONE: non sto parlando della WSL (Windows Subsystem 
+      Linux)! \textbf{NON USATE LA WSL}.}
+
+    \item <2-> Installare Linux in una \textbf{virtual machine} tramite 
+      VirtualBox. È come avere un pc virtuale su cui provare Linux. Avete 
+      il vostro sistema principale che consuma risorse. Unica soluzione per chi 
+      usa macOS.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Quale distribuzione scegliere?}
+  Se non sapete cosa installare per la prima volta vi consiglio la distribuzione
+  \textbf{Debian} con l'ambiente grafico \textbf{Gnome}.\bigskip
+
+  La distribuzione determina principalmente il \textit{package manager} che 
+  usate. Debian usa \texttt{apt}.\bigskip
+
+  Non installate Ubuntu! Nonostante sia basato su Debian non è sicuramente una
+  delle scelte migliori.\bigskip
+
+  I use Arch btw.
 \end{frame}
 
 \section{Shell e terminali}
@@ -557,9 +602,262 @@
 
 
 \section{Wildcard}
-% DA FARE
+\begin{frame}{Wildcard}
+  Nella \textit{shell} l'asterisco \texttt{*} fa da "segnaposto" per una 
+  qualsiasi altra sequenza di caratteri.\bigskip
+
+  Esempio: \texttt{torr*} si espande in: \texttt{torr}, \texttt{torra}, 
+  \texttt{torrb}, $\cdots$, \texttt{torraa}, \texttt{torrab}, \texttt{torrac}, 
+  $\cdots$\bigskip
+
+  Valgono ovviamente anche i numeri e altri caratteri oltre alle lettere.\bigskip
+
+  Questo permette di indicare più file con parti comuni nel nome.\bigskip
+
+  Si possono combinare anche più asterischi: \texttt{c*a*} fa metch con tutte le
+  parole che iniziano per \texttt{c} e hanno almeno una \texttt{a} nel 
+  nome.\bigskip
+
+  \texttt{*pila*} fa match con tutte le parole che hanno \texttt{pila} nel 
+  nome.\bigskip
+
+\end{frame}
 
 \section{Root e permessi}
-% DA FARE
+
+\subsection{Sistema multi-utente}
+\begin{frame}{Sistema multi-utente}
+  Linux è un sistema \textit{multi-utente}. Più persone possono usare lo stesso
+  computer simultaneamente.\bigskip
+
+  Questo utilizzo simultaneo non è da intendere con più schermi, tastiere e mouse
+  attaccati allo stesso dispositivo fisico.\bigskip
+
+  Si può utilizzare un computer connesso alla rete tramite il comando 
+  \texttt{ssh}.\bigskip
+
+  \texttt{ssh} stabilisce una connessione cifrata tra l'utente e il computer e
+  fornisce una \textit{shell} su cui poter lavorare.\bigskip
+
+  È quindi importante familiarizzare con la \textit{shell} in quanto è l'unico
+  modo per amministrare macchine e server remoti.
+\end{frame}
+
+\begin{frame}{Sistema di permessi}
+  La possibilità per Linux di gestire più utenti non è un aggiunta recedente. Il 
+  sistema è stato scritto proprio per supportare questa funzionalità.\bigskip
+
+  Essendoci quindi più utenti è necessario avere un sistema di permessi 
+  adeguato.\bigskip
+
+  Il sistema di permessi utilizzato da Linux non è semplice, e di seguito sarà
+  data soltanto un'introduzione.\bigskip
+\end{frame}
+
+\begin{frame}{Root}
+  In tutti i sistemi Linux esiste un unico utente che ha i permessi per seguire
+  qualsiasi operazione: \textbf{root}\bigskip
+
+  È l'amministratore del sistema.\bigskip
+
+  NON deve essere MAI usato come utente se non per le operazioni strettamente
+  necessarie.\bigskip
+
+  Per aprire una \textit{shell} come utente \texttt{root} è possibile digitare
+  il comando: \texttt{su}\bigskip
+
+  Il comando chiederà quindi la password di \texttt{root} (che generalmente è
+  impostata durante l'installazione del sistema) e se corretta aprirà una 
+  \textit{shell} con i privilegi di amministratore.
+\end{frame}
+
+\begin{frame}{Permessi su un file}
+  Dentro la cartella \texttt{/etc} esiste un file chiamato \texttt{shadow}. 
+  Se proviamo a leggerlo con \texttt{less} otteniamo: \textbf{/etc/shadow: 
+  Permission denied}\bigskip
+
+  Questo significa che il nostro utente non ha i permessi per leggere il file.
+  Ma come potevamo saperlo a priori senza tentare di leggerlo?\pause\bigskip
+
+  Una \textit{flag} molto usata per il comando \texttt{ls} è 
+  \texttt{-l}.\bigskip
+
+  \texttt{ls -l} permette di vedere molte più informazioni sui file presenti in
+  una directory.
+\end{frame}
+
+\begin{frame}{Esempio di ls -al}
+  \begin{figure}
+    \begin{tikzpicture}
+      \node[inner xsep=0pt,brown] (a) {\texttt{d}};
+
+      \node[inner xsep=0pt,right=0pt of a, blue] (b) {\texttt{rwxr-xr-x}};
+      \node[inner xsep=0pt,right=5pt of b, green!50!black] (c) {\texttt{samu}};
+      \node[inner xsep=0pt,right=5pt of c, orange] (d) {\texttt{samu}};
+      \node[inner xsep=0pt,right=5pt of d] (e) 
+        {\texttt{4096 Sep  6 15:02 Documents}};
+
+      \draw [brown] (a.south west) -- (a.south east);
+      \draw [blue] (b.north west) -- (b.north east);
+      \draw [green!50!black] (c.south west) -- (c.south east);
+      \draw [orange] (d.north west) -- (d.north east);
+
+      \coordinate (a1) at (a.south);
+      \coordinate (b1) at (b.north);
+      \coordinate (c1) at (c.south);
+      \coordinate (d1) at (d.north);
+
+      \draw[brown] ($(a1)+(-90:0.1)$)--($(a1)+(-90:1)$) 
+        node[fill=white,font=\normalsize\sffamily,inner sep=2pt] 
+        {Directory o file};
+
+      \draw[blue] ($(b1)+(90:0.1)$)--($(b1)+(90:1.5)$) 
+        node[fill=white,font=\normalsize\sffamily,inner sep=5pt, text 
+        width=3.5cm] {Permessi di lettura, scrittura ed esecuzione};
+
+      \draw[green!50!black] ($(c1)+(-90:0.1)$)--($(c1)+(-60:2)$) 
+        node[fill=white,font=\normalsize\sffamily,inner sep=2pt] 
+        {User owner};
+
+      \draw[orange] ($(d1)+(90:0.1)$)--($(d1)+(50:2)$) 
+        node[fill=white,font=\normalsize\sffamily,inner sep=5pt,] 
+        {Group owner};
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Read, write, execute}
+  Ogni file ha un strina formata da \textbf{9 bit} che determina quelli permessi 
+  specifici ha quel file rispetto all'\textit{utente}, il \textit{gruppo} e gli 
+  \textit{altri}.\bigskip
+
+  I 9 bit sono suddivisi in \textbf{gruppi di 3}: il primo è specifico per 
+  l'\textit{utente}, il secondo è specifico per il \textit{gruppo} e i rimanenti
+  sono per tutti gli \textit{altri}.
+  \begin{figure}
+    \begin{tikzpicture}
+      \node[inner xsep=0pt,orange] (a) {\texttt{rwx}};
+
+      \node[inner xsep=0pt,right=10pt of a, blue] (b) {\texttt{rwx}};
+      \node[inner xsep=0pt,right=10pt of b, green!50!black] (c) {\texttt{rwx}};
+
+      \draw [brown] (a.south west) -- (a.south east);
+      \draw [blue] (b.north west) -- (b.north east);
+      \draw [green!50!black] (c.south west) -- (c.south east);
+
+      \coordinate (a1) at (a.south);
+      \coordinate (b1) at (b.north);
+      \coordinate (c1) at (c.south);
+
+      \draw[brown] ($(a1)+(-90:0.1)$)--($(a1)+(-90:1)$) 
+        node[fill=white,font=\normalsize\sffamily,inner sep=2pt] 
+        {User};
+
+      \draw[blue] ($(b1)+(90:0.1)$)--($(b1)+(90:1)$) 
+        node[fill=white,font=\normalsize\sffamily,inner sep=5pt] {Group};
+
+      \draw[green!50!black] ($(c1)+(-90:0.1)$)--($(c1)+(-90:1)$) 
+        node[fill=white,font=\normalsize\sffamily,inner sep=2pt] 
+        {Other};
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Tabella con i permessi}
+  \begin{table}
+    \begin{tabularx}{\textwidth}{|l|l|X|}
+      \hline
+      & File  & Directory  \\ \hline
+      r & Permette la lettura di un file & Permette di vedere il contenuto se 
+      anche \texttt{x} è segnato\\ \hline
+      w & Permette di scrivere sul file  & Permette di creare ed eliminare file 
+      dentro la directory se \texttt{x} è segnato \\ \hline
+      x & Permette di eseguire un file   & Permette di entrare nella 
+      directory \\ \hline
+    \end{tabularx}
+    \caption{Significato dei permessi per file e directory}
+  \end{table}
+\end{frame}
+
+\begin{frame}{Cambiare owner e group}
+  Per cambiare l'owner di un file e il gruppo possiamo usare il comando 
+  \texttt{chown}.\bigskip
+
+  Sintassi: \texttt{chown user:group file}\bigskip
+
+  Per eseguire il comando sono necessari i privilegi di root.
+\end{frame}
+
+\begin{frame}{Cambiare permessi wrx}
+  Per cambiare i permessi lettura, scrittura ed esecuzione si utilizza il 
+  comando \texttt{chmod}.\bigskip
+
+  Sintassi: \texttt{chmod [PART][ACTION][PERMISSION] file}\bigskip
+
+  \only<1> {
+  Al posto di \texttt{[PART]} è necessario specificare la 
+  parte che si vuole modificare:
+  \begin{itemize}
+    \item user: si utilizza \texttt{u}
+    \item group: si utilizza \texttt{g}
+    \item others: si utilizza \texttt{o}
+    \item all: si utilizza \texttt{a}
+  \end{itemize}
+  }
+
+  \only<2> {
+  Al posto di \texttt{[ACTION]} è necessario specificare la 
+  l'azione da compiere
+  \begin{itemize}
+    \item \texttt{+}: Aggiunge il permesso
+    \item \texttt{-}: Rimuove il permesso
+    \item \texttt{=}: Assegna esattamente quel permesso
+  \end{itemize}
+  }
+
+  \only<3> {
+  Al posto di \texttt{[PERMISSION]} è necessario specificare la 
+  il permesso o i permessi da moficare:
+  \begin{itemize}
+    \item \texttt{r}: Read
+    \item \texttt{w}: Write
+    \item \texttt{x}: Execute
+  \end{itemize}
+  }
+
+  \bigskip Per eseguire il comando sono necessari i privilegi di root.
+\end{frame}
+
+\begin{frame}{Esempi \texttt{chmod}}
+  \begin{itemize}
+    \item \texttt{chmod u+x pippo} Rende pippo un file eseguibile per l'utente
+    \item \texttt{chmod o-w pippo} Rimuove la possibilità a tutti gli utenti
+      diversi dall'owner del file e non appartenenti al gruppo del file di 
+      scrivere su pippo.
+    \item \texttt{chmod g+r pippo} Rende pippo leggibile al gruppo
+    \item \texttt{chmod g+r pippo} Rende pippo leggibile al gruppo
+    \item \texttt{chmod u=rwx,g=,o= pippo} Rende pippo leggibile, scrivibile ed
+      eseguibile per l'utente. Inoltre rimuove tutti i permessi dal gruppo e 
+      altri.
+  \end{itemize}
+\end{frame}
+
+\section{More work to do}
+\begin{frame}{More work to do}
+  I comandi presentati sono soltanto una piccolissima parte dell'infinità di 
+  comandi presenti in una sistema Linux.\bigskip 
+
+  Non possiamo ovviamente includerli tutti, ma di seguito lasceremo alcuni 
+  comandi che potete approfondire:
+  \begin{itemize}
+    \item \texttt{ssh}
+    \item \texttt{sudo}
+    \item \texttt{apt}, \texttt{yum} e \texttt{pacman} (Dipende Linux dalla 
+    \item \texttt{top} e \texttt{htop}
+    \item \texttt{kill}
+    \item \texttt{nano} e \texttt{vim}
+    \item \texttt{touch}, \texttt{locate} e  \texttt{find} 
+  \end{itemize}
+\end{frame}
 
 \end{document}
