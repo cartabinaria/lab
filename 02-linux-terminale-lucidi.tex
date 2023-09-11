@@ -237,43 +237,42 @@
   Per fare riferimento a uno file è necessario identificarlo con un 
   \textit{path}. \bigskip
 
-  i \textit{path} sono unici, non possono esserci quindi file diversi con lo 
+  I \textit{path} sono unici, non possono esserci quindi file diversi con lo 
   stesso \textit{path}. \bigskip
 
-  ne consegue che se due file hanno lo stesso \textit{path} sono lo stesso file.
+  Ne consegue che se due file hanno lo stesso \textit{path} sono lo stesso file.
   \bigskip
 
-  ogni \textit{path} in linux inizia sempre dalla radice del file-system, ovvero
+  Ogni \textit{path} in linux inizia sempre dalla radice del file-system, ovvero
   \textit{/}\bigskip
 
-  tutte le cartelle presenti in \texttt{/} sono riservate al sistema e al suo
+  Tutte le cartelle presenti in \texttt{/} sono riservate al sistema e al suo
   corretto funzionamento
 \end{frame}
 
-\begin{frame}{cartelle di sistema}
+\begin{frame}{Cartelle di sistema}
   \begin{figure}
     \includegraphics[width=\textwidth]{assets/rootfs-ls.png}
-    \caption{lista dei file presenti in \texttt{/}}
+    \caption{Lista dei file presenti in \texttt{/}}
   \end{figure}
   \begin{itemize}
     \item \texttt{/bin}: contiene programmi necessari al sistema per funzionare
-    \item \texttt{/boot}: contiene il kernel e altre file necessari al sistema
+    \item \texttt{/boot}: contiene il kernel e altri file necessari al sistema
       per partire.
     \item \texttt{/etc}: contiene tutti i file di configurazione del sistema.
     \item \texttt{/home}: contiene le cartelle riservate agli utenti
     \item \texttt{/tmp}: contiene file temporanei che vengono cancellati ad ogni
       spegnimento del sistema
     \item \texttt{/usr}: contiene programmi e file usati dagli utenti
-      spegnimento del sistema
   \end{itemize}
 \end{frame}
 
-\subsection{\textit{path} relativi e assoluti}
-\begin{frame}{\textit{path} relativi e assoluti}
-  per identificare un file è possibile usar due tipi di \textit{path}: assoluto 
+\subsection{\textit{Path} relativi e assoluti}
+\begin{frame}{\textit{Path} relativi e assoluti}
+  Per identificare un file è possibile usar due tipi di \textit{path}: assoluto 
   e relativo:
   \begin{enumerate}
-    \item un \textit{path} assoluto è un percorso ad un file che inizia da 
+    \item Un \textit{path} assoluto è un percorso ad un file che inizia da 
       \texttt{/} e termina con il nome di quel file. prende quindi le seguenti
       forme:
       \begin{itemize}
@@ -281,7 +280,7 @@
         \item \texttt{/usr/bin/firefox}
         \item \texttt{/tmp}
       \end{itemize}
-    \item un \textit{path} relativo è il percorso necessario per raggiungere un
+    \item Un \textit{path} relativo è il percorso necessario per raggiungere un
       file rispetto alla \textbf{cartella corrente}. prende quindi le seguenti
       forme:
       \begin{itemize}
@@ -292,65 +291,67 @@
   \end{enumerate}
 \end{frame}
 
-\section{interagire con file}
+\section{Interagire con file}
 
-\subsection{distinguere i tipi di file - \texttt{file}}
-\begin{frame}{a chi serve nautilus?}
-  per sapere di che tipo è un file possiamo usare il comando \texttt{file}:
+\subsection{Distinguere i tipi di file - \texttt{file}}
+\begin{frame}{A chi serve nautilus?}
+  Per sapere di che tipo è un file possiamo usare il comando \texttt{file}:
   \begin{figure}
     \includegraphics[width=\textwidth]{assets/command-file.png}
     \caption{esempi del comando file}
   \end{figure}
-  in linux i file non hanno bisogno di un'estensione, è quindi molto utile 
+  In linux i file non hanno bisogno di un'estensione, è quindi molto utile 
   questo comando per determinare il tipo di un file
 \end{frame}
 
-\subsection{copiare, spostare ed eliminare}
-\begin{frame}{copiare file}
-  il comando per copiare dei file è \texttt{cp}. il suo utilizzo è 
+\subsection{Copiare, spostare ed eliminare}
+\begin{frame}{Copiare file}
+  Il comando per copiare dei file è \texttt{cp}. il suo utilizzo è 
   principalmente: \texttt{cp file/da/copiare destinazione}
   \begin{figure}
     \includegraphics[width=\textwidth]{assets/command-cp.png}
     \caption{esempi del comando cp}
   \end{figure}
-  sono ammessi sia \textit{path} assoluti sia relativi
+  Sono ammessi sia \textit{path} assoluti sia relativi
 \end{frame}
 
-\begin{frame}{spostare file}
-  il comando per postare (tagliare) dei file è \texttt{mv}. il suo utilizzo è 
+\begin{frame}{Spostare file}
+  Il comando per postare (tagliare) dei file è \texttt{mv}. il suo utilizzo è 
   pressoché identico al comando di copia: \texttt{mv file/da/muovere 
   destinazione}
   \begin{figure}
     \includegraphics[width=\textwidth]{assets/command-mv.png}
     \caption{esempi del comando mv}
   \end{figure}
-  la destinazione \texttt{.} indica la directory corrente.
+  La destinazione \texttt{.} indica la directory corrente.
 \end{frame}
 
-\begin{frame}{rinominare file}
-  il comando \texttt{mv} permette anche di rinominare i file:
+\begin{frame}{Rinominare file}
+  Il comando \texttt{mv} permette anche di rinominare i file:
   \begin{figure}
     \includegraphics[width=\textwidth]{assets/command-mv-rename.png}
     \caption{esempi del comando mv}
   \end{figure}
 \end{frame}
 
-\begin{frame}{now i become death, the destroyer of files}
-  il comando più pericoloso in linux è indubbiamente \texttt{rm}.\bigskip
+\begin{frame}{Now I am become death, the destroyer of files}
+  Il comando più pericoloso in linux è indubbiamente \texttt{rm}.\bigskip
 
   \texttt{rm nome/file} elimina il file passato come argomento.\bigskip
 
-  non si può tornare indietro, una volta eliminato un file è perso per 
+  Non si può tornare indietro, una volta eliminato un file è perso per 
   sempre!\bigskip
 
-  la \textit{shell} si aspetta che voi sappiate esattamente quello che state 
+  La \textit{shell} si aspetta che voi sappiate esattamente quello che state 
   facendo e non si preoccupa se questo può distruggere il sistema.
 \end{frame}
 
-\begin{frame}{copiare una cartella}
-  il comando \texttt{cp} funziona sui file ma non sulle cartelle.\bigskip
+\begin{frame}{Copiare una cartella}
+  Per copiare le directory il comando \texttt{cp} deve funzionare in modalità 
+  \textit{ricorsiva}, per permettere la copia di tutti gli elementi all'intero
+  della directory.\bigskip
 
-  per copiare una cartella è necessario aggiungere la \textit{flag} 
+  Per copiare una cartella è quindi necessario aggiungere la \textit{flag} 
   \texttt{-r}
   \begin{figure}
     \includegraphics[width=\textwidth]{assets/command-cp-dir.png}
@@ -445,18 +446,19 @@
   da usare di \texttt{less}.\bigskip
 
   A differenza di \texttt{less} stampa il file completo sul terminale, o meglio,
-  sullo \textbf{standar output}.
+  sullo \textbf{standard output}.
 \end{frame}
 
 \begin{frame}{stdout}
-  Lo \textbf{standar output} è un \texttt{file} dove un processo può 
+  Lo \textbf{standard output} è un \texttt{file} dove un processo può 
   scrivere.\bigskip
 
   Un terminal emulator legge da \textbf{stdout} e stampa a schermo permettendo
   di leggerlo anche a noi.\bigskip
 
-  Esiste anche lo \textbf{standar error} (o \textbf{stderr}) dove vengono 
-  scritti gli errori.\bigskip
+  Esiste anche lo \textbf{standard error} (o \textbf{stderr}) dove vengono 
+  scritti gli errori. Il terminal emulator legge e stampa anche lo stderr.
+  \bigskip
 
   Non sono file memorizzati su disco, non occupano nessuno spazio.
 \end{frame}
@@ -492,10 +494,10 @@
   sinistra.\bigskip
 \end{frame}
 
-\begin{frame}{Copia incolla e interruzione}
-  Nel terminale non funziona in classico copia e incolla da tastiera eseguito
-  con \texttt{ctrl + c} e \texttt{ctrl + v}. Qeusti comandi hanno il loro scopo
-  e non sono fatti per copiare.\bigskip
+\begin{frame}{Copia, incolla e interruzione}
+  Nel terminale non funziona il classico copia e incolla da tastiera eseguito
+  con \texttt{ctrl + c} e \texttt{ctrl + v}. Queste combinazioni di tasti hanno 
+  il loro scopo e non sono fatti per copiare.\bigskip
 
   Per copiare e incollare dovete usare \texttt{shift + ctrl + c} e 
   \texttt{shift + ctrl + v}.\bigskip
@@ -544,9 +546,10 @@
   comando si usa la \textbf{pipe} \texttt{|}\bigskip
 
   Per esempio se vogliamo vedere tutti i file presenti in \texttt{/bin} il 
-  nostro terminale si riempi di scritte.\bigskip
+  nostro terminale si riempie di scritte.\bigskip
 
-  Un modo comodo è quindi quello di usare \texttt{less}: \texttt{ls /bin | less}
+  Possiamo visualizzare il lungo output con il comando \texttt{less}: 
+  \texttt{ls /bin | less}
 \end{frame}
 
 \begin{frame}{Pipe - grep}
@@ -614,7 +617,7 @@
 
   Questo permette di indicare più file con parti comuni nel nome.\bigskip
 
-  Si possono combinare anche più asterischi: \texttt{c*a*} fa metch con tutte le
+  Si possono combinare anche più asterischi: \texttt{c*a*} fa match con tutte le
   parole che iniziano per \texttt{c} e hanno almeno una \texttt{a} nel 
   nome.\bigskip
 
@@ -727,9 +730,9 @@
 \end{frame}
 
 \begin{frame}{Read, write, execute}
-  Ogni file ha un strina formata da \textbf{9 bit} che determina quelli permessi 
-  specifici ha quel file rispetto all'\textit{utente}, il \textit{gruppo} e gli 
-  \textit{altri}.\bigskip
+  Ogni file ha un stringa formata da \textbf{9 bit} che determina quali 
+  permessi specifici ha quel file rispetto all'\textit{utente}, il 
+  \textit{gruppo} e gli \textit{altri}.\bigskip
 
   I 9 bit sono suddivisi in \textbf{gruppi di 3}: il primo è specifico per 
   l'\textit{utente}, il secondo è specifico per il \textit{gruppo} e i rimanenti
@@ -855,8 +858,8 @@
     \item \texttt{apt}, \texttt{yum} e \texttt{pacman} (Dipende Linux dalla 
     \item \texttt{top} e \texttt{htop}
     \item \texttt{kill}
-    \item \texttt{nano} e \texttt{vim}
     \item \texttt{touch}, \texttt{locate} e  \texttt{find} 
+    \item \texttt{nano} e \texttt{vim}
   \end{itemize}
 \end{frame}
 
