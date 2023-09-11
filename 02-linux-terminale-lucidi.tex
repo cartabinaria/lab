@@ -445,27 +445,12 @@
   Possiamo però usarlo per leggere file generalmente corti. Spesso è più rapido
   da usare di \texttt{less}.\bigskip
 
-  A differenza di \texttt{less} stampa il file completo sul terminale, o meglio,
-  sullo \textbf{standard output}.
-\end{frame}
-
-\begin{frame}{stdout}
-  Lo \textbf{standard output} è un \texttt{file} dove un processo può 
-  scrivere.\bigskip
-
-  Un terminal emulator legge da \textbf{stdout} e stampa a schermo permettendo
-  di leggerlo anche a noi.\bigskip
-
-  Esiste anche lo \textbf{standard error} (o \textbf{stderr}) dove vengono 
-  scritti gli errori. Il terminal emulator legge e stampa anche lo stderr.
-  \bigskip
-
-  Non sono file memorizzati su disco, non occupano nessuno spazio.
+  A differenza di \texttt{less} stampa il file completo sul terminale.
 \end{frame}
 
 \begin{frame}{Testa e coda - head, tail}
-  Il comando \texttt{cat} prende quindi uno o più file in input e li stampa
-  sullo standard output.\bigskip
+  Il comando \texttt{cat} prende uno o più file in input e li stampa sul 
+  terminale.\bigskip
 
   Esiste anche \texttt{head} che stampa solo le prime 10 righe di un file (si
   possono modificare con la \textit{flag} \texttt{-n numero}).\medskip
@@ -535,8 +520,8 @@
       \node {buffer};
       \node at (0,3.5) {command 1};
       \node at (0,-2.5) {command 2};
-      \node at (1, 2) {stdout};
-      \node at (1,-1.5) {stdin};
+      \node at (1, 2) {output};
+      \node at (1,-1.5) {input};
     \end{tikzpicture}
   \end{figure}
 \end{frame}
