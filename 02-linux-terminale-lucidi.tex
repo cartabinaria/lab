@@ -1,5 +1,4 @@
 \documentclass{beamer}
-
 \usepackage[italian]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
@@ -8,6 +7,27 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes, calc, positioning}
 \usepackage{tabularx}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ 
+  backgroundcolor=\color{black!20!white},   % choose the background color
+  basicstyle=\ttfamily,        % the size of the fonts that are used for the code
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  frame=single,	                   % adds a frame around the code
+  %keepspaces=true,                 % useful for keeping indentation 
+  language=bash,
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  tabsize=2,	                   % sets default tabsize to 2 spaces
+    deletekeywords={cd},            % if you want to delete keywords from the given language
+}
 
 \title{Linux e \texttt{terminali}}
 \author{Samuele Musiani, Alice Benatti}
@@ -64,8 +84,8 @@
     \item <1-> Installarlo in \textbf{dual-boot}: Se avete un pc con installato
       Windows potete installarci "a fianco" una distribuzione Linux. 
 
-      \only<1> {\bigskip ATTENZIONE: non sto parlando della WSL (Windows Subsystem 
-      Linux)! \textbf{NON USATE LA WSL}.}
+      \only<1> {\bigskip ATTENZIONE: non sto parlando della WSL (Windows 
+      Subsystem Linux)! \textbf{NON USATE LA WSL}.}
 
     \item <2-> Installare Linux in una \textbf{virtual machine} tramite 
       VirtualBox. È come avere un pc virtuale su cui provare Linux. Avete 
@@ -90,12 +110,15 @@
 \section{Shell e terminali}
 
 \subsection{Cos'è una shell}
-\begin{frame}{Cos'è una shell}
+\begin{frame}[fragile]{Cos'è una shell}
   Una \texttt{shell} è un programma che permette di parlare con il sistema 
   operativo attraverso dei comandi tastiera.
   \pause
+
   \begin{figure}
-    \includegraphics[width=\textwidth]{assets/shell-prompt.png}
+        \begin{lstlisting}
+[samu@leibniz ~]$
+    \end{lstlisting}
     \caption{Esempio di un \textit{shell prompt}}
   \end{figure}
 \end{frame}
@@ -134,20 +157,28 @@
 \end{frame}
 
 \subsection{Digitare e leggere}
-\begin{frame}{Digitare e leggere}
+\begin{frame}[fragile]{Digitare e leggere}
   Proviamo a digitare delle lettere a caso nella nostra \texttt{shell}:
   \begin{figure}
-    \includegraphics[width=\textwidth]{assets/random-letters-shell.png}
+    \begin{lstlisting}
+[samu@leibniz ~]$ fasdjfivb
+bash: fasdjfivb: command not found
+[samu@leibniz ~]$ 
+    \end{lstlisting}
     \caption{Esempio di lettere digitate a caso in una \textit{shell}}
   \end{figure}
   \pause
   La \texttt{shell} non ha riconosciuto il comando e ce lo ha scritto a schermo.
 \end{frame}
 
-\begin{frame}{Digitare e leggere}
+\begin{frame}[fragile]{Digitare e leggere}
   Proviamo ora a digitare un comando esistente:
   \begin{figure}
-    \includegraphics[width=\textwidth]{assets/date-command.png}
+        \begin{lstlisting}
+[samu@leibniz ~]$ date
+Thu Set 7 12:15:58 PM CEST 2023
+[samu@leibniz ~]$
+    \end{lstlisting}
     \caption{Esempio di lettere digitate a caso in una \textit{shell}}
   \end{figure}
   \pause
@@ -168,18 +199,23 @@
 \section{Muoversi tra i file e le cartelle}
 
 \subsection{Elencare i file - ls}
-\begin{frame}{Elencare i file}
+\begin{frame}[fragile]{Elencare i file}
   Le operazioni più importanti sono legate alla gestione dei file. Proviamo a 
   digitare il comando \texttt{ls} nella shell.\bigskip
 
-  INSERIRE FIGURA\bigskip
+    \begin{lstlisting}
+[samu@leibniz ~]$ ls
+Desktop Documents Downloads Music Pictures 
+Public  Templates Video
+[samu@leibniz ~]$
+    \end{lstlisting}
 
   Apriamo ora il programma per gestire i file a livello grafico e vediamo che
   solo gli stessi.
 \end{frame}
 
 \subsection{Muoversi tra le cartelle - cd}
-\begin{frame}{Entrare in una cartella}
+\begin{frame}[fragile]{Entrare in una cartella}
   Dall'interfaccia grafica possiamo entrare nelle cartelle. Con la \texttt{shell}
   possiamo farlo attraverso il comando \texttt{cd}.\bigskip
 
@@ -189,11 +225,17 @@
   Per farlo è quindi necessario fornire al comando \texttt{cd} un 
   \textbf{argomento}.\bigskip
 
-  INSERIRE FIGURA\bigskip
+    \begin{lstlisting}
+[samu@leibniz ~]$ cd Documents
+[samu@leibniz ~/Documents]$ cd Documents
+    \end{lstlisting}
 \end{frame}
 
-\begin{frame}{Entrare in una cartella}
-  INSERIRE FIGURA\bigskip
+\begin{frame}[fragile]{Entrare in una cartella}
+    \begin{lstlisting}
+[samu@leibniz ~]$ cd Documents
+[samu@leibniz ~/Documents]$ cd Documents
+    \end{lstlisting}
 
   L'argomento è successivo al comando. Un modo per pensare a questo ordine è
   chiedersi:\medskip
@@ -205,10 +247,13 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Uscire da una cartella}
+\begin{frame}[fragile]{Uscire da una cartella}
   Per uscire da una cartella il comando è \texttt{cd ..}\bigskip
 
-  INSERIRE FIGURA\bigskip
+    \begin{lstlisting}
+[samu@leibniz ~/Documents]$ cd ..
+[samu@leibniz ~]$
+    \end{lstlisting}
 
   L'argomento \texttt{..} indica sempre la cartella precedente a quella attuale.
 \end{frame}
@@ -218,7 +263,7 @@
   stampare il \textit{path} della cartella corrente: \texttt{pwd}.\bigskip
 
   Il path assume la seguente forma: \texttt{/home/samu}.\bigskip
-  
+
   Il carattere \texttt{/} viene utilizzato come separatore.
 \end{frame}
 
@@ -250,9 +295,14 @@
   corretto funzionamento
 \end{frame}
 
-\begin{frame}{Cartelle di sistema}
+\begin{frame}[fragile]{Cartelle di sistema}
   \begin{figure}
-    \includegraphics[width=\textwidth]{assets/rootfs-ls.png}
+    \begin{lstlisting}[basicstyle=\footnotesize]
+[samu@leibniz ~]$ ls
+bin   dev  home  lib64       mnt  proc  run   tmp  var
+boot  etc  lib   lost+found  opt  root  sbin  sys  usr
+[samu@leibniz ~]$
+    \end{lstlisting}
     \caption{Lista dei file presenti in \texttt{/}}
   \end{figure}
   \begin{itemize}
@@ -293,11 +343,21 @@
 
 \section{Interagire con file}
 
-\subsection{Distinguere i tipi di file - \texttt{file}}
-\begin{frame}{A chi serve nautilus?}
+  \subsection{Distinguere i tipi di file - \texttt{file}}
+\begin{frame}[fragile]{A chi serve nautilus?}
   Per sapere di che tipo è un file possiamo usare il comando \texttt{file}:
   \begin{figure}
-    \includegraphics[width=\textwidth]{assets/command-file.png}
+    \begin{lstlisting}[basicstyle=\footnotesize]
+[samu@leibniz ~]$ file Documents/
+Documents/: directory
+[samu@leibniz ~]$ file screen.png
+screen.png: PNG image data, 3840x1080, 8-bit/color RGB
+[samu@leibniz ~]$ file lista
+lista: Unicode text, UTF-8 text
+[samu@leibniz ~]$ file /bin/firefox
+/bin/firefox: POSIX shell script, ASCII text executable
+[samu@leibniz ~]$
+    \end{lstlisting}
     \caption{esempi del comando file}
   \end{figure}
   In linux i file non hanno bisogno di un'estensione, è quindi molto utile 
@@ -305,31 +365,53 @@
 \end{frame}
 
 \subsection{Copiare, spostare ed eliminare}
-\begin{frame}{Copiare file}
+\begin{frame}[fragile]{Copiare file}
   Il comando per copiare dei file è \texttt{cp}. il suo utilizzo è 
   principalmente: \texttt{cp file/da/copiare destinazione}
   \begin{figure}
-    \includegraphics[width=\textwidth]{assets/command-cp.png}
+    \begin{lstlisting}[basicstyle=\small]
+[samu@leibniz prova]$ ls
+castoro  ligma  piante
+[samu@leibniz prova]$ cp castoro criceto
+[samu@leibniz prova]$ ls
+castoro  criceto  ligma  piante
+[samu@leibniz ~]$
+    \end{lstlisting}
     \caption{esempi del comando cp}
   \end{figure}
   Sono ammessi sia \textit{path} assoluti sia relativi
 \end{frame}
 
-\begin{frame}{Spostare file}
+\begin{frame}[fragile]{Spostare file}
   Il comando per postare (tagliare) dei file è \texttt{mv}. il suo utilizzo è 
   pressoché identico al comando di copia: \texttt{mv file/da/muovere 
   destinazione}
   \begin{figure}
-    \includegraphics[width=\textwidth]{assets/command-mv.png}
+    \begin{lstlisting}[basicstyle=\small]
+[samu@leibniz prova]$ ls
+castoro  criceto  ligma  piante
+[samu@leibniz prova]$ cd piante/
+[samu@leibniz prova]$ ls
+cubo
+[samu@leibniz piante]$ mv ../castoro .
+[samu@leibniz piante]$ ls
+castoro  cubo
+    \end{lstlisting}
     \caption{esempi del comando mv}
   \end{figure}
   La destinazione \texttt{.} indica la directory corrente.
 \end{frame}
 
-\begin{frame}{Rinominare file}
+\begin{frame}[fragile]{Rinominare file}
   Il comando \texttt{mv} permette anche di rinominare i file:
   \begin{figure}
-    \includegraphics[width=\textwidth]{assets/command-mv-rename.png}
+    \begin{lstlisting}[basicstyle=\normalsize]
+[samu@leibniz piante]$ ls
+castoro  cubo
+[samu@leibniz piante]$ mv cubo triangolo
+[samu@leibniz piante]$ ls
+castoro  triangolo
+    \end{lstlisting}
     \caption{esempi del comando mv}
   \end{figure}
 \end{frame}
@@ -346,7 +428,7 @@
   facendo e non si preoccupa se questo può distruggere il sistema.
 \end{frame}
 
-\begin{frame}{Copiare una cartella}
+\begin{frame}[fragile]{Copiare una cartella}
   Per copiare le directory il comando \texttt{cp} deve funzionare in modalità 
   \textit{ricorsiva}, per permettere la copia di tutti gli elementi all'intero
   della directory.\bigskip
@@ -354,7 +436,15 @@
   Per copiare una cartella è quindi necessario aggiungere la \textit{flag} 
   \texttt{-r}
   \begin{figure}
-    \includegraphics[width=\textwidth]{assets/command-cp-dir.png}
+    \begin{lstlisting}[basicstyle=\footnotesize]
+[samu@leibniz prova]$ ls
+criceto  ligma  piante
+[samu@leibniz prova]$ cp piante roveri
+cp: -r not not specified; omitting directory 'piante'
+[samu@leibniz prova]$ cp -r piante roveri
+[samu@leibniz prova]$ ls
+criceto  ligma  piante  roveri
+    \end{lstlisting}
     \caption{copia di una cartella}
   \end{figure}
 \end{frame}
@@ -422,7 +512,7 @@
   Per stampare il numero di caratteri: \texttt{wc -c nome/file}
 \end{frame}
 
-\begin{frame}{Ricerca di una stringa - grep}
+\begin{frame}[fragile]{Ricerca di una stringa - grep}
   Per cercare una stringa in un file esiste \texttt{grep}\bigskip
 
   Sintassi: \texttt{grep "string" file}\bigskip
@@ -431,7 +521,12 @@
 
   Uno dei comandi più potenti per la ricerca di pattern.
   \begin{figure}
-    \includegraphics[width=\textwidth]{assets/command-grep.png}
+    \begin{lstlisting}[basicstyle=\footnotesize]
+[samu@leibniz castorini]$ grep "13" LICENSE
+ 13. Use with the GNU Affreo General Pubic License.
+Section 13, concerning interaction through a network
+[samu@leibniz castorini]$
+    \end{lstlisting}
     \caption{Ricerca di una stringa}
   \end{figure}
 \end{frame}
@@ -683,7 +778,7 @@
       \node[inner xsep=0pt,right=5pt of b, green!50!black] (c) {\texttt{samu}};
       \node[inner xsep=0pt,right=5pt of c, orange] (d) {\texttt{samu}};
       \node[inner xsep=0pt,right=5pt of d] (e) 
-        {\texttt{4096 Sep  6 15:02 Documents}};
+      {\texttt{4096 Sep  6 15:02 Documents}};
 
       \draw [brown] (a.south west) -- (a.south east);
       \draw [blue] (b.north west) -- (b.north east);
@@ -696,20 +791,20 @@
       \coordinate (d1) at (d.north);
 
       \draw[brown] ($(a1)+(-90:0.1)$)--($(a1)+(-90:1)$) 
-        node[fill=white,font=\normalsize\sffamily,inner sep=2pt] 
-        {Directory o file};
+      node[fill=white,font=\normalsize\sffamily,inner sep=2pt] 
+      {Directory o file};
 
       \draw[blue] ($(b1)+(90:0.1)$)--($(b1)+(90:1.5)$) 
-        node[fill=white,font=\normalsize\sffamily,inner sep=5pt, text 
-        width=3.5cm] {Permessi di lettura, scrittura ed esecuzione};
+      node[fill=white,font=\normalsize\sffamily,inner sep=5pt, text 
+      width=3.5cm] {Permessi di lettura, scrittura ed esecuzione};
 
       \draw[green!50!black] ($(c1)+(-90:0.1)$)--($(c1)+(-60:2)$) 
-        node[fill=white,font=\normalsize\sffamily,inner sep=2pt] 
-        {User owner};
+      node[fill=white,font=\normalsize\sffamily,inner sep=2pt] 
+      {User owner};
 
       \draw[orange] ($(d1)+(90:0.1)$)--($(d1)+(50:2)$) 
-        node[fill=white,font=\normalsize\sffamily,inner sep=5pt,] 
-        {Group owner};
+      node[fill=white,font=\normalsize\sffamily,inner sep=5pt,] 
+      {Group owner};
     \end{tikzpicture}
   \end{figure}
 \end{frame}
@@ -738,15 +833,15 @@
       \coordinate (c1) at (c.south);
 
       \draw[brown] ($(a1)+(-90:0.1)$)--($(a1)+(-90:1)$) 
-        node[fill=white,font=\normalsize\sffamily,inner sep=2pt] 
-        {User};
+      node[fill=white,font=\normalsize\sffamily,inner sep=2pt] 
+      {User};
 
       \draw[blue] ($(b1)+(90:0.1)$)--($(b1)+(90:1)$) 
-        node[fill=white,font=\normalsize\sffamily,inner sep=5pt] {Group};
+      node[fill=white,font=\normalsize\sffamily,inner sep=5pt] {Group};
 
       \draw[green!50!black] ($(c1)+(-90:0.1)$)--($(c1)+(-90:1)$) 
-        node[fill=white,font=\normalsize\sffamily,inner sep=2pt] 
-        {Other};
+      node[fill=white,font=\normalsize\sffamily,inner sep=2pt] 
+      {Other};
     \end{tikzpicture}
   \end{figure}
 \end{frame}
@@ -783,34 +878,34 @@
   Sintassi: \texttt{chmod [PART][ACTION][PERMISSION] file}\bigskip
 
   \only<1> {
-  Al posto di \texttt{[PART]} è necessario specificare la 
-  parte che si vuole modificare:
-  \begin{itemize}
-    \item user: si utilizza \texttt{u}
-    \item group: si utilizza \texttt{g}
-    \item others: si utilizza \texttt{o}
-    \item all: si utilizza \texttt{a}
-  \end{itemize}
+    Al posto di \texttt{[PART]} è necessario specificare la 
+    parte che si vuole modificare:
+    \begin{itemize}
+      \item user: si utilizza \texttt{u}
+      \item group: si utilizza \texttt{g}
+      \item others: si utilizza \texttt{o}
+      \item all: si utilizza \texttt{a}
+    \end{itemize}
   }
 
   \only<2> {
-  Al posto di \texttt{[ACTION]} è necessario specificare la 
-  l'azione da compiere
-  \begin{itemize}
-    \item \texttt{+}: Aggiunge il permesso
-    \item \texttt{-}: Rimuove il permesso
-    \item \texttt{=}: Assegna esattamente quel permesso
-  \end{itemize}
+    Al posto di \texttt{[ACTION]} è necessario specificare la 
+    l'azione da compiere
+    \begin{itemize}
+      \item \texttt{+}: Aggiunge il permesso
+      \item \texttt{-}: Rimuove il permesso
+      \item \texttt{=}: Assegna esattamente quel permesso
+    \end{itemize}
   }
 
   \only<3> {
-  Al posto di \texttt{[PERMISSION]} è necessario specificare la 
-  il permesso o i permessi da moficare:
-  \begin{itemize}
-    \item \texttt{r}: Read
-    \item \texttt{w}: Write
-    \item \texttt{x}: Execute
-  \end{itemize}
+    Al posto di \texttt{[PERMISSION]} è necessario specificare la 
+    il permesso o i permessi da moficare:
+    \begin{itemize}
+      \item \texttt{r}: Read
+      \item \texttt{w}: Write
+      \item \texttt{x}: Execute
+    \end{itemize}
   }
 
   \bigskip Per eseguire il comando sono necessari i privilegi di root.
@@ -847,5 +942,5 @@
     \item \texttt{nano} e \texttt{vim}
   \end{itemize}
 \end{frame}
-
+    
 \end{document}
