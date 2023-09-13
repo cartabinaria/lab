@@ -112,7 +112,7 @@
 \subsection{Cos'è una shell}
 \begin{frame}[fragile]{Cos'è una shell}
   Una \texttt{shell} è un programma che permette di parlare con il sistema 
-  operativo attraverso dei comandi tastiera.
+  operativo attraverso dei comandi da tastiera.
   \pause
 
   \begin{figure}
@@ -298,10 +298,10 @@ Public  Templates Video
 \begin{frame}[fragile]{Cartelle di sistema}
   \begin{figure}
     \begin{lstlisting}[basicstyle=\footnotesize]
-[samu@leibniz ~]$ ls
+[samu@leibniz /]$ ls
 bin   dev  home  lib64       mnt  proc  run   tmp  var
 boot  etc  lib   lost+found  opt  root  sbin  sys  usr
-[samu@leibniz ~]$
+[samu@leibniz /]$
     \end{lstlisting}
     \caption{Lista dei file presenti in \texttt{/}}
   \end{figure}
@@ -918,7 +918,7 @@ Section 13, concerning interaction through a network
       diversi dall'owner del file e non appartenenti al gruppo del file di 
       scrivere su pippo.
     \item \texttt{chmod g+r pippo} Rende pippo leggibile al gruppo
-    \item \texttt{chmod g+r pippo} Rende pippo leggibile al gruppo
+    \item \texttt{chmod g+x pippo} Rende pippo eseguibile dal gruppo
     \item \texttt{chmod u=rwx,g=,o= pippo} Rende pippo leggibile, scrivibile ed
       eseguibile per l'utente. Inoltre rimuove tutti i permessi dal gruppo e 
       altri.
