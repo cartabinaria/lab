@@ -1,0 +1,942 @@
+\documentclass{beamer}
+\usepackage[italian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{shapes, calc, positioning}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ 
+  backgroundcolor=\color{black!20!white},   % choose the background color
+  basicstyle=\ttfamily,        % the size of the fonts that are used for the code
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  frame=single,	                   % adds a frame around the code
+  %keepspaces=true,                 % useful for keeping indentation 
+  language=bash,
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  tabsize=2,	                   % sets default tabsize to 2 spaces
+    deletekeywords={cd},            % if you want to delete keywords from the given language
+}
+
+\title{Linux e \texttt{terminali}}
+\author{Samuele Musiani, Alice Benatti}
+\institute{Università di Bologna, corso di Laurea in Informatica}
+\date{12 ottobre 2023}
+\logo{\includegraphics[width=0.05\textwidth]{assets/by-nc-sa-4-0.png}}
+
+\AtBeginSection[]{
+  \begin{frame}
+    % \setcounter{tocdepth}{10}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  % \tableofcontents[currentsubsection]
+  \vfill
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame} 
+  \titlepage
+\end{frame}
+
+\section{Shell e terminali}
+
+\subsection{Cos'è una shell}
+\begin{frame}[fragile]{Cos'è una shell}
+  Una \texttt{shell} è un programma che permette di parlare con il sistema 
+  operativo attraverso dei comandi da tastiera.
+  \pause
+
+  \begin{figure}
+        \begin{lstlisting}
+[samu@leibniz ~]$
+    \end{lstlisting}
+    \caption{Esempio di un \textit{shell prompt}}
+  \end{figure}
+\end{frame}
+
+\subsection{Perché tornare all'età della pietra}
+\begin{frame}{Perché tornare all'età della pietra}
+  I primi computer utilizzavano i terminali, perché dovremmo farlo anche noi
+  quando abbiamo un'ottima interfaccia grafica?\bigskip
+  \pause
+
+  \textit{"Graphical user interface make easy taks easy, while command line 
+  iterfaces make difficult tasks possible"}
+\end{frame}
+
+\subsection{Vantaggi}
+\begin{frame}{Vantaggi di un terminale}
+  I primi computer utilizzavano i terminali, perché dovremmo farlo anche noi
+  quando abbiamo un'ottima interfaccia grafica?\bigskip
+
+  \begin{itemize}
+    \item <1-> È decisamente più veloce di una GUI
+    \item <2-> Avete il completo controllo di quello che state facendo
+    \item <3-> Moltissime cose non si possono fare con una GUI
+    \item <4-> Il vero potere della \texttt{shell} sono le \textit{pipe}
+    \item <5-> Accedere a server e configurare servizi
+  \end{itemize}
+\end{frame}
+
+\section{I primi passi in un terminale}
+\begin{frame}{Aprire un terminale}
+  Per utilizzare una \texttt{shell} è necessario disporre di un emulatore di 
+  terminale.\bigskip
+
+  Un emulatore di terminale è un'applicazione che permette di interagire con
+  la \texttt{shell}.
+\end{frame}
+
+\subsection{Digitare e leggere}
+\begin{frame}[fragile]{Digitare e leggere}
+  Proviamo a digitare delle lettere a caso nella nostra \texttt{shell}:
+  \begin{figure}
+    \begin{lstlisting}
+[samu@leibniz ~]$ fasdjfivb
+bash: fasdjfivb: command not found
+[samu@leibniz ~]$ 
+    \end{lstlisting}
+    \caption{Esempio di lettere digitate a caso in una \textit{shell}}
+  \end{figure}
+  \pause
+  La \texttt{shell} non ha riconosciuto il comando e ce lo ha scritto a schermo.
+\end{frame}
+
+\begin{frame}[fragile]{Digitare e leggere}
+  Proviamo ora a digitare un comando esistente:
+  \begin{figure}
+        \begin{lstlisting}
+[samu@leibniz ~]$ date
+Thu Set 7 12:15:58 PM CEST 2023
+[samu@leibniz ~]$
+    \end{lstlisting}
+    \caption{Esempio di lettere digitate a caso in una \textit{shell}}
+  \end{figure}
+  \pause
+  In questo caso la \texttt{shell} ha riconosciuto il comando e chi ha stampato
+  la data, l'ora e qualche altra informazione come il fuso orario.
+\end{frame}
+
+\subsection{Quali comandi esistono}
+\begin{frame}{Quali comandi esistono}
+  Come abbiamo appena visto alcuni comandi esistono e altri no.\bigskip
+
+  Non vi è una lista dei comandi esistenti perché sarebbe troppo lunga.\bigskip
+
+  Oggi vi mostreremo alcuni comandi di base per iniziare a familiarizzare con la
+  \texttt{shell}.
+\end{frame}
+
+\section{Muoversi tra i file e le cartelle}
+
+\subsection{Elencare i file - ls}
+\begin{frame}[fragile]{Elencare i file}
+  Le operazioni più importanti sono legate alla gestione dei file. Proviamo a 
+  digitare il comando \texttt{ls} nella shell.\bigskip
+
+    \begin{lstlisting}
+[samu@leibniz ~]$ ls
+Desktop Documents Downloads Music Pictures 
+Public  Templates Video
+[samu@leibniz ~]$
+    \end{lstlisting}
+
+  Apriamo ora il programma per gestire i file a livello grafico e vediamo che
+  solo gli stessi.
+\end{frame}
+
+\subsection{Muoversi tra le cartelle - cd}
+\begin{frame}[fragile]{Entrare in una cartella}
+  Dall'interfaccia grafica possiamo entrare nelle cartelle. Con la \texttt{shell}
+  possiamo farlo attraverso il comando \texttt{cd}.\bigskip
+
+  Per farlo però è necessario indicare in quale cartella ci vogliamo muovere 
+  visto che potrebbe essercene più di una.\bigskip
+
+  Per farlo è quindi necessario fornire al comando \texttt{cd} un 
+  \textbf{argomento}.\bigskip
+
+    \begin{lstlisting}
+[samu@leibniz ~]$ cd Documents
+[samu@leibniz ~/Documents]$ cd Documents
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Entrare in una cartella}
+    \begin{lstlisting}
+[samu@leibniz ~]$ cd Documents
+[samu@leibniz ~/Documents]$ cd Documents
+    \end{lstlisting}
+
+  L'argomento è successivo al comando. Un modo per pensare a questo ordine è
+  chiedersi:\medskip
+  
+  \begin{itemize}
+    \item "Cosa voglio fare?" -> Entrare di una cartella -> \texttt{cd}
+    \item "In quale cartella voglio entrare?" -> \texttt{cd} 
+      \textit{nomecartella}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Uscire da una cartella}
+  Per uscire da una cartella il comando è \texttt{cd ..}\bigskip
+
+    \begin{lstlisting}
+[samu@leibniz ~/Documents]$ cd ..
+[samu@leibniz ~]$
+    \end{lstlisting}
+
+  L'argomento \texttt{..} indica sempre la cartella precedente a quella attuale.
+\end{frame}
+
+\begin{frame}{Current working directory}
+  In Linux le cartelle si chiamano \textit{directory}. Esiste un comando per
+  stampare il \textit{path} della cartella corrente: \texttt{pwd}.\bigskip
+
+  Il path assume la seguente forma: \texttt{/home/samu}.\bigskip
+
+  Il carattere \texttt{/} viene utilizzato come separatore.
+\end{frame}
+
+\begin{frame}{Current working directory}
+  Il path assume la seguente forma: \texttt{/home/samu}.\bigskip
+
+  Notiamo che il \textit{path} inizia con uno \texttt{/}\bigskip
+
+  In Linux la radice del file-system è proprio \texttt{/}
+\end{frame}
+
+\section{Linux file system}
+
+\subsection{Dove tutto ha inizio}
+\begin{frame}{Dove tutto ha inizio}
+  Per fare riferimento a uno file è necessario identificarlo con un 
+  \textit{path}. \bigskip
+
+  I \textit{path} sono unici, non possono esserci quindi file diversi con lo 
+  stesso \textit{path}. \bigskip
+
+  Ne consegue che se due file hanno lo stesso \textit{path} sono lo stesso file.
+  \bigskip
+
+  Ogni \textit{path} in linux inizia sempre dalla radice del file-system, ovvero
+  \textit{/}\bigskip
+
+  Tutte le cartelle presenti in \texttt{/} sono riservate al sistema e al suo
+  corretto funzionamento
+\end{frame}
+
+\begin{frame}[fragile]{Cartelle di sistema}
+  \begin{figure}
+    \begin{lstlisting}[basicstyle=\footnotesize]
+[samu@leibniz /]$ ls
+bin   dev  home  lib64       mnt  proc  run   tmp  var
+boot  etc  lib   lost+found  opt  root  sbin  sys  usr
+[samu@leibniz /]$
+    \end{lstlisting}
+    \caption{Lista dei file presenti in \texttt{/}}
+  \end{figure}
+  \begin{itemize}
+    \item \texttt{/bin}: contiene programmi necessari al sistema per funzionare
+    \item \texttt{/boot}: contiene il kernel e altri file necessari al sistema
+      per partire.
+    \item \texttt{/etc}: contiene tutti i file di configurazione del sistema.
+    \item \texttt{/home}: contiene le cartelle riservate agli utenti
+    \item \texttt{/tmp}: contiene file temporanei che vengono cancellati ad ogni
+      spegnimento del sistema
+    \item \texttt{/usr}: contiene programmi e file usati dagli utenti
+  \end{itemize}
+\end{frame}
+
+\subsection{\textit{Path} relativi e assoluti}
+\begin{frame}{\textit{Path} relativi e assoluti}
+  Per identificare un file è possibile usar due tipi di \textit{path}: assoluto 
+  e relativo:
+  \begin{enumerate}
+    \item Un \textit{path} assoluto è un percorso ad un file che inizia da 
+      \texttt{/} e termina con il nome di quel file. prende quindi le seguenti
+      forme:
+      \begin{itemize}
+        \item \texttt{/home/samu/slides.tex}
+        \item \texttt{/usr/bin/firefox}
+        \item \texttt{/tmp}
+      \end{itemize}
+    \item Un \textit{path} relativo è il percorso necessario per raggiungere un
+      file rispetto alla \textbf{cartella corrente}. prende quindi le seguenti
+      forme:
+      \begin{itemize}
+        \item \texttt{slides.tex}
+        \item \texttt{../}
+        \item \texttt{immagini/gattini.png}
+      \end{itemize}
+  \end{enumerate}
+\end{frame}
+
+\section{Creare directory e file}
+\begin{frame}[fragile]{Creare directory}
+  Per creare una directory esiste il comando \texttt{mkdir}.
+  \begin{figure}
+    \begin{lstlisting}[basicstyle=\small]
+[samu@leibniz prova]$ ls
+castoro  ligma  piante
+[samu@leibniz prova]$ mkdir ippo
+[samu@leibniz prova]$ ls
+castoro  ippo  ligma  piante
+[samu@leibniz prova]$ file ippo
+ippo/: directory
+[samu@leibniz prova]$
+    \end{lstlisting}
+    \caption{esempi del comando mkdir}
+  \end{figure}
+
+  Sintassi: \texttt{mkdir path/to/directory}
+\end{frame}
+
+\begin{frame}[fragile]{Creare file}
+  Per creare un file esistono molti modi, ma il più semplice è il comando 
+  \texttt{touch}.
+  \begin{figure}
+    \begin{lstlisting}[basicstyle=\small]
+[samu@leibniz prova]$ ls
+castoro  ligma  piante
+[samu@leibniz prova]$ touch sedia
+[samu@leibniz prova]$ ls
+castoro  ligma  piante  sedia
+[samu@leibniz prova]$
+    \end{lstlisting}
+    \caption{esempi del comando mkdir}
+  \end{figure}
+
+  Sintassi: \texttt{touch path/to/file}
+\end{frame}
+
+\begin{frame}{Chiarimenti su touch}
+  Il comando \texttt{touch} in realtà server per cambiare la data di modifica di 
+  un file.\bigskip
+
+  Se il file non esiste allora viene creato.\bigskip
+
+  Esistono altri modi di creare file: tipo attraverso \texttt{vim} che vi 
+    permette di scrivere anche dentro il file.\bigskip
+\end{frame}
+
+\section{Interagire con file}
+
+  \subsection{Distinguere i tipi di file - \texttt{file}}
+\begin{frame}[fragile]{A chi serve nautilus?}
+  Per sapere di che tipo è un file possiamo usare il comando \texttt{file}:
+  \begin{figure}
+    \begin{lstlisting}[basicstyle=\footnotesize]
+[samu@leibniz ~]$ file Documents/
+Documents/: directory
+[samu@leibniz ~]$ file screen.png
+screen.png: PNG image data, 3840x1080, 8-bit/color RGB
+[samu@leibniz ~]$ file lista
+lista: Unicode text, UTF-8 text
+[samu@leibniz ~]$ file /bin/firefox
+/bin/firefox: POSIX shell script, ASCII text executable
+[samu@leibniz ~]$
+    \end{lstlisting}
+    \caption{esempi del comando file}
+  \end{figure}
+  In linux i file non hanno bisogno di un'estensione, è quindi molto utile 
+  questo comando per determinare il tipo di un file
+\end{frame}
+
+\subsection{Copiare, spostare ed eliminare}
+\begin{frame}[fragile]{Copiare file}
+  Il comando per copiare dei file è \texttt{cp}. il suo utilizzo è 
+  principalmente: \texttt{cp file/da/copiare destinazione}
+  \begin{figure}
+    \begin{lstlisting}[basicstyle=\small]
+[samu@leibniz prova]$ ls
+castoro  ligma  piante
+[samu@leibniz prova]$ cp castoro criceto
+[samu@leibniz prova]$ ls
+castoro  criceto  ligma  piante
+[samu@leibniz ~]$
+    \end{lstlisting}
+    \caption{esempi del comando cp}
+  \end{figure}
+  Sono ammessi sia \textit{path} assoluti sia relativi
+\end{frame}
+
+\begin{frame}[fragile]{Spostare file}
+  Il comando per postare (tagliare) dei file è \texttt{mv}. il suo utilizzo è 
+  pressoché identico al comando di copia: \texttt{mv file/da/muovere 
+  destinazione}
+  \begin{figure}
+    \begin{lstlisting}[basicstyle=\small]
+[samu@leibniz prova]$ ls
+castoro  criceto  ligma  piante
+[samu@leibniz prova]$ cd piante/
+[samu@leibniz prova]$ ls
+cubo
+[samu@leibniz piante]$ mv ../castoro .
+[samu@leibniz piante]$ ls
+castoro  cubo
+    \end{lstlisting}
+    \caption{esempi del comando mv}
+  \end{figure}
+  La destinazione \texttt{.} indica la directory corrente.
+\end{frame}
+
+\begin{frame}[fragile]{Rinominare file}
+  Il comando \texttt{mv} permette anche di rinominare i file:
+  \begin{figure}
+    \begin{lstlisting}[basicstyle=\normalsize]
+[samu@leibniz piante]$ ls
+castoro  cubo
+[samu@leibniz piante]$ mv cubo triangolo
+[samu@leibniz piante]$ ls
+castoro  triangolo
+    \end{lstlisting}
+    \caption{esempi del comando mv}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Now I am become death, the destroyer of files}
+  Il comando più pericoloso in linux è indubbiamente \texttt{rm}.\bigskip
+
+  \texttt{rm nome/file} elimina il file passato come argomento.\bigskip
+
+  Non si può tornare indietro, una volta eliminato un file è perso per 
+  sempre!\bigskip
+
+  La \textit{shell} si aspetta che voi sappiate esattamente quello che state 
+  facendo e non si preoccupa se questo può distruggere il sistema.
+\end{frame}
+
+\begin{frame}[fragile]{Copiare una cartella}
+  Per copiare le directory il comando \texttt{cp} deve funzionare in modalità 
+  \textit{ricorsiva}, per permettere la copia di tutti gli elementi all'intero
+  della directory.\bigskip
+
+  Per copiare una cartella è quindi necessario aggiungere la \textit{flag} 
+  \texttt{-r}
+  \begin{figure}
+    \begin{lstlisting}[basicstyle=\footnotesize]
+[samu@leibniz prova]$ ls
+criceto  ligma  piante
+[samu@leibniz prova]$ cp piante roveri
+cp: -r not not specified; omitting directory 'piante'
+[samu@leibniz prova]$ cp -r piante roveri
+[samu@leibniz prova]$ ls
+criceto  ligma  piante  roveri
+    \end{lstlisting}
+    \caption{copia di una cartella}
+  \end{figure}
+\end{frame}
+
+\subsection{Flags - man}
+\begin{frame}{Flags}
+  Le \textit{flag} sono un modo per estendere le funzionalità di un 
+  comando.\bigskip
+
+  Vengono specificate dopo il comando e sono precedute da un trattino 
+  \texttt{-}\bigskip
+
+  Per comodità sono di una sola lettera, ma in certi casi possono essere anche 
+  più verbose es. \texttt{--recursive}.\bigskip
+
+  Si possono combinare più \textit{flag} concatenando le lettere dopo il 
+  trattino: \texttt{-r -t} è equivalente a \texttt{-rt}
+\end{frame}
+
+\begin{frame}{Man}
+  Esiste un comando per leggere il \textit{manuale} di un comando: 
+  \texttt{man}.\bigskip
+
+  Sintassi: \texttt{man comando}\bigskip
+
+  Aprirà un lettore di testo integrato nel terminale chiamato \texttt{less}. Per 
+  navigare sono usati i seguenti comandi:
+  \begin{itemize}
+    \item \texttt{j}: Muoversi verso il basso
+    \item \texttt{k}: Muoversi verso l'alto
+    \item \texttt{g}: Inizio del file
+    \item \texttt{G}: Fine del file
+    \item \texttt{/name}: Cerca la stringa \texttt{name} in tutto il testo
+    \item \texttt{n}: Selezionata una stringa va all'occorrenza successiva
+    \item \texttt{q}: Esce e torna al promp
+  \end{itemize}
+\end{frame}
+
+\subsection{Lettura di file - less}
+\begin{frame}{Less}
+  Esiste un lettore di testo integrato nella \textit{shell} chiamato 
+  \texttt{less}.\bigskip
+
+  \texttt{less} è in realtà un comando che permette di leggere file di 
+  testo.\bigskip
+
+  Sintassi: \texttt{less nome/file}\bigskip
+
+  \texttt{less} è molto veloce a leggere file di testo di grandi dimensioni.
+\end{frame}
+
+\section{Operazioni testuali}
+\begin{frame}{Contare caratteri, linee, ecc. - wc}
+  Esiste un comando per contare i caratteri, le linee e altre informazioni
+  all'interno di un file di testo: \texttt{wc}\bigskip
+
+  Sintassi: \texttt{wc nome/file}\bigskip
+
+  Senza nessuna \textit{flag} stampa:
+  \begin{itemize}
+    \item Il numero di righe
+    \item Il numero di parole
+    \item Il numero di bytes
+  \end{itemize}
+  Per stampare il numero di caratteri: \texttt{wc -c nome/file}
+\end{frame}
+
+\begin{frame}[fragile]{Ricerca di una stringa - grep}
+  Per cercare una stringa in un file esiste \texttt{grep}\bigskip
+
+  Sintassi: \texttt{grep "string" file}\bigskip
+
+  Esiste la \textit{flag} \texttt{-i} per la ricerca case-insensitive.\bigskip
+
+  Uno dei comandi più potenti per la ricerca di pattern.
+  \begin{figure}
+    \begin{lstlisting}[basicstyle=\footnotesize]
+[samu@leibniz castorini]$ grep "13" LICENSE
+ 13. Use with the GNU Affreo General Pubic License.
+Section 13, concerning interaction through a network
+[samu@leibniz castorini]$
+    \end{lstlisting}
+    \caption{Ricerca di una stringa}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Concatenazione o lettura? - cat}
+  Il comando \texttt{cat} è nato per concatenare più file.\bigskip
+
+  Per renderlo però completamente funzionante abbiamo bisogno dell'operatore
+  di ridirezione che verrà spiegato più avanti.\bigskip
+
+  Possiamo però usarlo per leggere file generalmente corti. Spesso è più rapido
+  da usare di \texttt{less}.\bigskip
+
+  A differenza di \texttt{less} stampa il file completo sul terminale.
+\end{frame}
+
+\begin{frame}{Testa e coda - head, tail}
+  Il comando \texttt{cat} prende uno o più file in input e li stampa sul 
+  terminale.\bigskip
+
+  Esiste anche \texttt{head} che stampa solo le prime 10 righe di un file (si
+  possono modificare con la \textit{flag} \texttt{-n numero}).\medskip
+
+  Da notare che la \textit{flag} precedente ha preso un parametro.\bigskip
+
+  Esiste anche \texttt{tail} che fa esattamente la stessa cosa di \texttt{head}, 
+  ma partendo dalla fine del file.
+\end{frame}
+
+\section{Complementi di comandi base}
+
+\begin{frame}{Complementi di comandi base}
+  Per pulire il terminale esiste il comando \texttt{clear}\bigskip
+
+  Per resettare il terminale esiste il comando \texttt{reset}. Sarà molto utile
+  quando lavorerete al progetto di programmazione e romperete tutto con 
+  la libreria grafica.\bigskip
+
+  Per vedere i vecchi comandi eseguiti esite il comando \texttt{history}\bigskip
+
+  Per riprendere un comando eseguito di recente basta utilizzare la freccetta
+  verso l'alto.\bigskip
+
+  Per editare un comando si possono usare le freccette verso destra e verso 
+  sinistra.\bigskip
+\end{frame}
+
+\begin{frame}{Copia, incolla e interruzione}
+  Nel terminale non funziona il classico copia e incolla da tastiera eseguito
+  con \texttt{ctrl + c} e \texttt{ctrl + v}. Queste combinazioni di tasti hanno 
+  il loro scopo e non sono fatti per copiare.\bigskip
+
+  Per copiare e incollare dovete usare \texttt{shift + ctrl + c} e 
+  \texttt{shift + ctrl + v}.\bigskip
+
+  \texttt{ctrl + c} serve per interrompere un processo in esecuzione.
+\end{frame}
+
+\section{Pipe e ridirezione: il potere della shell}
+\begin{frame}{Il potere della shell}
+  Finora abbiamo visto soltanto comandi base e usati singolarmente.\bigskip
+
+  Nonostante molti di essi siano utili anche da soli, sono sicuramente più 
+  utili usati in combinazione con altri comandi.\bigskip
+
+  Come si fa però a combinare più comandi? \pause
+  Ricordiamoci che:
+  \begin{itemize}
+    \item <2-> Un comando restituisce sempre qualcosa sullo standard output
+    \item <3-> Lo standard output è considerato come un file dal sistema
+    \item <4-> La maggior parte dei comandi visti fino ad adesso hanno la 
+      possibilità di prendere in input lo standard output invece che un file 
+      classico
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Il potere della shell}
+  \begin{figure}
+    \begin{tikzpicture}
+      \draw (-1.5,3) rectangle ++(3, 1);
+      \draw (-1.5,-3) rectangle ++(3, 1);
+      \draw [->] (0,3) -- (0, 1);
+      \draw [->] (0,-0.9) -- (0, -2);
+      \node [cylinder, shape border rotate=90, draw,minimum height=2cm,minimum width=1.5cm] {};
+
+      \node {buffer};
+      \node at (0,3.5) {command 1};
+      \node at (0,-2.5) {command 2};
+      \node at (1, 2) {output};
+      \node at (1,-1.5) {input};
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Pipe}
+  Per prendere l'output di un comando e riderizionarlo in input vero un altro
+  comando si usa la \textbf{pipe} \texttt{|}\bigskip
+
+  Per esempio se vogliamo vedere tutti i file presenti in \texttt{/bin} il 
+  nostro terminale si riempie di scritte.\bigskip
+
+  Possiamo visualizzare il lungo output con il comando \texttt{less}: 
+  \texttt{ls /bin | less}
+\end{frame}
+
+\begin{frame}{Pipe - grep}
+  Come abbiamo visto la lista di file presenti in \texttt{/bin} è molto lunga.
+  Se volessimo trovarne uno specifico?\pause \bigskip
+
+  Nonostante esiste un comando apposito per cercare file, possiamo fare:
+  \texttt{ls /bin | grep "firefox"} dove al posto di \textit{firefox} può 
+  andarci una qualsiasi stringa.
+\end{frame}
+
+\begin{frame}{Pipe - esempi}
+  Di seguito una lista di esempi di utilizzo della \texttt{pipe}:
+  \begin{itemize}
+    \item \texttt{cat file1 file2 | grep "word"} cerca una stringa in più file
+    \item \texttt{ls /bin | wc -l} conta quanti programmi sono presenti in 
+      \texttt{/bin}
+    \item \texttt{ls /bin | grep "zip" | wc -l} conta quanti programmi hanno
+      la stringa "\textit{zip}" al loro interno nella cartella \texttt{/bin}
+    \item \texttt{grep "castoro" animali | wc -l} conta le occorrenze di 
+      \texttt{castoro} trovate nel file \texttt{animali}
+    \item \texttt{grep "the" book | less} mostra le occorrenze di \texttt{the} 
+      trovate in \texttt{book} attraverso il lettore \texttt{less}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Ridirezione su file}
+  Come abbiamo visto è possibile mandare l'output di un comando nell'input di
+  un altro comando.\bigskip
+
+  Se volessimo salvare l'output di un comando su un file?\pause
+
+  Esiste l'\textbf{operatore di ridirezione} \texttt{>}\bigskip
+
+  Al posto di indirizzare l'output in un comando, scrive direttamente su un
+  file.\bigskip
+
+  Sintassi: \texttt{comando > file}\bigskip
+
+  ATTENZIONE: Alla \textit{shell} non interessa se il file esiste già, quindi se 
+  esiste lo SOVRASCRIVE COMPLETAMENTE.
+\end{frame}
+
+\begin{frame}{Ridirezione su file non distruttiva}
+  Esiste anche un operatore per indirizzare su file l'output di un comando senza 
+  sovrascrivere il contenuto del file, ma "appendendo" alla fine del file il
+  contenuto scritto.\bigskip
+
+  Sintassi: \texttt{comando >> file}\bigskip
+
+  Si usa nello stesso modo dell'operatore classico\bigskip
+\end{frame}
+
+
+\section{Wildcard}
+\begin{frame}{Wildcard}
+  Nella \textit{shell} l'asterisco \texttt{*} fa da "segnaposto" per una 
+  qualsiasi altra sequenza di caratteri.\bigskip
+
+  Esempio: \texttt{torr*} si espande in: \texttt{torr}, \texttt{torra}, 
+  \texttt{torrb}, $\cdots$, \texttt{torraa}, \texttt{torrab}, \texttt{torrac}, 
+  $\cdots$\bigskip
+
+  Valgono ovviamente anche i numeri e altri caratteri oltre alle lettere.\bigskip
+
+  Questo permette di indicare più file con parti comuni nel nome.\bigskip
+
+  Si possono combinare anche più asterischi: \texttt{c*a*} fa match con tutte le
+  parole che iniziano per \texttt{c} e hanno almeno una \texttt{a} nel 
+  nome.\bigskip
+
+  \texttt{*pila*} fa match con tutte le parole che hanno \texttt{pila} nel 
+  nome.\bigskip
+
+\end{frame}
+
+\section{Root e permessi}
+
+\subsection{Sistema multi-utente}
+\begin{frame}{Sistema multi-utente}
+  Linux è un sistema \textit{multi-utente}. Più persone possono usare lo stesso
+  computer simultaneamente.\bigskip
+
+  Questo utilizzo simultaneo non è da intendere con più schermi, tastiere e mouse
+  attaccati allo stesso dispositivo fisico.\bigskip
+
+  Si può utilizzare un computer connesso alla rete tramite il comando 
+  \texttt{ssh}.\bigskip
+
+  \texttt{ssh} stabilisce una connessione cifrata tra l'utente e il computer e
+  fornisce una \textit{shell} su cui poter lavorare.\bigskip
+
+  È quindi importante familiarizzare con la \textit{shell} in quanto è l'unico
+  modo per amministrare macchine e server remoti.
+\end{frame}
+
+\begin{frame}{Sistema di permessi}
+  La possibilità per Linux di gestire più utenti non è un aggiunta recedente. Il 
+  sistema è stato scritto proprio per supportare questa funzionalità.\bigskip
+
+  Essendoci quindi più utenti è necessario avere un sistema di permessi 
+  adeguato.\bigskip
+
+  Il sistema di permessi utilizzato da Linux non è semplice, e di seguito sarà
+  data soltanto un'introduzione.\bigskip
+\end{frame}
+
+\begin{frame}{Root}
+  In tutti i sistemi Linux esiste un unico utente che ha i permessi per seguire
+  qualsiasi operazione: \textbf{root}\bigskip
+
+  È l'amministratore del sistema.\bigskip
+
+  NON deve essere MAI usato come utente se non per le operazioni strettamente
+  necessarie.\bigskip
+
+  Per aprire una \textit{shell} come utente \texttt{root} è possibile digitare
+  il comando: \texttt{su}\bigskip
+
+  Il comando chiederà quindi la password di \texttt{root} (che generalmente è
+  impostata durante l'installazione del sistema) e se corretta aprirà una 
+  \textit{shell} con i privilegi di amministratore.
+\end{frame}
+
+\begin{frame}{Permessi su un file}
+  Dentro la cartella \texttt{/etc} esiste un file chiamato \texttt{shadow}. 
+  Se proviamo a leggerlo con \texttt{less} otteniamo: \textbf{/etc/shadow: 
+  Permission denied}\bigskip
+
+  Questo significa che il nostro utente non ha i permessi per leggere il file.
+  Ma come potevamo saperlo a priori senza tentare di leggerlo?\pause\bigskip
+
+  Una \textit{flag} molto usata per il comando \texttt{ls} è 
+  \texttt{-l}.\bigskip
+
+  \texttt{ls -l} permette di vedere molte più informazioni sui file presenti in
+  una directory.
+\end{frame}
+
+\begin{frame}{Esempio di ls -al}
+  \begin{figure}
+    \begin{tikzpicture}
+      \node[inner xsep=0pt,brown] (a) {\texttt{d}};
+
+      \node[inner xsep=0pt,right=0pt of a, blue] (b) {\texttt{rwxr-xr-x}};
+      \node[inner xsep=0pt,right=5pt of b, green!50!black] (c) {\texttt{samu}};
+      \node[inner xsep=0pt,right=5pt of c, orange] (d) {\texttt{samu}};
+      \node[inner xsep=0pt,right=5pt of d] (e) 
+      {\texttt{4096 Sep  6 15:02 Documents}};
+
+      \draw [brown] (a.south west) -- (a.south east);
+      \draw [blue] (b.north west) -- (b.north east);
+      \draw [green!50!black] (c.south west) -- (c.south east);
+      \draw [orange] (d.north west) -- (d.north east);
+
+      \coordinate (a1) at (a.south);
+      \coordinate (b1) at (b.north);
+      \coordinate (c1) at (c.south);
+      \coordinate (d1) at (d.north);
+
+      \draw[brown] ($(a1)+(-90:0.1)$)--($(a1)+(-90:1)$) 
+      node[fill=white,font=\normalsize\sffamily,inner sep=2pt] 
+      {Directory o file};
+
+      \draw[blue] ($(b1)+(90:0.1)$)--($(b1)+(90:1.5)$) 
+      node[fill=white,font=\normalsize\sffamily,inner sep=5pt, text 
+      width=3.5cm] {Permessi di lettura, scrittura ed esecuzione};
+
+      \draw[green!50!black] ($(c1)+(-90:0.1)$)--($(c1)+(-60:2)$) 
+      node[fill=white,font=\normalsize\sffamily,inner sep=2pt] 
+      {User owner};
+
+      \draw[orange] ($(d1)+(90:0.1)$)--($(d1)+(50:2)$) 
+      node[fill=white,font=\normalsize\sffamily,inner sep=5pt,] 
+      {Group owner};
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Read, write, execute}
+  Ogni file ha un stringa formata da \textbf{9 bit} che determina quali 
+  permessi specifici ha quel file rispetto all'\textit{utente}, il 
+  \textit{gruppo} e gli \textit{altri}.\bigskip
+
+  I 9 bit sono suddivisi in \textbf{gruppi di 3}: il primo è specifico per 
+  l'\textit{utente}, il secondo è specifico per il \textit{gruppo} e i rimanenti
+  sono per tutti gli \textit{altri}.
+  \begin{figure}
+    \begin{tikzpicture}
+      \node[inner xsep=0pt,orange] (a) {\texttt{rwx}};
+
+      \node[inner xsep=0pt,right=10pt of a, blue] (b) {\texttt{rwx}};
+      \node[inner xsep=0pt,right=10pt of b, green!50!black] (c) {\texttt{rwx}};
+
+      \draw [brown] (a.south west) -- (a.south east);
+      \draw [blue] (b.north west) -- (b.north east);
+      \draw [green!50!black] (c.south west) -- (c.south east);
+
+      \coordinate (a1) at (a.south);
+      \coordinate (b1) at (b.north);
+      \coordinate (c1) at (c.south);
+
+      \draw[brown] ($(a1)+(-90:0.1)$)--($(a1)+(-90:1)$) 
+      node[fill=white,font=\normalsize\sffamily,inner sep=2pt] 
+      {User};
+
+      \draw[blue] ($(b1)+(90:0.1)$)--($(b1)+(90:1)$) 
+      node[fill=white,font=\normalsize\sffamily,inner sep=5pt] {Group};
+
+      \draw[green!50!black] ($(c1)+(-90:0.1)$)--($(c1)+(-90:1)$) 
+      node[fill=white,font=\normalsize\sffamily,inner sep=2pt] 
+      {Other};
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Tabella con i permessi}
+  \begin{table}
+    \begin{tabularx}{\textwidth}{|l|l|X|}
+      \hline
+      & File  & Directory  \\ \hline
+      r & Permette la lettura di un file & Permette di vedere il contenuto se 
+      anche \texttt{x} è segnato\\ \hline
+      w & Permette di scrivere sul file  & Permette di creare ed eliminare file 
+      dentro la directory se \texttt{x} è segnato \\ \hline
+      x & Permette di eseguire un file   & Permette di entrare nella 
+      directory \\ \hline
+    \end{tabularx}
+    \caption{Significato dei permessi per file e directory}
+  \end{table}
+\end{frame}
+
+\begin{frame}{Cambiare owner e group}
+  Per cambiare l'owner di un file e il gruppo possiamo usare il comando 
+  \texttt{chown}.\bigskip
+
+  Sintassi: \texttt{chown user:group file}\bigskip
+
+  Per eseguire il comando sono necessari i privilegi di root.
+\end{frame}
+
+\begin{frame}{Cambiare permessi wrx}
+  Per cambiare i permessi lettura, scrittura ed esecuzione si utilizza il 
+  comando \texttt{chmod}.\bigskip
+
+  Sintassi: \texttt{chmod [PART][ACTION][PERMISSION] file}\bigskip
+
+  \only<1> {
+    Al posto di \texttt{[PART]} è necessario specificare la 
+    parte che si vuole modificare:
+    \begin{itemize}
+      \item user: si utilizza \texttt{u}
+      \item group: si utilizza \texttt{g}
+      \item others: si utilizza \texttt{o}
+      \item all: si utilizza \texttt{a}
+    \end{itemize}
+  }
+
+  \only<2> {
+    Al posto di \texttt{[ACTION]} è necessario specificare la 
+    l'azione da compiere
+    \begin{itemize}
+      \item \texttt{+}: Aggiunge il permesso
+      \item \texttt{-}: Rimuove il permesso
+      \item \texttt{=}: Assegna esattamente quel permesso
+    \end{itemize}
+  }
+
+  \only<3> {
+    Al posto di \texttt{[PERMISSION]} è necessario specificare la 
+    il permesso o i permessi da moficare:
+    \begin{itemize}
+      \item \texttt{r}: Read
+      \item \texttt{w}: Write
+      \item \texttt{x}: Execute
+    \end{itemize}
+  }
+
+  \bigskip Per eseguire il comando sono necessari i privilegi di root.
+\end{frame}
+
+\begin{frame}{Esempi \texttt{chmod}}
+  \begin{itemize}
+    \item \texttt{chmod u+x pippo} Rende pippo un file eseguibile per l'utente
+    \item \texttt{chmod o-w pippo} Rimuove la possibilità a tutti gli utenti
+      diversi dall'owner del file e non appartenenti al gruppo del file di 
+      scrivere su pippo.
+    \item \texttt{chmod g+r pippo} Rende pippo leggibile al gruppo
+    \item \texttt{chmod g+x pippo} Rende pippo eseguibile dal gruppo
+    \item \texttt{chmod u=rwx,g=,o= pippo} Rende pippo leggibile, scrivibile ed
+      eseguibile per l'utente. Inoltre rimuove tutti i permessi dal gruppo e 
+      altri.
+  \end{itemize}
+\end{frame}
+
+\section{More work to do}
+\begin{frame}{More work to do}
+  I comandi presentati sono soltanto una piccolissima parte dell'infinità di 
+  comandi presenti in una sistema Linux.\bigskip 
+
+  Non possiamo ovviamente includerli tutti, ma di seguito lasceremo alcuni 
+  comandi che potete approfondire:
+  \begin{itemize}
+    \item \texttt{ssh}
+    \item \texttt{sudo}
+    \item \texttt{apt}, \texttt{yum} e \texttt{pacman} (Dipende dalla 
+      distribuzione Linux)
+    \item \texttt{top} e \texttt{htop}
+    \item \texttt{kill}
+    \item \texttt{touch}, \texttt{locate} e  \texttt{find} 
+    \item \texttt{nano} e \texttt{vim}
+  \end{itemize}
+\end{frame}
+    
+\end{document}
