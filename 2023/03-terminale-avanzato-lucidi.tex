@@ -1,0 +1,293 @@
+\documentclass{beamer}
+\usepackage[italian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{shapes, calc, positioning}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ 
+  backgroundcolor=\color{black!20!white},   % choose the background color
+  basicstyle=\ttfamily,        % the size of the fonts that are used for the code
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  frame=single,	                   % adds a frame around the code
+  %keepspaces=true,                 % useful for keeping indentation 
+  language=bash,
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  tabsize=2,	                   % sets default tabsize to 2 spaces
+    deletekeywords={cd},            % if you want to delete keywords from the given language
+}
+
+\title{Terminale avanzato}
+\author{Samuele Musiani, Alice Benatti}
+\institute{Università di Bologna, corso di Laurea in Informatica}
+\date{12 ottobre 2023}
+\logo{\includegraphics[width=0.05\textwidth]{assets/by-nc-sa-4-0.png}}
+
+\AtBeginSection[]{
+  \begin{frame}
+    % \setcounter{tocdepth}{10}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  % \tableofcontents[currentsubsection]
+  \vfill
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame} 
+  \titlepage
+\end{frame}
+
+\section{Un mare di shell}
+
+\subsection{Cos'è una shell}
+\begin{frame}[fragile]{Cos'è una shell}
+  Una \texttt{shell} è un programma che permette di parlare con il sistema 
+  operativo attraverso dei comandi da tastiera.
+  \pause
+
+  \begin{figure}
+        \begin{lstlisting}
+[samu@leibniz ~]$
+    \end{lstlisting}
+    \caption{Esempio di un \textit{shell prompt}}
+  \end{figure}
+\end{frame}
+
+\subsection{Cos'è una shell}
+\begin{frame}[fragile]{Cos'è una shell}
+  Esistono varie shell:
+  \begin{itemize}
+    \item sh
+    \item bash
+    \item zsh
+    \item fish
+  \end{itemize}
+  Tutte servono per interagire con il sistema operativo, però sono tutte 
+  leggermente diverse sotto alcuni aspetti.\medskip
+
+  Di solito la predefinita nei sistemi Linux è bash.
+\end{frame}
+
+\section{I primi passi in un terminale}
+\begin{frame}{Aprire un terminale}
+  Per utilizzare una \texttt{shell} è necessario disporre di un emulatore di 
+  terminale.\bigskip
+
+  Un emulatore di terminale è un'applicazione che permette di interagire con
+  la \texttt{shell}.\medskip
+
+  Esisto vari tipi di emulatori che offrono configurazioni e opzioni diverse:
+  \begin{itemize}
+    \item Alacritty
+    \item Foot
+    \item Kitty
+    \item Konsole
+    \item ...
+  \end{itemize}
+\end{frame}
+
+\section{Pipe e ridirezione: il potere della shell}
+\begin{frame}{Il potere della shell}
+  Di solito si utilizzano comandi singoli. Nonostante molti di essi siano utili 
+  anche da soli, sono sicuramente più utili usati in combinazione con altri 
+  comandi.\bigskip
+
+  Come si fa però a combinare più comandi? \pause
+  Ricordiamoci che:
+  \begin{itemize}
+    \item <2-> Un comando restituisce sempre qualcosa sullo standard output
+    \item <3-> Lo standard output è considerato come un file (in memoria) dal 
+      sistema 
+    \item <4-> La maggior parte dei comandi visti fino ad adesso hanno la 
+      possibilità di prendere in input lo standard output invece che un file 
+      classico
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Il potere della shell}
+  \begin{figure}
+    \begin{tikzpicture}
+      \draw (-1.5,3) rectangle ++(3, 1);
+      \draw (-1.5,-3) rectangle ++(3, 1);
+      \draw [->] (0,3) -- (0, 1);
+      \draw [->] (0,-0.9) -- (0, -2);
+      \node [cylinder, shape border rotate=90, draw,minimum height=2cm,minimum width=1.5cm] {};
+
+      \node {buffer};
+      \node at (0,3.5) {command 1};
+      \node at (0,-2.5) {command 2};
+      \node at (1, 2) {output};
+      \node at (1,-1.5) {input};
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Pipe}
+  Per prendere l'output di un comando e riderizionarlo in input verso un altro
+  comando si usa la \textbf{pipe} \texttt{|}\bigskip
+
+  Per esempio se vogliamo vedere tutti i file presenti in \texttt{/bin} il 
+  nostro terminale si riempie di scritte.\bigskip
+
+  Possiamo visualizzare il lungo output con il comando \texttt{less}: 
+  \texttt{ls /bin | less}
+\end{frame}
+
+\begin{frame}{Pipe - grep}
+  Come abbiamo visto la lista di file presenti in \texttt{/bin} è molto lunga.
+  Se volessimo trovarne uno specifico?\pause \bigskip
+
+  Nonostante esiste un comando apposito per cercare file, possiamo fare:
+  \texttt{ls /bin | grep "firefox"} dove al posto di \textit{firefox} può 
+  andarci una qualsiasi stringa.
+\end{frame}
+
+\begin{frame}{Pipe - esempi}
+  Di seguito una lista di esempi di utilizzo della \texttt{pipe}:
+  \begin{itemize}
+    \item \texttt{cat file1 file2 | grep "word"} cerca una stringa in più file
+    \item \texttt{ls /bin | wc -l} conta quanti programmi sono presenti in 
+      \texttt{/bin}
+    \item \texttt{ls /bin | grep "zip" | wc -l} conta quanti programmi hanno
+      la stringa "\textit{zip}" al loro interno nella cartella \texttt{/bin}
+    \item \texttt{grep "castoro" animali | wc -l} conta le occorrenze di 
+      \texttt{castoro} trovate nel file \texttt{animali}
+    \item \texttt{grep "the" book | less} mostra le occorrenze di \texttt{the} 
+      trovate in \texttt{book} attraverso il lettore \texttt{less}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Ridirezione su file}
+  Come abbiamo visto è possibile mandare l'output di un comando nell'input di
+  un altro comando.\bigskip
+
+  Se volessimo salvare l'output di un comando su un file?\pause
+
+  Esiste l'\textbf{operatore di ridirezione} \texttt{>}\bigskip
+
+  Al posto di indirizzare l'output in un comando, scrive direttamente su un
+  file.\bigskip
+
+  Sintassi: \texttt{comando > file}\bigskip
+
+  ATTENZIONE: Alla \textit{shell} non interessa se il file esiste già, quindi se 
+  esiste lo SOVRASCRIVE COMPLETAMENTE.
+\end{frame}
+
+\begin{frame}{Ridirezione su file non distruttiva}
+  Esiste anche un operatore per indirizzare su file l'output di un comando senza 
+  sovrascrivere il contenuto del file, ma "appendendo" alla fine del file il
+  contenuto scritto.\bigskip
+
+  Sintassi: \texttt{comando >> file}\bigskip
+
+  Si usa nello stesso modo dell'operatore classico\bigskip
+\end{frame}
+
+\begin{frame}[fragile]{Ridirezione dello standard error}
+  Di predefinito l'operatore di redirezione, come la pipe, reindirizza solo
+  lo standard output. Questo significa che se un comando restituisce un errore
+  questo non verrà riportato nel file indicato:
+
+  \begin{figure}
+    \begin{lstlisting}
+[samu@leibniz ~]$ ls /asdkjc > /tmp/castoro
+ls: cannot access '/asdkjc': No such file or 
+directory
+[samu@leibniz ~]$
+    \end{lstlisting}
+    \caption{Esempio di stderr non ridirezionato}
+  \end{figure}
+
+  Per ridirezionare anche lo standard error dentro il file è necessario
+  specificarlo alla shell.
+\end{frame}
+
+\begin{frame}[fragile]{Ridirezione dello standard error}
+  Lo standard error in linux ha come \textit{file descriptor} il \textbf{2}. 
+  Non importa sapere cosa sia un file descriptor, basta ricordarsi che
+  \textbf{stdout = 1} e \textbf{stderr = 2}. \medskip
+
+  Lo standard error si può redirezionare solo verso un altro file descriptor.
+  Quindi per ridirezionare lo stderr nello stdout si usa la seguente sintassi:
+  \textbf{2>\&1} \medskip
+
+  Redirezionando lo standard error verso lo standard output è possibile scrivere
+  entrambi su file:
+  \begin{figure}
+    \begin{lstlisting}
+[samu@leibniz ~]$ ls /asdkjc 2>&1 > /tmp/test
+[samu@leibniz ~]$ cat /tmp/test
+ls: cannot access '/asdkjc': No such file or 
+directory
+    \end{lstlisting}
+    \caption{Esempio di stderr ridirezionato}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Ridirezione dello standard error}
+  Da notare che questo funziona anche per la pipe:
+  \begin{figure}
+    \begin{lstlisting}
+[samu@leibniz ~]$ ls /asdkjc | head -c 10
+ls: cannot access '/asdkjc': No such file or 
+directory
+[samu@leibniz ~]$ ls /asdkjc 2>&1 | head -c 10
+ls: cannot
+    \end{lstlisting}
+    \caption{Esempio di stderr ridirezionato}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Filtri}
+  Quando si combinano assieme più comandi spesso i seguenti tornano utili:
+  \begin{itemize}
+    \item<1-> sort: Restituisce in stdout il testo preso in stdin
+    \item<2-> uniq: Se ci sono più linee consecutive uguali ne lascia solo una
+    \item<3-> grep: Cerca il testo passato come argomento
+    \item<4-> wc: Conta linee, parole e carateri passati in input
+    \item<5-> head: Manda in stdout solo la prima parte del testo
+    \item<6-> tail: Manda in stdout solo l'ultima parte del testo
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{/dev/null}
+  Come si fa a ridirezionare soltanto lo stderr su file e "buttare via" lo
+  stdout? \medskip
+  \pause
+
+  Esiste in linux un "file" che qualsiasi cosa gli passiate lo butta via. Questo
+  "file" è \textbf{/dev/null}.\medskip
+
+  \begin{figure}
+    \begin{lstlisting}
+[samu@leibniz ~]$ ls /asdkjc / 2> /tmp/pippo 
+1> /dev/null
+[samu@leibniz ~]$ cat /tmp/pippo
+ls: cannot access '/asdkjc': No such file or 
+directory
+    \end{lstlisting}
+    \caption{Esempio di stderr ridirezionato}
+  \end{figure}
+
+Ricordiamoci che stdout = 1 e stderr = 2.
+\end{frame}
+
+\section{\Large echo, \small echo, \tiny echo, echo...}
