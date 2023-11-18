@@ -291,3 +291,39 @@ Ricordiamoci che stdout = 1 e stderr = 2.
 \end{frame}
 
 \section{\Large echo, \small echo, \tiny echo, echo...}
+\begin{frame}[fragile]{Echo, \small echo, \tiny echo...}
+  Il comando \texttt{echo}, come suggerisce il suo nome, serve per stampare
+  quello che gli viene passato come argomento:
+
+  \begin{figure}
+    \begin{lstlisting}
+[samu@leibniz ~]$ echo "ciao"
+ciao
+[samu@leibniz ~]$ echo "Questa è una frase"
+Questa è una frase
+    \end{lstlisting}
+    \caption{Esempio di echo}
+  \end{figure}
+  A prima vista può sembra abbastanza inutile, in realtà ha tantissime
+  applicazioni.
+\end{frame}
+
+\begin{frame}[fragile]{Seeing the world as the shell sees it}
+  \begin{figure}
+    \begin{lstlisting}
+[samu@leibniz ~]$ echo *
+Documents Downloads go Pictures VirtualBox
+[samu@leibniz ~]$ echo /usr/*/share
+/user/kerberos/share /user/local/share
+    \end{lstlisting}
+    \caption{Esempio di echo con una wildcard}
+  \end{figure}
+
+  Come possiamo vedere echo non stampa l'asterisco come potremmo aspettarci. 
+  Lo tratta invece come la shell: ovvero come una wildcard. \medskip \pause
+
+  In realtà è proprio la shell a sostituire la wildcard con le entries opportune
+  prima di eseguire il comando \texttt{echo}.
+\end{frame}
+  
+\end{document}
