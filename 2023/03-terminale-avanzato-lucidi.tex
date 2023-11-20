@@ -632,7 +632,161 @@ echo "Numero di programmi con 'ca' è $NUM"
   \end{figure}
 \end{frame}
 
-% \section{Una veloce introduzione a vim}
-%
-% \section{More to do}
+\begin{frame}[fragile]{if, for, while}
+  Non abbiamo il tempo di trattarli ma in bash esistono anche \textbf{if}, 
+  \textbf{for} e \textbf{while}:
+  \begin{figure}
+    \begin{lstlisting}
+#!/bin/bash
+DEST="/mnt/usb/imgs"
+IMGS=$(find ~/Images -type f -name "*.jpg")
+a=1
+for i in $IMGS; do
+  echo "Coping $i to $DEST/$a.jpg"
+  cp "$i" "$DEST/$a.jpg"
+    a=$(($a+1))
+done
+    \end{lstlisting}
+    \caption{Esempio di bash script}
+  \end{figure}
+\end{frame}
+
+\section{Una veloce introduzione a vim}
+\begin{frame}[fragile]{Un po' di contesto}
+  Su Linux esistono due principali editor di testo: nano e vim. \smallskip
+
+  Nano è un editor semplice che ha i comandi scritti a schermo per evitare di
+  scordarseli. \smallskip \pause
+
+  La filosofia di vim invece è diversa. Facciamo qualche osservazione: \pause
+  \begin{itemize}[<+->]
+    \item Quando si programma la maggior parte del tempo è passato a 
+      \textit{modificare} il codice, non a scriverlo
+
+    \item Modificare il codice include molto altro oltre a scrivere: eliminare,
+      sostituire, riordinare, duplicare, formattare, ecc.
+
+    \item Ha senso facilitare tutta la parte di modifica del codice, più che 
+      di scrittura effettiva
+
+    \item Il mouse è una perdita di tempo quando si deve scrivere, se si può
+      fare tutto da tastiera in modo efficiente è meglio
+
+    \item Un'operazione usa il minor numero di tasti possibili.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Modalità}
+  In un editor classico ci si trova sempre nella modalità di \textit{modifca},
+  ovvero se si schiacciano delle lettere vengono inserite nel file che si sta 
+  modificando. \medskip \pause 
+
+  Per la maggir parte degli editor (compreso nano) questa è l'unica modalità 
+  presente. \medskip \pause
+
+  Vim introduce tre modalità principali:
+  \begin{itemize}
+    \item Normal mode
+    \item Insert mode
+    \item Visual mode
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Modalità}
+  Vim introduce tre modalità principali:
+  \begin{itemize}[<+->]
+    \item \textbf{Normal mode}: Modalità predefinita di vim. La si attiva con 
+      il tasto \texttt{ESC}. Permette di muoversi all'interno del documento in 
+      modo rapido. Di elimiare, copiare, incollare e spostare parti di testo.
+
+    \item \textbf{Insert mode}: Modalità classica per l'inserimento e la 
+      scrittura di testo. È la stessa che si trova nella maggior parte degli 
+      editor. Ci si accede principalmente usando il tasto 'i', ma anche 'I', 
+      'a', 'A', ecc.
+
+    \item \textbf{Visual mode}: Permette di selezionare parti di testo, sia 
+      verticalmente che orizzontalmente. Ci si accede usanto il tato 'v'.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Normal mode}
+  La \textbf{normal mode} è la predefinita e qulla su cui si dovrebbe sempre 
+  stare se non si necessitano di altre modalità. Per entrarci usare il tasto
+  \texttt{ESC}. \medskip
+
+  Per spostarsi all'interno del testo in normal mode si usano le seguenti 
+  lettere e NON le freccette:
+  \begin{itemize}
+    \item j: Per spostarsi verso il basso di una riga
+    \item k: Per spostarsi verso l'alto di una riga
+    \item h: Per spostarsi a sinistra di un carattere
+    \item l: Per spostarsi a destra di un carattere
+  \end{itemize}
+  Il motivo per cui si utilizzano queste lettere e non le freccette è il fatto 
+  che lo spostamento della mando per raggiungere le freccette è troppo grande
+  e richiederebbe troppo tempo per la filosofia di vim.
+\end{frame}
+
+\begin{frame}{Normal mode}
+  Altre combinazioni di tasti base in normal mode:
+  \begin{itemize}
+    \item w: si sposta all'inizio della parola successiva
+    \item e: si sposta alla fine della parola successiva
+    \item b: si sposta all'inizio della parola precedente
+    \item gg: si sposta all'inizio del file
+    \item G: si sposta all'inizio fine
+    \item dd: cancella la riga su cui si trova il cursore
+    \item yy: copia la riga su cui si trova il cursore
+    \item p: incolla il testo copiato nella riga successiva al cursore
+    \item x: eliminare il carattere sotto il cursore
+    \item u: annulla l'ultima operazione fatta
+    \item ctrl + r: ripete l'ultima operazione annullata (il contrario di 'u')
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Insert mode}
+  Si utilizza la \textbf{insert mode} quando si vuole scrivere del testo. Per
+  entrarci dalla normal mode si possono usare i seguenti tasti:
+  \begin{itemize}
+    \item i: si inizia a digitare prima della lettera sotto il cursore
+    \item a: si inizia a digitare dopo della lettera sotto il cursore
+    \item I: si inizia a digitare all'inizio della riga
+    \item A: si inizia a digitare alla fine della riga
+    \item o: si inizia a digitare in una nuova linea sottostante
+    \item O: si inizia a digitare in una nuova linea sovrastante
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{How to exit vim}
+  Uscire da vim è una delle operazioni più complesse. \medskip \pause
+
+  Molti dicono che l'unico modo sia riavviare il pc. \medskip \pause
+
+  In realtà basta sapere come funziona! \medskip
+
+  Per uscire da vim bisogna trovarsi in normal mode e digitare \textbf{:q} e 
+  successivamente premere invio.\medskip
+
+  Se il file è stato modificato dall'apertura il comando non funzionerà perché
+  vim non sa se vuoi salvare il file o no. Per salvarlo (ed uscire) si usa 
+  \textbf{:wq} e per non salvarlo (ed uscire) \textbf{:q!} \medskip
+
+  Per salvare quindi un file senza uscire basta \textbf{:w}
+\end{frame}
+
+\section{More work to do}
+\begin{frame}{More work to do}
+  Sia bash che vim sono programmi immensi che non si finisce mai di conoscerli a
+  fondo. Di seguito sono riportati alcuni comandi che potete approfondire: 
+  \medskip
+  \begin{itemize}
+    \item awk, sed, tr
+    \item diff
+    \item ip e ping
+    \item rsync
+    \item killall
+    \item dd
+    \item du, df
+  \end{itemize}
+\end{frame}
 \end{document}
