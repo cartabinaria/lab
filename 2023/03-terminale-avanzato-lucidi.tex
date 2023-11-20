@@ -32,7 +32,7 @@
 \title{Terminale avanzato}
 \author{Samuele Musiani, Alice Benatti}
 \institute{Università di Bologna, corso di Laurea in Informatica}
-\date{12 ottobre 2023}
+\date{23 novembre 2023}
 \logo{\includegraphics[width=0.05\textwidth]{assets/by-nc-sa-4-0.png}}
 
 \AtBeginSection[]{
@@ -325,5 +325,314 @@ Documents Downloads go Pictures VirtualBox
   In realtà è proprio la shell a sostituire la wildcard con le entries opportune
   prima di eseguire il comando \texttt{echo}.
 \end{frame}
+
+\begin{frame}[fragile]{Seeing the world as the shell sees it}
+  Esiste una particolare sintassi per indicare un range in bash:
+  \begin{figure}
+    \begin{lstlisting}
+[samu@leibniz ~]$ echo {1..11}
+1 2 3 4 5 6 7 8 9 10 11
+[samu@leibniz ~]$ echo {c..t}
+c d e f g h i j k l m n o p q r s t
+    \end{lstlisting}
+    \caption{Esempio di echo range}
+  \end{figure}
+
+  La shell, prima di esegure l'echo, sostituisce le parentesi graffe con il 
+  range specificato.\medskip \pause
+
+  Non funziona solo con echo in quanto è la shell stessa a fare la sostituzione.
+  Funziona molto bene con \texttt{mkdir}: \smallskip 
+
+  \texttt{mkdir \{2020..2021\}-\{01..12\}-\{01..31\}}
+\end{frame}
+
+\section{Sostituzione di comandi}
+\begin{frame}[fragile]{La pipe non riesce a fare tutto}
+  Con la pipe possiamo combinare più comandi assieme, però non riusciamo a fare
+  ancora tutto. \medskip
+
+  Se volessimo vedere il tipo di tutti i file che hanno la parola zip nel nome
+  dentro la cartella \texttt{/bin} come facciamo? \medskip \pause
+
+  \begin{figure}
+    \begin{lstlisting}
+$ ls -d /bin/* | grep zip | file
+    \end{lstlisting}
+    \caption{Esempio SBAGLIATO. Il prompt è stato tralasciato per questioni di 
+    spazio. Al suo posto è utilizzato soltanto il dollaro}
+  \end{figure}
   
+  Questo comando restituisce un errore perché al comando \texttt{file} non 
+  riesce ad interpretare lo standard input tramite la pipe. \pause
+
+  Il comando file vuole gli argomenti come argomento: \texttt{file ...}
+\end{frame}
+
+\begin{frame}[fragile]{Sostituzione di comandi}
+  La shell ammette una sintassi per la sostituzioni di comandi all'interno di
+  un'espressione. \medskip
+
+  Sintassi: \texttt{\$(comando)} \medskip
+
+  La shell sostituirà l'intera espressione al risulto del comando:
+  \begin{figure}
+    \begin{lstlisting}
+[samu@leibniz ~]$ echo $(ls)
+Documents Downloads go Pictures VirtualBox
+[samu@leibniz ~]$ ls
+Documents Downloads go Pictures VirtualBox
+    \end{lstlisting}
+    \caption{Esempio di sostituzione del comando \texttt{ls}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Sostituzione di comandi}
+  Ritornando a quello che volevamo fare prima: \textit{Se volessimo vedere il 
+  tipo di tutti i file che hanno la parola zip nel nome dentro la cartella 
+  \texttt{/bin} come facciamo?} \pause Con la sostituzione di comandi! \medskip
+
+  \begin{figure}
+    \begin{lstlisting}
+$ file $(ls -d /bin/* | grep zip)
+    \end{lstlisting}
+    \caption{Esempio di più comandi. Il prompt è stato tralasciato. Al suo posto
+    è utilizzato un dollaro (il primo).}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Matematica base}
+  Si possono fare anche operazioni matematiche con questo tipo di sostituzine:
+  \begin{figure}
+    \begin{lstlisting}
+[samu@leibniz ~]$ echo $((1 + 1))
+2
+[samu@leibniz ~]$ echo $((9 * 5))
+45
+[samu@leibniz ~]$ echo 3GB are $((3 * 1024))MB
+3GB are 3072MB
+    \end{lstlisting}
+    \caption{Esempio di più comandi. Il prompt è stato tralasciato. Al suo posto
+    è utilizzato un dollaro (il primo).}
+  \end{figure}
+\end{frame}
+
+\section{Variabili}
+\begin{frame}[fragile]{Variabili}
+  È possibile salvare dei valori in delle \textbf{variabili}. \medskip
+
+  Alcuni programmi sono configurabili attraverso le variabili di ambiente. 
+  \medskip
+
+  Esistono delle variabili già esistenti nella shell che possono essere viste
+  con il comando \texttt{echo}. \medskip
+
+  \begin{figure}
+    \begin{lstlisting}
+[samu@leibniz ~]$ echo $USER
+samu
+[samu@leibniz ~]$ echo $SHELL
+/bin/bash
+    \end{lstlisting}
+    \caption{Esempio variabile}
+  \end{figure}
+
+  Le variabili saranno più utili negli script che nella shell direttamente. 
+  \medskip
+\end{frame}
+
+\begin{frame}[fragile]{Assegnamento delle variabili}
+  Per assegnare un valore ad una variabile si può usare la seguente sintassi:
+  \texttt{varname=content}.
+
+  \begin{figure}
+    \begin{lstlisting}
+[samu@leibniz ~]$ pippo=cane
+[samu@leibniz ~]$ echo $pippo
+cane
+    \end{lstlisting}
+    \caption{Esempio di assegnamento variabile}
+  \end{figure}
+
+  Una variabile è vuota se quando si printa con \texttt{echo} non ha nulla al suo
+  interno:
+  \begin{figure}
+    \begin{lstlisting}
+[samu@leibniz ~]$ echo $papera
+
+[samu@leibniz ~]$ 
+    \end{lstlisting}
+    \caption{Esempio di variabile vuota}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Uso di variabili}
+  Si possono utilizzare le variabili nei comandi:
+
+  \begin{figure}
+    \begin{lstlisting}
+[samu@leibniz ~]$ src=/home/samu/Immagini
+[samu@leibniz ~]$ dest=/tmp/immagini
+[samu@leibniz ~]$ cp -r $src $dest
+    \end{lstlisting}
+    \caption{Esempio di copia utilizzando variabili}
+  \end{figure}
+
+  \begin{figure}
+    \begin{lstlisting}
+[samu@leibniz ~]$ programs=$(ls /bin)
+[samu@leibniz ~]$ echo $programs | less
+    \end{lstlisting}
+    \caption{Tutti i programmi in \texttt{/bin} sono salvati nella variabile 
+    \textit{programs}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{La variabile path}
+  Una variabile spesso usata è la variabile di \textbf{PATH}. \medskip
+
+  Quando digitato un comando la shell andrà a cercare se esiste un eseguibile
+  con lo stesso nobe del comando nelle directory indicate dalla variabile
+  \texttt{PATH}. \medskip
+
+  \begin{figure}
+    \begin{lstlisting}
+[samu@leibniz ~]$ echo $PATH
+/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/l
+ib/jvm/default/bin: /usr/bin/site_perl
+[samu@leibniz ~]$
+    \end{lstlisting}
+    \caption{Percorsi nella variabile \texttt{PATH}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Export}
+  Di predefinito le variabili non sono propagate anche sui processi figli della
+  shell. \medskip
+
+  È quindi spesso necessario esportarle per renderle visibili. \medskip
+  \begin{figure}
+    \begin{lstlisting}
+[samu@leibniz ~]$ pippo=cane
+[samu@leibniz ~]$ echo $pippo
+cane
+[samu@leibniz ~]$ bash -c 'echo $pippo'
+
+[samu@leibniz ~]$ export pippo=cane
+[samu@leibniz ~]$ bash -c 'echo $pippo'
+cane
+    \end{lstlisting}
+    \caption{Percorsi nella variabile \texttt{PATH}}
+  \end{figure}
+\end{frame}
+
+\section{Processi}
+
+\begin{frame}{htop}
+  Linux è sistema che permette l'esecuzione di più processi simultaneamente. 
+  \medskip
+
+  Per vedere i processi in esecuzione (e altre informazioni) è molto comodo il 
+  comando \texttt{top} o \texttt{htop} (la versione nuova). \medskip
+  
+  Se si vuole invece aver uno snapshot dei processi in esecuzione si può 
+  utilizzare il comando \texttt{ps}. \medskip
+
+  Per vedere tutti i processi su \texttt{ps} la flag è \texttt{-e}.
+\end{frame}
+
+\begin{frame}[fragile]{Pid e kill}
+  Per identificare in modo univoco un processo si utilizza un intero positivo
+  chiamato \textbf{pid}: Process identifier. \medskip \pause
+
+  Se per caso volessimo terminare un processo lo si può fare attraverso il 
+  comando \texttt{kill} passando il pid del processo da uccidere. \medskip
+
+  Il pid può essere ottenuto attraverso il comando \texttt{ps}:
+  \begin{figure}
+    \begin{lstlisting}
+[samu@leibniz ~]$ ps
+    PID TTY          TIME CMD
+   8239 pts/3    00:00:03 zsh
+  20813 pts/3    00:00:00 ps
+[samu@leibniz ~]$ kill 8239
+    \end{lstlisting}
+    \caption{Esempio di \texttt{kill}}
+  \end{figure}
+\end{frame}
+
+\section{Bash scripting}
+
+\begin{frame}[fragile]{Bash scripting}
+  Spesso si vogliono automatizzare dei comandi della shell, oppure eseguirne più
+  in "una volta sola". \medskip \pause
+
+  La shell (e in particolare bash) permette di scrivere degli script. \medskip
+
+  Uno script è un file di test con un elenco di comandi che vengono eseguiti in
+  sequenza da bash\only<2>{\footnote{In realtà dall'interprete che specificate}}
+  .\medskip
+
+  Per specificare che interprete da usare è necessario indicare nella prima riga
+  del file il percorso assoluto all'eseguibile della shell: \smallskip
+
+  \begin{figure}
+    \begin{lstlisting}
+#!/bin/bash
+    \end{lstlisting}
+    \caption{Riga per indicare bash come interprete}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Esempio di script}
+  \begin{figure}
+    \begin{lstlisting}
+#!/bin/bash
+echo "Reading programs"
+PROG=$(ls -d /bin/*)
+NUM=$(echo "$PROG" | grep "ca" | wc -l)
+echo "Numero di programmi con 'ca' è $NUM"
+    \end{lstlisting}
+    \caption{Esempio di bash script}
+  \end{figure}
+
+  Questo script fa le seguenti operazioni:
+  \begin{enumerate}
+    \item Stampa sullo standar output "\textit{Reading programs}"
+    \item Salva tutti i programmi presenti in \texttt{/bin} nella variabile 
+      \texttt{PROG}.
+    \item Salva nella variabile \texttt{NUM} il numero di tutte le stringhe 
+      presenti nella variabile \texttt{PROG} che hanno al loro interno "ca".
+      intero la parola 
+    \item Stampa il valore presente nella variabile \texttt{NUM}.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{Eseguire uno script}
+  Per eseguire uno script bash è importante avere un file (lo script) con i 
+  comandi al suo interno. \medskip
+
+  La convenzione è che gli script bash si salvano con estenzione \textbf{.sh}
+  \medskip
+
+  Inoltre bisogna renderlo eseguibile aggiungendogli il permesso: \smallskip
+
+  \texttt{chmod +x script.sh} \medskip
+
+  Per eseguilo basta quindi indicare il suo percorso assoluto o relativo:
+  \begin{figure}
+    \begin{lstlisting}
+[samu@leibniz scripts]$ ls -al
+-rw-r--r-- 1 samu samu Nov 20 17:17 script.sh
+[samu@leibniz ~]$ chmod +x script.sh
+-rwxr-xr-x 1 samu samu Nov 20 17:17 script.sh
+[samu@leibniz ~]$ ./script.sh
+    \end{lstlisting}
+    \caption{Esecuzione di uno script bash}
+  \end{figure}
+\end{frame}
+
+% \section{Una veloce introduzione a vim}
+%
+% \section{More to do}
 \end{document}
