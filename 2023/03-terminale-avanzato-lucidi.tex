@@ -112,7 +112,9 @@
   Come si fa però a combinare più comandi? \pause
   Ricordiamoci che:
   \begin{itemize}
-    \item <2-> Un comando restituisce sempre qualcosa sullo standard output
+    \item <2-> Un comando restituisce sempre\only<2-4>{\footnote{In reltà non 
+      tutti i comandi restituiscono per forza qualcosa, es. \texttt{cd}
+      \vspace{3mm}}} qualcosa sullo standard output
     \item <3-> Lo standard output è considerato come un file (in memoria) dal 
       sistema 
     \item <4-> La maggior parte dei comandi visti fino ad adesso hanno la 
@@ -146,7 +148,7 @@
   Per esempio se vogliamo vedere tutti i file presenti in \texttt{/bin} il 
   nostro terminale si riempie di scritte.\bigskip
 
-  Possiamo visualizzare il lungo output con il comando \texttt{less}: 
+  Possiamo visualizzare il lungo output con il comando \texttt{less}:\smallskip
   \texttt{ls /bin | less}
 \end{frame}
 
@@ -188,7 +190,8 @@
   Sintassi: \texttt{comando > file}\bigskip
 
   ATTENZIONE: Alla \textit{shell} non interessa se il file esiste già, quindi se 
-  esiste lo SOVRASCRIVE COMPLETAMENTE.
+  esiste lo SOVRASCRIVE COMPLETAMENTE\only<2>{\footnote{In reltà in shell più 
+  moderne tipo zsh esce un prompt se il file esiste già\vspace{3mm}}}.
 \end{frame}
 
 \begin{frame}{Ridirezione su file non distruttiva}
@@ -225,8 +228,7 @@ directory
   Non importa sapere cosa sia un file descriptor, basta ricordarsi che
   \textbf{stdout = 1} e \textbf{stderr = 2}. \medskip
 
-  Lo standard error si può redirezionare solo verso un altro file descriptor.
-  Quindi per ridirezionare lo stderr nello stdout si usa la seguente sintassi:
+  Per ridirezionare lo stderr sullo stdout si usa la seguente sintassi:
   \textbf{2>\&1} \medskip
 
   Redirezionando lo standard error verso lo standard output è possibile scrivere
@@ -273,8 +275,8 @@ ls: cannot
   stdout? \medskip
   \pause
 
-  Esiste in linux un "file" che qualsiasi cosa gli passiate lo butta via. Questo
-  "file" è \textbf{/dev/null}.\medskip
+  Esiste in Linux un "file" che indipendentemente da cosa gli passate lo butta 
+  via. Questo "file" è \textbf{/dev/null}.\medskip
 
   \begin{figure}
     \begin{lstlisting}
@@ -363,10 +365,10 @@ $ ls -d /bin/* | grep zip | file
     spazio. Al suo posto è utilizzato soltanto il dollaro}
   \end{figure}
   
-  Questo comando restituisce un errore perché al comando \texttt{file} non 
+  Questo comando restituisce un errore perché il comando \texttt{file} non 
   riesce ad interpretare lo standard input tramite la pipe. \pause
 
-  Il comando file vuole gli argomenti come argomento: \texttt{file ...}
+  Il comando file vuole gli input come argomenti: \texttt{file ...}
 \end{frame}
 
 \begin{frame}[fragile]{Sostituzione di comandi}
@@ -492,14 +494,14 @@ cane
   Una variabile spesso usata è la variabile di \textbf{PATH}. \medskip
 
   Quando digitato un comando la shell andrà a cercare se esiste un eseguibile
-  con lo stesso nobe del comando nelle directory indicate dalla variabile
+  con lo stesso nome del comando nelle directory indicate dalla variabile
   \texttt{PATH}. \medskip
 
   \begin{figure}
     \begin{lstlisting}
 [samu@leibniz ~]$ echo $PATH
 /usr/local/bin:/usr/local/sbin:/usr/bin:/usr/l
-ib/jvm/default/bin: /usr/bin/site_perl
+ib/jvm/default/bin:/usr/bin/site_perl
 [samu@leibniz ~]$
     \end{lstlisting}
     \caption{Percorsi nella variabile \texttt{PATH}}
@@ -603,7 +605,6 @@ echo "Numero di programmi con 'ca' è $NUM"
       \texttt{PROG}.
     \item Salva nella variabile \texttt{NUM} il numero di tutte le stringhe 
       presenti nella variabile \texttt{PROG} che hanno al loro interno "ca".
-      intero la parola 
     \item Stampa il valore presente nella variabile \texttt{NUM}.
   \end{enumerate}
 \end{frame}
@@ -738,7 +739,7 @@ done
     \item dd: cancella la riga su cui si trova il cursore
     \item yy: copia la riga su cui si trova il cursore
     \item p: incolla il testo copiato nella riga successiva al cursore
-    \item x: eliminare il carattere sotto il cursore
+    \item x: elimina il carattere sotto il cursore
     \item u: annulla l'ultima operazione fatta
     \item ctrl + r: ripete l'ultima operazione annullata (il contrario di 'u')
   \end{itemize}
@@ -754,6 +755,8 @@ done
     \item A: si inizia a digitare alla fine della riga
     \item o: si inizia a digitare in una nuova linea sottostante
     \item O: si inizia a digitare in una nuova linea sovrastante
+    \item cc: si cancella la riga su cui si trova il cursore e si inizia a 
+      scrivere al suo posto
   \end{itemize}
 \end{frame}
 
