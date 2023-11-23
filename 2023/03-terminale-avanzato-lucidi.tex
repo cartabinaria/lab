@@ -235,7 +235,7 @@ directory
   entrambi su file:
   \begin{figure}
     \begin{lstlisting}
-[samu@leibniz ~]$ ls /asdkjc 2>&1 > /tmp/test
+[samu@leibniz ~]$ ls /asdkjc > /tmp/test 2>&1 
 [samu@leibniz ~]$ cat /tmp/test
 ls: cannot access '/asdkjc': No such file or 
 directory
@@ -404,7 +404,7 @@ $ file $(ls -d /bin/* | grep zip)
 \end{frame}
 
 \begin{frame}[fragile]{Matematica base}
-  Si possono fare anche operazioni matematiche con questo tipo di sostituzine:
+  Si possono fare anche operazioni matematiche con questo tipo di sostituzione:
   \begin{figure}
     \begin{lstlisting}
 [samu@leibniz ~]$ echo $((1 + 1))
@@ -545,7 +545,7 @@ cane
 
 \begin{frame}[fragile]{Pid e kill}
   Per identificare in modo univoco un processo si utilizza un intero positivo
-  chiamato \textbf{pid}: Process identifier. \medskip \pause
+  chiamato \textbf{pid}: Process IDentifier. \medskip \pause
 
   Se per caso volessimo terminare un processo lo si può fare attraverso il 
   comando \texttt{kill} passando il pid del processo da uccidere. \medskip
@@ -698,7 +698,7 @@ done
   \begin{itemize}[<+->]
     \item \textbf{Normal mode}: Modalità predefinita di vim. La si attiva con 
       il tasto \texttt{ESC}. Permette di muoversi all'interno del documento in 
-      modo rapido. Di elimiare, copiare, incollare e spostare parti di testo.
+      modo rapido. Di eliminare, copiare, incollare e spostare parti di testo.
 
     \item \textbf{Insert mode}: Modalità classica per l'inserimento e la 
       scrittura di testo. È la stessa che si trova nella maggior parte degli 
@@ -735,7 +735,7 @@ done
     \item e: si sposta alla fine della parola successiva
     \item b: si sposta all'inizio della parola precedente
     \item gg: si sposta all'inizio del file
-    \item G: si sposta all'inizio fine
+    \item G: si sposta alla fine del file
     \item dd: cancella la riga su cui si trova il cursore
     \item yy: copia la riga su cui si trova il cursore
     \item p: incolla il testo copiato nella riga successiva al cursore
@@ -791,5 +791,7 @@ done
     \item dd
     \item du, df
   \end{itemize}
+  ATTENZIONE: Mai usare un comando prima di sapere cosa fa. Alcuni di questi
+  possono anche essere pericolosi se usati senza un minimo di criterio.
 \end{frame}
 \end{document}
