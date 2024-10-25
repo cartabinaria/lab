@@ -85,7 +85,7 @@ git remote -v
 git remote show origin
 
 # git clone
-git clone git@github.com:csunibo/lab-example-fib.git
+git clone git@github.com:cartabinaria/lab-example-fib.git
 cd lab-example-fib
 
 # git merge
@@ -104,7 +104,7 @@ git rebase --continue
 git log --oneline --all --graph
 
 # git clone & pull
-git clone git@github.com:csunibo/lab-example-hello.git
+git clone git@github.com:cartabinaria/lab-example-hello.git
 # io sul mio pc:
 #   vi hello.c # cambiare Hello in Howdy
 #   git commit -m "change message"
