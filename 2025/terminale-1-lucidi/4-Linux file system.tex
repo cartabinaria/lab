@@ -1,0 +1,68 @@
+\section{Linux file system}
+
+\subsection{Cos'è un file system}
+\begin{frame}{Cos'è un file system}
+  Il termine file system assume vari significati
+  \begin{itemize}
+    \item L'insieme dei file e delle directory che sono accessibili ad una macchina Linux
+    \item L'organizzazione logica utilizzata da un s.o. per gestire un insieme di file in
+memoria secondaria
+    \item Il termine viene anche utilizzato per indicare una singola unità di memoria
+secondaria
+  \end{itemize}
+
+  I fyle-system di Linux sono gerarchici, cioè organizzati ad albero. La radice
+  è \texttt{/} e directory, sotto-directory e file sono i nodi dell'albero. \bigskip
+
+  I \textit{path} sono unici, non possono esserci quindi file diversi con lo 
+  stesso \textit{path}. \bigskip
+
+  Ne consegue che se due file hanno lo stesso \textit{path} sono lo stesso file.
+  \bigskip
+\end{frame}
+
+\begin{frame}[fragile]{Cartelle di sistema}
+  \begin{figure}
+    \begin{lstlisting}[basicstyle=\footnotesize]
+[matti@pirandello ~]$ cd /
+[matti@pirandello /]$ ls
+bin  dev  home  mnt  opt  run   tmp  var   boot  root
+[matti@pirandello /]$ cd
+[matti@pirandello ~]$ cd Documents/prove/
+    \end{lstlisting}
+    \caption{Lista dei file presenti in \texttt{/}}
+  \end{figure}
+  \begin{itemize}
+    \item \texttt{/bin}: contiene programmi necessari al sistema per funzionare
+    \item \texttt{/boot}: contiene il kernel e altri file necessari al sistema
+      per partire.
+    \item \texttt{/etc}: contiene tutti i file di configurazione del sistema.
+    \item \texttt{/home}: contiene le cartelle riservate agli utenti
+    \item \texttt{/tmp}: contiene file temporanei che vengono cancellati ad ogni
+      spegnimento
+  \end{itemize}
+\end{frame}
+
+\subsection{\textit{Path} relativi e assoluti}
+\begin{frame}{\textit{Path} relativi e assoluti}
+  Per identificare un file è possibile usar due tipi di \textit{path}: assoluto 
+  e relativo:
+  \begin{enumerate}
+    \item Un \textit{path} assoluto è un percorso ad un file che inizia da 
+      \texttt{/} e termina con il nome di quel file. prende quindi le seguenti
+      forme:
+      \begin{itemize}
+        \item \texttt{/home/matti/slides.tex}
+        \item \texttt{/usr/bin/firefox}
+        \item \texttt{/tmp}
+      \end{itemize}
+    \item Un \textit{path} relativo è il percorso necessario per raggiungere un
+      file rispetto alla \textbf{cartella corrente}. prende quindi le seguenti
+      forme:
+      \begin{itemize}
+        \item \texttt{slides.tex}
+        \item \texttt{../}
+        \item \texttt{immagini/greg.png}
+      \end{itemize}
+  \end{enumerate}
+\end{frame}

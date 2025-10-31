@@ -1,0 +1,303 @@
+\section{Interagire con file}
+
+  \subsection{Distinguere i tipi di file - \texttt{file}}
+\begin{frame}[fragile]{A chi serve Nautilus?}
+  Per sapere di che tipo è un file possiamo usare il comando \texttt{file}:
+  \begin{figure}
+    \begin{lstlisting}[basicstyle=\footnotesize]
+[matti@pirandello prove]$ ls 
+castoro lontra
+[matti@pirandello prove]$ file castoro 
+castoro: directory
+[matti@pirandello ~]$ file lontra
+lontra: empty
+// Se lontra contenesse del testo
+// lontra: ASCII text
+[mattia@pirandello ~]$
+    \end{lstlisting}
+    \caption{esempi del comando file}
+  \end{figure}
+  In linux i file non hanno bisogno di un'estensione, è quindi molto utile 
+  questo comando.
+\end{frame}
+
+\subsection{Copiare, spostare ed eliminare}
+\begin{frame}[fragile]{Copiare file}
+  Il comando per copiare dei file è \texttt{cp}. il suo utilizzo è 
+  principalmente: \texttt{cp file/da/copiare destinazione}
+  \begin{figure}
+    \begin{lstlisting}[basicstyle=\small]
+[matti@pirandello prove]$ ls 
+castoro lontra
+[matti@pirandello prove]$ cp lontra criceto 
+[matti@pirandello prove]$ ls 
+castoro criceto lontra
+[matti@pirandello prove]$
+    \end{lstlisting}
+    \caption{esempi del comando cp}
+  \end{figure}
+  Sono ammessi sia \textit{path} assoluti sia relativi
+\end{frame}
+
+\begin{frame}[fragile]{Spostare file}
+  Il comando per spostare (tagliare) dei file è \texttt{mv}. Si usa come il 
+  comando di copia: \texttt{mv file/da/muovere 
+  destinazione}
+  \begin{figure}
+    \begin{lstlisting}[basicstyle=\small]
+[matti@pirandello prove]$ ls 
+castoro criceto lontra
+[matti@pirandello prove]$ cd castoro/ 
+[matti@pirandello castoro]$ mv ../lontra .
+[matti@pirandello castoro]$ ls
+lontra
+[matti@pirandello castoro]$
+    \end{lstlisting}
+    \caption{esempi del comando mv}
+  \end{figure}
+  La destinazione \texttt{.} indica la directory corrente.
+\end{frame}
+
+\begin{frame}[fragile]{Rinominare file}
+  Il comando \texttt{mv} permette anche di rinominare i file:
+  \begin{figure}
+    \begin{lstlisting}[basicstyle=\normalsize]
+[matti@pirandello castoro]$ touch cubo
+[matti@pirandello castoro]$ ls
+cubo lontra
+[matti@pirandello castoro]$ mv cubo triangolo
+[matti@pirandello castoro]$ ls
+lontra triangolo
+[matti@pirandello castoro]$
+    \end{lstlisting}
+    \caption{esempi del comando mv}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Now I am become death, the destroyer of files}
+  Il comando più pericoloso in linux è indubbiamente \texttt{rm}.\bigskip
+
+  \texttt{rm nome/file} elimina il file passato come argomento.\bigskip
+
+  Non si può tornare indietro, una volta eliminato un file è perso per 
+  sempre!\bigskip
+
+  \texttt{rm} non funziona come il cestino di Windows con cui puoi ripristinare file,
+  la \textit{shell} si aspetta che voi sappiate esattamente quello che state 
+  facendo e non si preoccupa se questo può distruggere il sistema.
+\end{frame}
+
+\begin{frame}[fragile]{Copiare una cartella}
+  Per copiare le directory il comando \texttt{cp} deve funzionare in modalità 
+  \textit{ricorsiva}, per permettere la copia di tutti gli elementi all'intero
+  della directory.\bigskip
+
+  Per copiare una cartella è quindi necessario aggiungere la \textit{flag} 
+  \texttt{-r}
+  \begin{figure}
+    \begin{lstlisting}[basicstyle=\footnotesize]
+[matti@pirandello prove]$ ls 
+castoro criceto
+[matti@pirandello prove]$ cp castoro capybara 
+cp: -r not not specified; omitting directory 'castoro'
+castoro criceto
+[matti@pirandello prove]$ cp -r castoro capybara 
+[matti@pirandello prove]$ ls 
+capybara castoro criceto
+    \end{lstlisting}
+    \caption{esempi del comando cp ricorsivo}
+  \end{figure}
+\end{frame}
+
+\subsection{Flags - man}
+\begin{frame}{Flags}
+  Le \textit{flag} sono un modo per estendere le funzionalità di un 
+  comando.\bigskip
+
+  Vengono specificate dopo il comando e sono precedute da un trattino 
+  \texttt{-}\bigskip
+
+  Per comodità sono di una sola lettera, ma in certi casi possono essere anche 
+  più verbose es. \texttt{--recursive}.\bigskip
+
+  Si possono combinare più \textit{flag} concatenando le lettere dopo il 
+  trattino: \texttt{-r -t} è equivalente a \texttt{-rt}
+\end{frame}
+
+\begin{frame}{Man}
+  Esiste un comando per leggere il \textit{manuale} di un comando: 
+  \texttt{man}.\bigskip
+
+  Potreste trovarvi in situazioni in cui non saprete come usare un comando,
+  non avrete accesso a internet per cercare o non avrete interfacce grafiche...
+  li il comando man vi tornerà molto utile.\bigskip
+
+  Sintassi: \texttt{man comando}\bigskip
+
+  Si apre un visualizzatore di testo integrato nel terminale chiamato \texttt{less}.
+  Per navigare sono usati i seguenti comandi:
+  \begin{columns}[T] % The [T] option aligns the columns' top lines
+    \begin{column}{.5\textwidth} % First column
+      \begin{itemize}
+        \item \texttt{j}: Muoversi verso il basso
+        \item \texttt{k}: Muoversi verso l'alto
+        \item \texttt{g}: Inizio del file
+      \end{itemize}
+    \end{column}
+    \begin{column}{.5\textwidth} % Second column
+      \begin{itemize}
+        \item \texttt{/name}: Cerca la stringa \texttt{name}
+        \item \texttt{n}: Va all'occorrenza successiva
+        \item \texttt{q}: Esce e torna al prompt
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\subsection{Lettura di file - less}
+\begin{frame}{Less}
+  Esiste un lettore di testo integrato nella \textit{shell} chiamato 
+  \texttt{less}. (evoluzione di \texttt{more} presente nei primi s.o. Unix)\bigskip
+
+  \texttt{less} è in realtà un comando che permette di leggere file di 
+  testo.\bigskip
+
+  Sintassi: \texttt{less nome/file}\bigskip
+
+  \texttt{less} è molto veloce a leggere file di testo di grandi dimensioni.
+\end{frame}
+
+\subsection{Editor di testo}
+\begin{frame}[fragile]{Nano e Vim}
+  Su Linux esistono due principali editor di testo: nano e vim. \smallskip
+
+  Nano è un editor semplice che ha i comandi scritti a schermo per evitare di
+  scordarseli. \smallskip
+
+  La filosofia di vim invece è diversa. Facciamo qualche osservazione:
+  \begin{itemize}
+    \item Quando si programma la maggior parte del tempo è passato a 
+      \textit{modificare} il codice, non a scriverlo
+
+    \item Modificare il codice include molto altro oltre a scrivere: eliminare,
+      sostituire, riordinare, duplicare, formattare, ecc.
+
+    \item Ha senso facilitare tutta la parte di modifica del codice, più che 
+      di scrittura effettiva
+
+    \item Il mouse è una perdita di tempo quando si deve scrivere, se si può
+      fare tutto da tastiera in modo efficiente è meglio
+
+    \item Un'operazione usa il minor numero di tasti possibili.
+  \end{itemize}
+
+  Approfondiremo vim più avanti, per il momento usiamo nano.
+\end{frame}
+
+
+\subsection{Scrivere in un file di testo}
+\begin{frame}[fragile]{Scrivere in un file di testo}
+  Per scrivere in un file di testo esiste il comando \texttt{nano}.\bigskip
+
+  Sintassi: \texttt{nano nome/file}\bigskip
+
+  Una volta dentro l'editor si può scrivere normalmente. Per salvare e uscire
+  si usa la combinazione di tasti \texttt{ctrl + x}, poi \texttt{y} per 
+  confermare il salvataggio e infine \texttt{invio} per salvare con lo stesso
+  nome.\bigskip
+
+  Per uscire senza salvare si usa sempre \texttt{ctrl + x} ma poi si preme
+  \texttt{n} per non salvare.
+\end{frame}
+
+\begin{frame}[fragile]{Esempio di nano}
+  \begin{figure}
+    \begin{lstlisting}[basicstyle=\footnotesize]
+[matti@pirandello castoro]$ ls
+lontra triangolo
+[matti@pirandello castoro]$ nano lontra
+  \end{lstlisting}
+  \end{figure}
+  \begin{figure}
+    \begin{lstlisting}[basicstyle=\tiny\ttfamily, frame=single, rulecolor=\color{black}]
+  GNU nano 4.8                      lontra                      Modified  
+
+  Hello World!
+~
+~
+~
+~
+~
+~
+^G Help     ^O Write Out    ^W Where Is     ^K Cut      ^T Execute
+^X Exit     ^R Read File    ^\ Replace      ^U Text     ^J Justify
+    \end{lstlisting}
+    \caption{Scrivere "Hello World!" nel file \texttt{lontra} usando nano.}
+  \end{figure}
+\end{frame}
+
+\subsection{Operazioni testuali}
+\begin{frame}{Contare caratteri, linee, ecc. - wc}
+  Esiste un comando per contare i caratteri, le linee e altre informazioni
+  all'interno di un file di testo: \texttt{wc}\bigskip
+
+  Sintassi: \texttt{wc nome/file}\bigskip
+
+  Senza nessuna \textit{flag} stampa:
+  \begin{itemize}
+    \item Il numero di righe
+    \item Il numero di parole
+    \item Il numero di bytes
+  \end{itemize}
+  Per stampare il numero di caratteri: \texttt{wc -c nome/file}
+  Per stampare il numero di linee: \texttt{wc -l nome/file}
+\end{frame}
+
+\begin{frame}[fragile]{Ricerca di una stringa - grep}
+  Uno dei comandi più potenti per la ricerca di stringhe in un file è \texttt{grep}\bigskip
+
+  Sintassi: \texttt{grep "string" file}\bigskip
+
+  Esiste la \textit{flag} \texttt{-i} per la ricerca case-insensitive.\bigskip
+
+  \begin{figure}
+    \begin{lstlisting}[basicstyle=\footnotesize]
+[matti@pirandello castoro]$ grep -i "hello" lontra
+Hello World!
+[matti@pirandello castoro]$
+    \end{lstlisting}
+    \caption{Ricerca di una stringa in un file}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Concatenazione o lettura? - cat}
+  Il comando \texttt{cat} è nato per concatenare più file.\bigskip
+
+  Per renderlo però completamente funzionante abbiamo bisogno dell'operatore
+  di ridirezione che verrà spiegato più avanti.\bigskip
+
+  Possiamo però usarlo per leggere file generalmente corti. Spesso è più rapido
+  da usare di \texttt{less}, anche perchè stampa il file completo sul terminale. \bigskip
+
+  \begin{figure}
+    \begin{lstlisting}[basicstyle=\footnotesize]
+[matti@pirandello castoro]$ cat lontra
+Hello World!
+[matti@pirandello castoro]$
+    \end{lstlisting}
+      \caption{Stampa di un file tramite cat}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Testa e coda - head, tail}
+  Il comando \texttt{cat} prende uno o più file in input e li stampa sul 
+  terminale.\bigskip
+
+  Esiste anche \texttt{head} che stampa solo le prime 10 righe di un file (si
+  possono modificare con la \textit{flag} \texttt{-n numero}).\medskip
+
+  Da notare che la \textit{flag} precedente ha preso un parametro.\bigskip
+
+  Esiste anche \texttt{tail} che fa esattamente la stessa cosa di \texttt{head}, 
+  ma partendo dalla fine del file.
+\end{frame}

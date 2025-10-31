@@ -1,0 +1,57 @@
+\section{Muoversi tra i file e le cartelle}
+
+\subsection{Elencare i file - ls}
+\begin{frame}[fragile]{Elencare i file}
+  Le operazioni più importanti sono legate alla gestione dei file. Proviamo a 
+  digitare il comando \texttt{ls} nella shell.\bigskip
+
+    \begin{lstlisting}
+[matti@pirandello ~]$ ls
+Desktop Documents Downloads Music Pictures 
+Public  Templates Video
+[matti@pirandello ~]$
+    \end{lstlisting}
+
+  Sono gli stessi che vediamo nell'interfaccia
+\end{frame}
+
+\subsection{Muoversi tra le cartelle - cd}
+\begin{frame}[fragile]{Entrare in una cartella}
+  Per muoverci tra le cartelle con la \texttt{shell}
+  possiamo usare il comando \texttt{cd}.\bigskip
+
+  Per entrare in una cartella è necessario indicare in quale ci vogliamo muovere 
+  visto che potrebbe essercene più di una.\bigskip
+
+  Per farlo è quindi necessario fornire al comando \texttt{cd} un 
+  \textbf{argomento}.\bigskip
+
+    \begin{lstlisting}
+[matti@pirandello ~]$ cd Documents/
+[matti@pirandello Documents]$
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Uscire da una cartella}
+  Per uscire da una cartella il comando è \texttt{cd ..}\bigskip
+    \begin{lstlisting}
+[matti@pirandello Documents]$ cd ..
+[matti@pirandello ~]$
+    \end{lstlisting}
+
+  L'argomento \texttt{..} indica sempre la cartella genitore di quella attuale.
+\end{frame}
+
+\begin{frame}{Current working directory}
+  In Linux le cartelle si chiamano \textit{directory}. Per stampare il 
+  \textit{path} della cartella corrente usiamo il comando: \texttt{pwd}.\bigskip
+
+  Il path assume la seguente forma: \texttt{/home/matti}.\bigskip
+
+  Il carattere \texttt{/} viene utilizzato come separatore, quindi \texttt{matti}
+  è dentro la cartella \texttt{home}. \bigskip 
+
+  Prima di \texttt{home} c'è uno \texttt{/}
+  che in Linux indica la radice del \textbf{file-system}. Quindi \texttt{home} a sua
+  volta è contenuta in \texttt{/}
+\end{frame}

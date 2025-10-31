@@ -1,0 +1,40 @@
+\section{Creare directory e file}
+\begin{frame}[fragile]{Creare directory}
+  Per creare una directory esiste il comando \texttt{mkdir}.
+  \begin{figure}
+    \begin{lstlisting}[basicstyle=\small]
+[matti@pirandello ~]$ cd Documents/
+[matti@pirandello Documents]$ mkdir prove
+[matti@pirandello prove]$ cd prove/
+[matti@pirandello prove]$ mkdir castoro 
+[matti@pirandello prove]$ ls 
+castoro
+[matti@pirandello prove]$ cd castoro/
+[matti@pirandello castoro]$
+    \end{lstlisting}
+    \caption{esempi del comando mkdir}
+  \end{figure}
+
+  Sintassi: \texttt{mkdir path/to/directory}
+\end{frame}
+
+\begin{frame}[fragile]{Creare file}
+  Per creare un file esistono molti modi, ma il più semplice è il comando 
+  \texttt{touch}.
+  \begin{figure}
+    \begin{lstlisting}[basicstyle=\small]
+[matti@pirandello castoro]$ cd ..
+[matti@pirandello prove]$ touch lontra 
+[matti@pirandello prove]$ ls 
+castoro lontra
+[matti@pirandello prove]$
+    \end{lstlisting}
+    \caption{esempi del comando touch}
+  \end{figure}
+
+  Sintassi: \texttt{touch path/to/file} \bigskip
+
+  \footnotesize
+  Il comando \texttt{touch} in realtà serve per cambiare la data di modifica di 
+  un file, ma se non esiste allora viene creato.\bigskip
+\end{frame}

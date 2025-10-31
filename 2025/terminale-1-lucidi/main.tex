@@ -1,0 +1,73 @@
+\documentclass{beamer}
+
+\usepackage[italian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{shapes, calc, positioning}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{color}
+
+\lstset{ 
+  backgroundcolor=\color{black!20!white},   % choose the background color
+  basicstyle=\ttfamily,        % the size of the fonts that are used for the code
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  frame=single,	                   % adds a frame around the code
+  %keepspaces=true,                 % useful for keeping indentation 
+  language=bash,
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides \'showstringspaces\'
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  tabsize=2,	                   % sets default tabsize to 2 spaces
+    deletekeywords={cd},            % if you want to delete keywords from the given language
+}
+
+% --- THEME IMPORTED FROM making_presentation ---
+\usetheme{uic}
+\usepackage{amsfonts,amsmath,oldgerm,algorithmic,algorithm}
+\usepackage[font=small,labelfont=bf]{caption} % Required for specifying captions to tables and figures
+
+\newcommand{\hrefcol}[2]{\textcolor{uihteal}{\href{#1}{#2}}}
+\newcommand{\testcolor}[1]{\colorbox{#1}{\textcolor{#1}{test}}~\texttt{#1}}
+\titlebackground*{assets/back}
+
+\themecolor{lightnologo}
+
+% Please see Section 18.1 of Beamer User Guide for all the options \usefonttheme provides
+\usefonttheme[onlymath]{serif}
+% \usefonttheme{serif} % use this if you would like Serif font throughout (and not just for math)
+% --- END THEME IMPORT ---
+
+\title{Linux e \texttt{terminali}}
+\author{Mattia Graziani, Alice Benatti}
+\date{04 novembre 2025}
+\subtitle{{\Large Laboratori fra pari}}
+\setlength{\titleboxwidth}{0.45\textwidth}
+
+
+\begin{document}
+
+\maketitle
+\themecolor{lightnologo} % reverts to a logo based theme (if you disabled it for title page)
+
+\footlinecolor{expowhite}
+
+
+\include{Intro}
+\include{1-Perchè}
+\include{2-Primi passi}
+\include{3-Muoversi tra file e cartelle}
+\include{4-Linux file system}
+\include{5-Create directory}
+\include{6-Interagire con file}
+\include{7-Comandi di base}
+\include{8-Wildcard}
+\include{9-Root e permessi}
+\include{10-Il potere della shell}
+\include{11-More work to do}
+    
+\end{document}

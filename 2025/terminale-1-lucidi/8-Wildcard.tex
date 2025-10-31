@@ -1,0 +1,41 @@
+\section{Wildcard}
+\begin{frame}{Wildcard}
+  Nella \textit{shell} l'asterisco \texttt{*} fa da "segnaposto" per una 
+  qualsiasi altra sequenza di caratteri.\bigskip
+
+  Esempio: \texttt{torr*} si espande in: \texttt{torr}, \texttt{torra}, 
+  \texttt{torrb}, $\cdots$, \texttt{torraa}, \texttt{torrab}, \texttt{torrac}. 
+  Valgono ovviamente anche i numeri e altri caratteri oltre alle lettere.\bigskip
+
+  Questo permette di indicare più file con parti comuni nel nome. Si possono
+  combinare anche più asterischi: \texttt{c*a*} fa match con tutte le
+  parole che iniziano per \texttt{c} e hanno almeno una \texttt{a} nel 
+  nome. \texttt{*pila*} fa match con tutte le parole che hanno \texttt{pila} nel 
+  nome.\bigskip
+\end{frame}
+
+\begin{frame}[fragile]{Wildcard esempi}
+  \begin{figure}
+    \begin{lstlisting}[basicstyle=\footnotesize]
+[matti@pirandello castoro]$ cd ..
+[matti@pirandello prove]$ ls
+capybara  castoro  criceto
+    \end{lstlisting}
+  \end{figure}
+
+  Proviamo a stampare solo le cartelle che iniziano con \texttt{ca}: 
+  
+  \begin{figure}
+    \begin{lstlisting}[basicstyle=\footnotesize]
+[matti@pirandello prove]$ ls -d ca*
+capybara  castoro
+    \end{lstlisting}
+  \end{figure}
+
+  La flag \texttt{-d} del comando \texttt{ls} permette di elencare solo le
+  directory \bigskip
+
+  Perché dobbiamo metterla se vogliamo elencare solo le cartelle? Cosa
+  stamperebbe altrimenti?
+
+\end{frame}

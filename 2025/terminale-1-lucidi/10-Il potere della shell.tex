@@ -1,0 +1,133 @@
+\section{Pipe e ridirezione}
+\begin{frame}{Il potere della shell}
+  Finora abbiamo visto soltanto comandi base e usati singolarmente. Spesso sono
+  utili usati cos`i come abbiamo visto, ma diventano molto potenti se usati in
+  combinazione con altri comandi.\bigskip
+
+  Come si fa però a combinare più comandi? \bigskip 
+
+  Ricordiamoci che:
+  \begin{itemize}
+    \item Un comando restituisce sempre qualcosa sullo standard output
+    \item Lo standard output è considerato come un file dal sistema
+    \item La maggior parte dei comandi visti fino ad adesso hanno la 
+      possibilità di prendere in input lo standard output invece che un file 
+      classico
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Cosa possiamo fare dalla shell}
+  \begin{figure}
+    \begin{tikzpicture}
+      \draw (-1.5,3) rectangle ++(3, 1);
+      \draw (-1.5,-1.95) rectangle ++(3, 1);
+      \draw [->] (0,3) -- (0, 2);
+      \draw [->] (0,0.1) -- (0, -0.9);
+      \node [cylinder, shape border rotate=90, draw,minimum height=2cm,minimum width=1.5cm] at (0,1) {};
+
+      \node at (0, 1) {buffer};
+      \node at (0, 3.5) {command 1};
+      \node at (0, -1.5) {command 2};
+      \node at (1, -0.5) {output};
+      \node at (1, 2.5) {input};
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Pipe}
+  Per prendere l'output di un comando e riderizionarlo in input verso un altro
+  comando si usa la \textbf{pipe} \texttt{|}\bigskip
+
+  Per esempio se vogliamo vedere tutti i file presenti in \texttt{/bin} il 
+  nostro terminale si riempie di scritte.\bigskip
+
+  Possiamo visualizzare il lungo output con il comando \texttt{less}: 
+  \texttt{ls /bin | less}
+\end{frame}
+
+\begin{frame}[fragile]{Pipe - grep}
+  Come abbiamo visto la lista di file presenti in \texttt{/bin} è molto lunga.
+  Se volessimo trovarne uno specifico? \bigskip
+
+  Nonostante esiste un comando apposito per cercare file, con le conoscenze che 
+  abbiamo al momento possiamo costruire una soluzione alternativa:\bigskip\pause
+
+  \begin{figure}
+    \begin{lstlisting}
+[matti@pirandello prove]$ ls /bin | grep "firefox" 
+firefox
+[matti@pirandello prove]$
+    \end{lstlisting}
+  \end{figure}
+  
+  dove al posto di \textit{firefox} può andarci una qualsiasi stringa. \bigskip
+\end{frame}
+
+\begin{frame}{Pipe - esempi}
+  Di seguito una lista di esempi di utilizzo della \texttt{pipe}:
+  \begin{itemize}
+    \item \texttt{cat file1 file2 | grep "word"} cerca una stringa in più file
+    \item \texttt{ls /bin | wc -l} conta quanti programmi sono presenti in 
+      \texttt{/bin}
+    \item \texttt{ls /bin | grep "zip" | wc -l} conta quanti programmi hanno
+      la stringa "\textit{zip}" al loro interno nella cartella \texttt{/bin}
+    \item \texttt{grep "castoro" animali | wc -l} conta le occorrenze di 
+      \texttt{castoro} trovate nel file \texttt{animali}
+    \item \texttt{grep "the" book | less} mostra le occorrenze di \texttt{the} 
+      trovate in \texttt{book} attraverso il lettore \texttt{less}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Ridirezione su file}
+  Visto che è possibile mandare l'output di un comando nell'input di un altro 
+  comando, come possiamo salvare l'output di un comando su un file?
+
+  Esiste l'\textbf{operatore di ridirezione} \texttt{>}\bigskip
+
+  Sintassi: \texttt{comando > file}\bigskip
+
+  \textbf{ATTENZIONE}: Alla \textit{shell} non interessa se il file esiste già, quindi se 
+  esiste lo SOVRASCRIVE COMPLETAMENTE.
+\end{frame}
+
+\begin{frame}[fragile]{Esempi ridirezione distruttiva su file}
+  \begin{figure}
+    \begin{lstlisting}
+[matti@pirandello prove]$ ls
+capybara  castoro  criceto
+[matti@pirandello prove]$ ls > lista
+[matti@pirandello prove]$ ls
+capybara  castoro  criceto lista
+[matti@pirandello prove]$ cat lista
+capybara  castoro  criceto lista 
+// !contiene anche lista!
+[matti@pirandello prove]$ echo "Hello World" > lista
+[matti@pirandello prove]$ cat lista
+// cosa contiene ora lista?
+    \end{lstlisting}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Ridirezione su file non distruttiva}
+  Esiste anche un operatore per indirizzare su file l'output di un comando senza 
+  sovrascrivere il contenuto del file, ma "appendendo" alla fine del file il
+  contenuto scritto.\bigskip
+
+  Sintassi: \texttt{comando >> file}\bigskip
+
+  Si usa nello stesso modo dell'operatore classico\bigskip
+\end{frame}
+
+\begin{frame}[fragile]{Esempi ridirezione non distruttiva su file}
+  \begin{figure}
+    \begin{lstlisting}
+[matti@pirandello prove]$ ls
+capybara  castoro  criceto lista
+[matti@pirandello prove]$ cat lista
+Hello World
+[matti@pirandello prove]$ ls | wc -l >> lista
+[matti@pirandello prove]$ cat lista
+// cosa contiene ora lista?
+    \end{lstlisting}
+  \end{figure}
+\end{frame}
