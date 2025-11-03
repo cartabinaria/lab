@@ -22,6 +22,18 @@ lontra: empty
 \end{frame}
 
 \subsection{Copiare, spostare ed eliminare}
+\begin{frame}{Copia, incolla e interruzione}
+  Nel terminale non funziona il classico copia e incolla da tastiera eseguito
+  con \texttt{ctrl + c} e \texttt{ctrl + v}. Queste combinazioni di tasti hanno 
+  il loro scopo e non sono fatti per copiare.\bigskip
+
+  Per copiare e incollare dovete usare \texttt{shift + ctrl + c} e 
+  \texttt{shift + ctrl + v}.\bigskip
+
+  \texttt{ctrl + c} serve per interrompere un processo in esecuzione.
+  Ma se volessimo copiare un intero file? Non è aprirlo, selezionare tutto e copiarlo altrove...
+\end{frame}
+
 \begin{frame}[fragile]{Copiare file}
   Il comando per copiare dei file è \texttt{cp}. il suo utilizzo è 
   principalmente: \texttt{cp file/da/copiare destinazione}
@@ -194,22 +206,6 @@ capybara castoro criceto
   Approfondiremo vim più avanti, per il momento usiamo nano.
 \end{frame}
 
-
-\subsection{Scrivere in un file di testo}
-\begin{frame}[fragile]{Scrivere in un file di testo}
-  Per scrivere in un file di testo esiste il comando \texttt{nano}.\bigskip
-
-  Sintassi: \texttt{nano nome/file}\bigskip
-
-  Una volta dentro l'editor si può scrivere normalmente. Per salvare e uscire
-  si usa la combinazione di tasti \texttt{ctrl + x}, poi \texttt{y} per 
-  confermare il salvataggio e infine \texttt{invio} per salvare con lo stesso
-  nome.\bigskip
-
-  Per uscire senza salvare si usa sempre \texttt{ctrl + x} ma poi si preme
-  \texttt{n} per non salvare.
-\end{frame}
-
 \begin{frame}[fragile]{Esempio di nano}
   \begin{figure}
     \begin{lstlisting}[basicstyle=\footnotesize]
@@ -236,6 +232,22 @@ lontra triangolo
   \end{figure}
 \end{frame}
 
+
+\subsection{Scrivere in un file di testo}
+\begin{frame}[fragile]{Scrivere in un file di testo}
+  Per scrivere in un file di testo esiste il comando \texttt{nano}.\bigskip
+
+  Sintassi: \texttt{nano nome/file}\bigskip
+
+  Una volta dentro l'editor si può scrivere normalmente. Per salvare e uscire
+  si usa la combinazione di tasti \texttt{ctrl + x}, poi \texttt{y} per 
+  confermare il salvataggio e infine \texttt{invio} per salvare con lo stesso
+  nome.\bigskip
+
+  Per uscire senza salvare si usa sempre \texttt{ctrl + x} ma poi si preme
+  \texttt{n} per non salvare.
+\end{frame}
+
 \subsection{Operazioni testuali}
 \begin{frame}{Contare caratteri, linee, ecc. - wc}
   Esiste un comando per contare i caratteri, le linee e altre informazioni
@@ -249,7 +261,7 @@ lontra triangolo
     \item Il numero di parole
     \item Il numero di bytes
   \end{itemize}
-  Per stampare il numero di caratteri: \texttt{wc -c nome/file}
+  Per stampare solo il numero di byte: \texttt{wc -c nome/file} \bigskip
   Per stampare il numero di linee: \texttt{wc -l nome/file}
 \end{frame}
 
