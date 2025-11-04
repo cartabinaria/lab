@@ -1,7 +1,7 @@
 \section{Pipe e ridirezione}
 \begin{frame}{Il potere della shell}
   Finora abbiamo visto soltanto comandi base e usati singolarmente. Spesso sono
-  utili usati cos`i come abbiamo visto, ma diventano molto potenti se usati in
+  utili usati così come abbiamo visto, ma diventano molto potenti se usati in
   combinazione con altri comandi.\bigskip
 
   Come si fa però a combinare più comandi? \bigskip 
@@ -54,9 +54,9 @@
 
   \begin{figure}
     \begin{lstlisting}
-[matti@pirandello prove]$ ls /bin | grep "firefox" 
+[mattia@pirandello prove]$ ls /bin | grep "firefox" 
 firefox
-[matti@pirandello prove]$
+[mattia@pirandello prove]$
     \end{lstlisting}
   \end{figure}
   
@@ -93,16 +93,15 @@ firefox
 \begin{frame}[fragile]{Esempi ridirezione distruttiva su file}
   \begin{figure}
     \begin{lstlisting}
-[matti@pirandello prove]$ ls
+[mattia@pirandello prove]$ ls
 capybara  castoro  criceto
-[matti@pirandello prove]$ ls > lista
-[matti@pirandello prove]$ ls
+[mattia@pirandello prove]$ ls > lista
+[mattia@pirandello prove]$ ls
 capybara  castoro  criceto lista
-[matti@pirandello prove]$ cat lista
+[mattia@pirandello prove]$ cat lista
 capybara  castoro  criceto lista 
-// !contiene anche lista!
-[matti@pirandello prove]$ echo "Hello World" > lista
-[matti@pirandello prove]$ cat lista
+[mattia@pirandello prove]$ echo "Hello World" > lista
+[mattia@pirandello prove]$ cat lista
 // cosa contiene ora lista?
     \end{lstlisting}
   \end{figure}
@@ -121,12 +120,12 @@ capybara  castoro  criceto lista
 \begin{frame}[fragile]{Esempi ridirezione non distruttiva su file}
   \begin{figure}
     \begin{lstlisting}
-[matti@pirandello prove]$ ls
+[mattia@pirandello prove]$ ls
 capybara  castoro  criceto lista
-[matti@pirandello prove]$ cat lista
+[mattia@pirandello prove]$ cat lista
 Hello World
-[matti@pirandello prove]$ ls | wc -l >> lista
-[matti@pirandello prove]$ cat lista
+[mattia@pirandello prove]$ ls | wc -l >> lista
+[mattia@pirandello prove]$ cat lista
 // cosa contiene ora lista?
     \end{lstlisting}
   \end{figure}

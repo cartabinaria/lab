@@ -5,15 +5,15 @@
   Per sapere di che tipo è un file possiamo usare il comando \texttt{file}:
   \begin{figure}
     \begin{lstlisting}[basicstyle=\footnotesize]
-[matti@pirandello prove]$ ls 
+[mattia@pirandello prove]$ ls 
 castoro lontra
-[matti@pirandello prove]$ file castoro 
+[mattia@pirandello prove]$ file castoro 
 castoro: directory
-[matti@pirandello ~]$ file lontra
+[mattia@pirandello ~]$ file lontra
 lontra: empty
 // Se lontra contenesse del testo
 // lontra: ASCII text
-[mattia@pirandello ~]$
+[mattiaa@pirandello ~]$
     \end{lstlisting}
     \caption{esempi del comando file}
   \end{figure}
@@ -39,12 +39,12 @@ lontra: empty
   principalmente: \texttt{cp file/da/copiare destinazione}
   \begin{figure}
     \begin{lstlisting}[basicstyle=\small]
-[matti@pirandello prove]$ ls 
+[mattia@pirandello prove]$ ls 
 castoro lontra
-[matti@pirandello prove]$ cp lontra criceto 
-[matti@pirandello prove]$ ls 
+[mattia@pirandello prove]$ cp lontra criceto 
+[mattia@pirandello prove]$ ls 
 castoro criceto lontra
-[matti@pirandello prove]$
+[mattia@pirandello prove]$
     \end{lstlisting}
     \caption{esempi del comando cp}
   \end{figure}
@@ -57,13 +57,13 @@ castoro criceto lontra
   destinazione}
   \begin{figure}
     \begin{lstlisting}[basicstyle=\small]
-[matti@pirandello prove]$ ls 
+[mattia@pirandello prove]$ ls 
 castoro criceto lontra
-[matti@pirandello prove]$ cd castoro/ 
-[matti@pirandello castoro]$ mv ../lontra .
-[matti@pirandello castoro]$ ls
+[mattia@pirandello prove]$ cd castoro/ 
+[mattia@pirandello castoro]$ mv ../lontra .
+[mattia@pirandello castoro]$ ls
 lontra
-[matti@pirandello castoro]$
+[mattia@pirandello castoro]$
     \end{lstlisting}
     \caption{esempi del comando mv}
   \end{figure}
@@ -74,13 +74,13 @@ lontra
   Il comando \texttt{mv} permette anche di rinominare i file:
   \begin{figure}
     \begin{lstlisting}[basicstyle=\normalsize]
-[matti@pirandello castoro]$ touch cubo
-[matti@pirandello castoro]$ ls
+[mattia@pirandello castoro]$ touch cubo
+[mattia@pirandello castoro]$ ls
 cubo lontra
-[matti@pirandello castoro]$ mv cubo triangolo
-[matti@pirandello castoro]$ ls
+[mattia@pirandello castoro]$ mv cubo triangolo
+[mattia@pirandello castoro]$ ls
 lontra triangolo
-[matti@pirandello castoro]$
+[mattia@pirandello castoro]$
     \end{lstlisting}
     \caption{esempi del comando mv}
   \end{figure}
@@ -89,7 +89,7 @@ lontra triangolo
 \begin{frame}{Now I am become death, the destroyer of files}
   Il comando più pericoloso in linux è indubbiamente \texttt{rm}.\bigskip
 
-  \texttt{rm nome/file} elimina il file passato come argomento.\bigskip
+  \texttt{rm path/to/file} elimina il file passato come argomento.\bigskip
 
   Non si può tornare indietro, una volta eliminato un file è perso per 
   sempre!\bigskip
@@ -108,13 +108,13 @@ lontra triangolo
   \texttt{-r}
   \begin{figure}
     \begin{lstlisting}[basicstyle=\footnotesize]
-[matti@pirandello prove]$ ls 
+[mattia@pirandello prove]$ ls 
 castoro criceto
-[matti@pirandello prove]$ cp castoro capybara 
+[mattia@pirandello prove]$ cp castoro capybara 
 cp: -r not not specified; omitting directory 'castoro'
 castoro criceto
-[matti@pirandello prove]$ cp -r castoro capybara 
-[matti@pirandello prove]$ ls 
+[mattia@pirandello prove]$ cp -r castoro capybara 
+[mattia@pirandello prove]$ ls 
 capybara castoro criceto
     \end{lstlisting}
     \caption{esempi del comando cp ricorsivo}
@@ -130,7 +130,7 @@ capybara castoro criceto
   \texttt{-}\bigskip
 
   Per comodità sono di una sola lettera, ma in certi casi possono essere anche 
-  più verbose es. \texttt{--recursive}.\bigskip
+  più verbose es. \texttt{-{}-recursive}.\bigskip
 
   Si possono combinare più \textit{flag} concatenando le lettere dopo il 
   trattino: \texttt{-r -t} è equivalente a \texttt{-rt}
@@ -174,7 +174,7 @@ capybara castoro criceto
   \texttt{less} è in realtà un comando che permette di leggere file di 
   testo.\bigskip
 
-  Sintassi: \texttt{less nome/file}\bigskip
+  Sintassi: \texttt{less path/to/file}\bigskip
 
   \texttt{less} è molto veloce a leggere file di testo di grandi dimensioni.
 \end{frame}
@@ -209,9 +209,9 @@ capybara castoro criceto
 \begin{frame}[fragile]{Esempio di nano}
   \begin{figure}
     \begin{lstlisting}[basicstyle=\footnotesize]
-[matti@pirandello castoro]$ ls
+[mattia@pirandello castoro]$ ls
 lontra triangolo
-[matti@pirandello castoro]$ nano lontra
+[mattia@pirandello castoro]$ nano lontra
   \end{lstlisting}
   \end{figure}
   \begin{figure}
@@ -237,7 +237,7 @@ lontra triangolo
 \begin{frame}[fragile]{Scrivere in un file di testo}
   Per scrivere in un file di testo esiste il comando \texttt{nano}.\bigskip
 
-  Sintassi: \texttt{nano nome/file}\bigskip
+  Sintassi: \texttt{nano path/to/file}\bigskip
 
   Una volta dentro l'editor si può scrivere normalmente. Per salvare e uscire
   si usa la combinazione di tasti \texttt{ctrl + x}, poi \texttt{y} per 
@@ -253,7 +253,7 @@ lontra triangolo
   Esiste un comando per contare i caratteri, le linee e altre informazioni
   all'interno di un file di testo: \texttt{wc}\bigskip
 
-  Sintassi: \texttt{wc nome/file}\bigskip
+  Sintassi: \texttt{wc path/to/file}\bigskip
 
   Senza nessuna \textit{flag} stampa:
   \begin{itemize}
@@ -261,8 +261,10 @@ lontra triangolo
     \item Il numero di parole
     \item Il numero di bytes
   \end{itemize}
-  Per stampare solo il numero di byte: \texttt{wc -c nome/file} \bigskip
-  Per stampare il numero di linee: \texttt{wc -l nome/file}
+  Per stampare solo il numero di byte: \texttt{wc -c path/to/file}.
+
+
+  Per stampare il numero di linee: \texttt{wc -l path/to/file}.
 \end{frame}
 
 \begin{frame}[fragile]{Ricerca di una stringa - grep}
@@ -274,9 +276,9 @@ lontra triangolo
 
   \begin{figure}
     \begin{lstlisting}[basicstyle=\footnotesize]
-[matti@pirandello castoro]$ grep -i "hello" lontra
+[mattia@pirandello castoro]$ grep -i "hello" lontra
 Hello World!
-[matti@pirandello castoro]$
+[mattia@pirandello castoro]$
     \end{lstlisting}
     \caption{Ricerca di una stringa in un file}
   \end{figure}
@@ -293,9 +295,9 @@ Hello World!
 
   \begin{figure}
     \begin{lstlisting}[basicstyle=\footnotesize]
-[matti@pirandello castoro]$ cat lontra
+[mattia@pirandello castoro]$ cat lontra
 Hello World!
-[matti@pirandello castoro]$
+[mattia@pirandello castoro]$
     \end{lstlisting}
       \caption{Stampa di un file tramite cat}
   \end{figure}

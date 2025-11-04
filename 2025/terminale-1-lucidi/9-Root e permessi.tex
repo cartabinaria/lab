@@ -49,14 +49,14 @@
   Per eseguire il comando sono necessari i privilegi di root.
 \end{frame}
 
-\begin{frame}{Esempio di ls -al}
+\begin{frame}{Esempio di ls -l}
   \begin{figure}
     \begin{tikzpicture}
       \node[inner xsep=0pt,brown] (a) {\texttt{d}};
 
       \node[inner xsep=0pt,right=0pt of a, blue] (b) {\texttt{rwxr-xr-x}};
-      \node[inner xsep=0pt,right=5pt of b, green!50!black] (c) {\texttt{matti}};
-      \node[inner xsep=0pt,right=5pt of c, orange] (d) {\texttt{matti}};
+      \node[inner xsep=0pt,right=5pt of b, green!50!black] (c) {\texttt{mattia}};
+      \node[inner xsep=0pt,right=5pt of c, orange] (d) {\texttt{mattia}};
       \node[inner xsep=0pt,right=5pt of d] (e) 
       {\texttt{4096 Nov  4 17:00 castoro}};
 
@@ -194,5 +194,25 @@
     \item \texttt{chmod u=rwx,g=,o= pippo} Rende pippo leggibile, scrivibile ed
       eseguibile per l'utente. Inoltre rimuove tutti i permessi dal gruppo e 
       altri.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Esempi \texttt{chmod} con bit}
+  \begin{itemize}
+    \item \texttt{chmod +100 pippo} Rende pippo un file eseguibile per l'utente
+    \item \texttt{chmod -002 pippo} Rimuove la possibilità a tutti gli utenti
+      diversi dall'owner del file e non appartenenti al gruppo del file di 
+      scrivere su pippo.
+    \item \texttt{chmod +040 pippo} Rende pippo leggibile al gruppo
+    \item \texttt{chmod +010 pippo} Rende pippo eseguibile dal gruppo
+    \item \texttt{chmod 700 pippo} Rende pippo leggibile, scrivibile ed
+      eseguibile per l'utente. Inoltre rimuove tutti i permessi dal gruppo e 
+      altri.
+
+    \item \texttt{chmod 777 pippo} Rende pippo leggibile, scrivibile ed
+      eseguibile per tutti.
+    \item \texttt{chmod 644 pippo} Rende pippo leggibile e scrivibile per l'utente,
+      leggibile per il gruppo e gli altri.
+    \item \texttt{chmod 600 pippo} Rende pippo leggibile e scrivibile solo per l'utente.
   \end{itemize}
 \end{frame}
