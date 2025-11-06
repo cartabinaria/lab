@@ -1,0 +1,110 @@
+\section{Input/Output e ridirezioni}
+\begin{frame}{Standard Input/Output e ridirezioni}
+  Abbiamo iniziato a vedere l'esistenza di operazioni un po' più potenti dei 
+  singoli comandi. Infatti combinando due o più comandi possiamo creare
+  complesse procedure.\bigskip
+
+  Per combinare comandi è importante ricordarsi che:
+  \begin{itemize}
+    \item Un comando restituisce sempre (o quasi, es \texttt{cd}) qualcosa
+    sullo \textit{standard output}.
+    \item Lo \textit{standard output} è considerato come un file (in memoria) dal 
+      sistema.
+    \item La maggior parte dei comandi visti fino ad adesso hanno la 
+      possibilità di prendere in input lo \textit{standard output} invece che un file 
+      classico.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Combinare comandi}
+  Come abbiamo visto è possibile mandare l'output di un comando nell'input di
+  un altro comando grazie alla \textbf{pipe} \texttt{|}\bigskip
+
+  Esiste anche l'\textbf{operatore di ridirezione} \texttt{>} che al posto di
+  indirizzare l'output in un comando, scrive (sovrascrive) direttamente su un file.\bigskip
+
+  Sintassi: \code{comando > file}\bigskip
+\end{frame}
+
+\begin{frame}[fragile]{Combinare comandi}
+  Possiamo usare il comando di redirezione \texttt{>} anche più volte in modo
+  concatenato.
+
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ ls 
+capybara  castoro  criceto  file 
+[mattia@pirandello prove]$ ls > file1 > file2
+[mattia@pirandello prove]$ ls 
+capybara  castoro  criceto  file  file1  file2 
+[mattia@pirandello prove]$ cat file1 
+capybara  castoro  criceto  file  file1  file2 
+[mattia@pirandello prove]$ cat file2 
+capybara  castoro  criceto  file  file1  file2 
+[mattia@pirandello prove]$
+\end{lstlisting}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Ridirezione su file non distruttiva}
+  Esiste anche un operatore per indirizzare su file l'output di un comando senza 
+  sovrascrivere il contenuto del file, ma "appendendo" alla fine del file il
+  contenuto scritto.\bigskip
+
+  Sintassi: \code{comando >> file}\bigskip
+\end{frame}
+
+\begin{frame}[fragile]{Ridirezione dello standard error}
+  Di predefinito l'operatore di redirezione reindirizza solo lo \textit{standard output}.
+  Questo significa che se un comando restituisce un errore, questo non verrà 
+  redirezionato:\medskip
+
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ ls /asdkjc > mangusta
+ls: cannot access '/asdkjc': No such file or 
+directory
+[mattia@pirandello prove]$
+\end{lstlisting}
+    \caption{Esempio di \textit{stderr} non ridirezionato}
+  \end{figure}
+
+  Per ridirezionare anche lo \textit{standard error} dentro il file è necessario
+  specificarlo alla shell.
+\end{frame}
+
+\begin{frame}[fragile]{Ridirezione dello standard error}
+  Lo \textit{standard error} in linux ha come \textit{file descriptor} il \textbf{2}. 
+  Non importa sapere cosa sia un file descriptor, basta ricordarsi che
+  \textbf{stdout = 1} e \textbf{stderr = 2}. \medskip
+
+  Per ridirezionare lo \textit{stderr} sullo \textit{stdout} si usa la seguente sintassi:
+  \textbf{2>\&1} \medskip
+
+  Redirezionando lo \textit{standard error} verso lo \textit{standard output} è possibile scrivere
+  entrambi su file:
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@priandello prove]$ ls /asdkjc > mangusta 2>&1 
+[mattia@priandello prove]$ cat mangusta
+ls: cannot access '/asdkjc': No such file or 
+directory
+\end{lstlisting}
+    \caption{Esempio di \textit{stderr} ridirezionato}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Ridirezione dello standard error}
+  Da notare che questo funziona anche per la pipe:
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@priandello prove]$ ls /asdkjc | head -c 10
+ls: cannot access '/asdkjc': No such file or 
+directory
+[mattia@priandello prove]$ ls /asdkjc 2>&1 | head -c 10
+ls: cannot
+[mattia@priandello prove]$
+\end{lstlisting}
+    \caption{Esempio di \textit{stderr} ridirezionato}
+  \end{figure}
+\end{frame}

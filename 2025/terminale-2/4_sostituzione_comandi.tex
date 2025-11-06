@@ -1,0 +1,63 @@
+\section{Sostituzione di comandi}
+\begin{frame}[fragile]{La pipe non riesce a fare tutto}
+  Con la pipe \textbf{|} possiamo combinare più comandi assieme, però non riusciamo a fare
+  ancora tutto. \textit{Se volessimo vedere il tipo di tutti i file che hanno la parola zip nel nome
+  dentro la cartella \texttt{/bin} come facciamo?}
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ ls -d /bin/* | grep zip | file
+Usage: file [...]
+\end{lstlisting}
+    \caption{Esempio \textbf{SBAGLIATO}}
+  \end{figure}
+  
+  Questo comando restituisce un errore perché il comando \texttt{file} non 
+  riesce ad interpretare lo standard input tramite la pipe, infatti \texttt{file} vuole gli input come argomenti: \texttt{file ...}
+\end{frame}
+
+\begin{frame}[fragile]{Sostituzione di comandi}
+  La shell ammette una sintassi per la sostituzioni di comandi all'interno di
+  un'espressione. \medskip
+
+  Sintassi: \texttt{\$(comando)} \medskip
+
+  La shell sostituirà l'intera espressione al risultato del comando:
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ echo $(ls)
+1  capybara  castoro  criceto  file  file1  file2  mangusta
+\end{lstlisting}
+    \caption{Esempio di sostituzione del comando \texttt{ls}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Sostituzione di comandi}
+  Ritornando a quello che volevamo fare prima: \textit{Se volessimo vedere il 
+  tipo di tutti i file che hanno la parola zip nel nome dentro la cartella 
+  \texttt{/bin} come facciamo?} \textbf{Con la sostituzione di comandi!}
+
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ file $(ls -d /bin/* | grep zip)
+\end{lstlisting}
+    \caption{Esempio di più comandi}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Matematica base}
+  Si possono fare anche operazioni matematiche con questo tipo di sostituzione:
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ echo $((1 + 1))
+2
+[mattia@pirandello prove]$ echo $((9 * 5))
+45
+[mattia@pirandello prove]$ echo 3GB are $((3 * 1024))MB
+3GB are 3072MB
+\end{lstlisting}
+    \caption{Esempio di più comandi}
+ \vspace{0.3em}
+    \footnotesize\textbf{Nota:} è necessario usare la doppia parentesi \texttt{(())} in quanto vogliamo che sia un'espressione aritmetica.
+  \end{figure}
+\end{frame}
+

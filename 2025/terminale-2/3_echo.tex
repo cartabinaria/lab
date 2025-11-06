@@ -1,0 +1,78 @@
+\section{\Large echo, \small echo, \tiny echo, echo...}
+\begin{frame}[fragile]{echo, \small echo, \tiny echo...}
+  Il comando \texttt{echo}, come suggerisce il suo nome, serve per stampare
+  quello che gli viene passato come argomento:
+
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ echo "pippo"
+pippo
+[mattia@pirandello prove]$ echo "Questa è una frase"
+Questa è una frase
+[mattia@pirandello prove]$
+\end{lstlisting}
+    \caption{Esempio di echo}
+  \end{figure}
+  A prima vista può sembra abbastanza inutile, in realtà ha tantissime
+  applicazioni.
+\end{frame}
+
+\begin{frame}[fragile]{Seeing the world as the shell sees it}
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ echo *
+1 capybara castoro criceto file file1 file2 mangusta
+[mattia@pirandello prove]$ echo */lontra
+capybara/lontra castoro/lontra
+\end{lstlisting}
+    \caption{Esempio di echo con wildcard}
+  \end{figure}
+
+  Come possiamo vedere \texttt{echo} non stampa * ma lo tratta come la shell:
+  ovvero come una \textit{wildcard}. \medskip
+
+  In realtà è proprio la shell a sostituire la wildcard con le entries opportune
+  prima di eseguire il comando \texttt{echo}.
+\end{frame}
+
+\begin{frame}[fragile]{Seeing the world as the shell sees it}
+  Esiste una particolare sintassi per indicare un range in bash:
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ echo {1..11}
+1 2 3 4 5 6 7 8 9 10 11
+[mattia@pirandello prove]$ echo {c..t}
+c d e f g h i j k l m n o p q r s t
+\end{lstlisting}
+    \caption{Esempio di echo range}
+  \end{figure}
+
+  La shell, prima di eseguire l'echo, sostituisce le parentesi graffe con il 
+  range specificato.\medskip
+
+  Non funziona solo con echo in quanto è la shell stessa a fare la sostituzione.
+  Funziona molto bene con \texttt{mkdir}: \smallskip 
+
+  \code{mkdir \{2020..2021\}-\{01..12\}-\{01..31\}}
+\end{frame}
+
+
+\begin{frame}[fragile]{Seeing the world as the shell sees it}
+  E si usa come i metalinguaggi dei prof:
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ echo {1,11}
+1 11
+\end{lstlisting}
+    \caption{Esempio di due elementi di un range}
+  \end{figure}
+  
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ echo A{dm,pp}Staff
+AdmStaff AppStaff
+\end{lstlisting}
+    \caption{Esempio con stringhe}
+  \end{figure}
+
+\end{frame}

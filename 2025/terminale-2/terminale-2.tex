@@ -1,0 +1,90 @@
+\documentclass{beamer}
+\usepackage[italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{graphicx}   
+\usepackage{subfig}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{shapes, calc, positioning}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{upquote} 
+\usepackage{listingsutf8}
+\usepackage{color}
+
+\lstset{ 
+  backgroundcolor=\color{black!20!white},   % choose the background color
+  basicstyle=\ttfamily,        % the size of the fonts that are used for the code
+  captionpos=b,                    % sets the caption-position to bottom
+  frame=single,	                   % adds a frame around the code
+  keepspaces=true,                 % useful for keeping indentation 
+  language=bash,
+  showstringspaces=false,
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  tabsize=2,	                   % sets default tabsize to 2 spaces
+  deletekeywords={cd},            % if you want to delete keywords from the given language
+  basewidth=0.5em, 
+  literate=
+    {à}{{\`a}}1 {è}{{\`e}}1 {é}{{\'e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+    {À}{{\`A}}1 {È}{{\`E}}1 {É}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+}
+
+\newcommand{\code}[1]{%
+  \begingroup
+  \setlength{\fboxsep}{3pt}%
+  \colorbox{black!10}{\texttt{#1}}%
+  \endgroup
+}
+
+
+% --- THEME IMPORTED FROM making_presentation ---
+\usetheme{uic}
+\usepackage{amsfonts,amsmath,oldgerm,algorithmic,algorithm}
+\usepackage[font=small,labelfont=bf]{caption} % Required for specifying captions to tables and figures
+\captionsetup{skip=1pt}
+
+
+\newcommand{\hrefcol}[2]{\textcolor{uihteal}{\href{#1}{#2}}}
+\newcommand{\testcolor}[1]{\colorbox{#1}{\textcolor{#1}{test}}~\texttt{#1}}
+\titlebackground*{assets/back}
+
+\themecolor{lightnologo}
+
+% Please see Section 18.1 of Beamer User Guide for all the options \usefonttheme provides
+\usefonttheme[onlymath]{serif}
+% \usefonttheme{serif} % use this if you would like Serif font throughout (and not just for math)
+% --- END THEME IMPORT ---
+
+\title{\LARGE{Linux e \texttt{terminali} 2}}
+\author{Mattia Graziani, Alice Benatti}
+\date{06 novembre 2025}
+\subtitle{{\Large Laboratori fra pari}}
+\setlength{\titleboxwidth}{0.45\textwidth}
+
+
+\begin{document}
+
+\maketitle
+\themecolor{lightnologo} % reverts to a logo based theme (if you disabled it for title page)
+
+\footlinecolor{expowhite}
+\makeatletter
+\renewcommand{\@footlinepayoff}{}
+\makeatother
+
+
+\include{Intro}
+\include{1_standard_IOE}
+\include{2_buconero}
+\include{3_echo}
+\include{4_sostituzione_comandi}
+\include{5_variabili}
+\include{6_processi}
+\include{7_scripting}
+\include{8_vim}
+\include{9_scripting_with_vim}
+\include{10_more_work_to_do}
+    
+\end{document}
