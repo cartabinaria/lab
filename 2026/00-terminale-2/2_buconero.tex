@@ -1,0 +1,32 @@
+\section{Buco nero}
+\begin{frame}[fragile]{/dev/null}
+  Come si fa a ridirezionare soltanto lo \textit{stderr} su file e "buttare via" lo
+  \textit{stdout}? \medskip
+
+  Esiste in Linux un "file" che indipendentemente da cosa gli passate lo butta 
+  via. Questo "file" è \textbf{\texttt{/dev/null}}.\medskip
+
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ ls /asdkjc / 2> /tmp/pippo 
+1> /dev/null
+[mattia@pirandello prove]$ cat /tmp/pippo
+ls: cannot access '/asdkjc': No such file or 
+directory
+\end{lstlisting}
+    \caption{Esempio di stderr ridirezionato}
+  \end{figure}
+Ricordiamoci che \texttt{stdout = 1} e \texttt{stderr = 2}.
+\end{frame}
+
+\begin{frame}{Filtri}
+  Quando si combinano assieme più comandi spesso i seguenti tornano utili:
+  \begin{itemize}
+    \item \texttt{sort}: Restituisce in \textit{stdout} il testo ordinato preso in \textit{stdin}
+    \item \texttt{uniq}: Se ci sono più linee consecutive uguali ne lascia solo una
+    \item \texttt{grep}: Cerca il testo passato come argomento
+    \item \texttt{wc}: Conta linee, parole e caratteri passati in input
+    \item \texttt{head}: Manda in \textit{stdout} solo la prima parte del testo
+    \item \texttt{tail}: Manda in \textit{stdout} solo l'ultima parte del testo
+  \end{itemize}
+\end{frame}

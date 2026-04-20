@@ -1,0 +1,69 @@
+\section{Ricerca binaria sul filesystem}
+\begin{frame}[fragile]{find - ricerca binaria sul filesystem}
+  IDEA: Non cercare contenuti, cerca i contenitori.
+\begin{figure}
+\begin{lstlisting}
+		find [PERCORSO] [FILTRI] [AZIONE]
+\end{lstlisting}
+\end{figure}
+
+	\begin{itemize}
+		\item PERCORSO: L'origine della ricerca (. per la cartella corrente, / per la root).
+		\item FILTRI: I criteri di selezione dei file.
+		\item AZIONE: Cosa eseguire sui risultati (se non specificato, li stampa a schermo).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{find - filtri di ricerca}
+ FILTRI: I criteri di selezione dei file.
+		\begin{itemize}
+			\item Per Tempo (Usa i segni: - meno di, + più di)
+			\begin{itemize}
+				\item mtime (Giorni dall'ultima modifica del contenuto).
+				\item mmin (Minuti dall'ultima modifica).
+				\item atime / ctime (Accesso o modifica metadati).
+			\end{itemize}
+			\item Per Dimensione
+			\begin{itemize}
+				\item -size (Es. +1G per "più di 1 GB", -50k per "meno di 50 KB").
+				\item -empty (Trova file o cartelle completamente vuoti).
+			\end{itemize}
+			\item Per Utente / Permessi
+			\begin{itemize}
+			\item -user (Cerca per proprietario del file).
+			\item -perm (Cerca permessi esatti come 777 o parziali come /u=w).
+			\end{itemize}
+		\end{itemize} 	
+\end{frame}
+
+\begin{frame}[fragile]{find - operatori logici}
+	Esistono anche operatori logici per combinare più filtri e creare ricerche più complesse.
+\begin{itemize}
+	\item AND (Implicito): Basta scriverli di seguito (es. file .log E più grandi di 10MB).
+	\item OR (-o): Ne basta uno vero (es. file .pdf O .doc).
+	\item NOT (!): Inverte il match (es. tutto tranne i file .txt).
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{find - il vero potere in azione}
+	È possibile manipolare i risultati di find usando l'opzione di esecuzione dei comandi sui file trovati (\texttt{-exec})
+ \begin{itemize}
+	\item \texttt{\{\}}: Il segnaposto che rappresenta il file trovato.
+	\item \texttt{;}: Chiude il comando (lo esegue una volta per ogni file).
+	\item \texttt{+}: Chiude il comando accodando tutti i file (lo esegue una volta sola in blocco, molto più efficiente).
+	\item \texttt{-delete}: Eliminazione diretta dei file trovati (da usare con estrema cautela)
+\end{itemize}
+	Qualche esempio:
+\begin{itemize}
+	\item Pulizia automatica file vecchi \code{find /tmp -type f -mtime +30 -delete}
+	\item Rende eseguibili tutti gli script in massa \code{find . -name "*.sh" -exec chmod +x {} +}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{find - ottimizzazione e sicurezza}
+È importante usare find con attenzione, soprattutto quando si eseguono comandi sui risultati, per evitare di causare danni involontari (es. eliminare file importanti). Alcuni consigli:
+\begin{itemize}
+	\item Utilizzo della Gestione Spazi (\texttt{-print0}): Stampa i risultati separandoli con un carattere nullo, fondamentale quando si passano i dati a \texttt{xargs -0} per non "rompere" i nomi di file con spazi.
+	\item Limiti di Ricerca ({\texttt{-maxdepth}}): 	Es. \texttt{-maxdepth 2} impedisce a find di scendere in un loop infinito di sottocartelle, fermandosi al secondo livello.
+\end{itemize}
+\end{frame}

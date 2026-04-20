@@ -1,0 +1,38 @@
+\section{Chirurgia dei singoli caratteri}
+\begin{frame}[fragile]{tr - chirurgia dei singoli caratteri}
+	\textbf{Funzionamento Base e Sintassi:}
+	\begin{itemize}
+		\item \textbf{Solo Standard Input} - Non accetta file come argomenti, richiede sempre pipe \verb+|+ o ridirezione \verb+<+
+		 (es. \code{echo "Testo di esempio" | tr 'a-z' 'A-Z'} per convertire in maiuscolo).
+		\item \textbf{Mappatura 1:1} - Associa e sostituisce i caratteri dal primo al secondo set (es. \code{tr 'abc' '123'} trasforma "abc" in "123").
+		\item Sintassi: \code{tr [opzioni] SET1 [SET2]}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{tr - set di caratteri}
+	\textbf{Set di Caratteri (Classi POSIX):}
+	\begin{itemize}
+		\item \code{[:upper:] / [:lower:]} (Gestione maiuscole e minuscole)
+		\item \code{[:digit:] / [:alnum:]} (Identificazione di numeri e valori alfanumerici)
+		\item \code{[:space:]} (Gestione di spazi, tabulazioni e ritorni a capo)
+	\end{itemize}
+\end{frame}
+\begin{frame}[fragile]{tr - opzioni chiave}
+	\textbf{Opzioni Chiave (I modificatori di comportamento):}
+	\begin{itemize}
+		\item \texttt{-d} \textbf{Delete} - Elimina istantaneamente i caratteri specificati nel SET1
+		\item \texttt{-s} \textbf{Squeeze} - Comprime le sequenze di caratteri identici ripetuti in una singola occorrenza, ideale per ripulire spazi extra
+		\item \texttt{-c} \textbf{Complement} - Inverte la selezione logica: applica l'operazione a tutto ciò che \textbf{NON} è presente nel SET1
+		\item \texttt{-t} \textbf{Truncate} - Tronca la lunghezza del SET1 per adattarla a quella del SET2
+	\end{itemize}
+\end{frame}
+\begin{frame}[fragile]{tr - casi d'uso frequenti}
+	\textbf{Casi d'Uso Frequenti (SysAdmin):}
+	\begin{itemize}
+		\item Pulizia Formattazione - Rimuovere ritorni a capo \verb|\n| per appiattire un file su una riga con \texttt{-d})
+		\item Estrazione di Precisione - Isolare solo i numeri in un testo disordinato combinando \texttt{-cd}
+		 (es. \code{echo "abc123def456" | tr -cd '[:digit:]'} restituisce "123456").
+		\item Sicurezza - Filtrare \texttt{/dev/urandom} tenendo solo caratteri leggibili per generare password)
+		\item Crittografia Base - Traslazione di lettere per creare cifrari come il ROT13
+	\end{itemize}
+\end{frame}

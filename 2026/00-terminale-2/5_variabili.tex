@@ -1,0 +1,115 @@
+\section{Variabili}
+\begin{frame}[fragile]{Variabili}
+  È possibile salvare dei valori in delle \textbf{variabili}. \medskip
+
+  Alcuni programmi sono configurabili attraverso le \textbf{variabili di ambiente}. 
+  \medskip
+
+  Cerchiamo di capire la differenza tra variabili e variabili d'ambiente
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ echo $USER
+mattia
+[mattia@pirandello prove]$ echo $SHELL
+/bin/bash
+\end{lstlisting}
+    \caption{esempi variabili già esistenti nella shell}
+  \end{figure}
+  \medskip
+\end{frame}
+
+\begin{frame}[fragile]{Assegnamento delle variabili}
+  Per assegnare un valore ad una \textbf{variabile} si può usare la seguente sintassi: \bigskip
+  
+  \code{varname=value}.
+
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ pluto=cane
+[mattia@pirandello prove]$ echo $pluto
+cane
+\end{lstlisting}
+    \caption{Esempio di assegnamento variabile}
+  \end{figure}
+
+\end{frame}
+
+\begin{frame}[fragile]{Variabili}
+  Una variabile è vuota se, quando si "printa" con \texttt{echo}, non ha nulla al suo
+  interno.\bigskip
+  
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ echo $pippo
+
+[mattia@pirandello prove]$ echo $aajsdklsakjd
+
+[mattia@pirandello prove]$
+\end{lstlisting}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Uso di variabili}
+  Si possono utilizzare le variabili nei comandi:
+
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ src=castoro
+[mattia@pirandello prove]$ dest=capybara
+[mattia@pirandello prove]$ cp -r $src $dest
+\end{lstlisting}
+    \caption{Esempio di copia utilizzando variabili}
+  \end{figure}
+
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ programs=$(ls /bin)
+[mattia@pirandello prove]$ echo $programs | less
+\end{lstlisting}
+    \caption{Tutti i programmi in \texttt{/bin} sono salvati nella variabile 
+    \textit{programs}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{La variabile PATH}
+  Una variabile spesso usata è la variabile di \texttt{PATH}. \medskip
+
+  Quando digitiamo un comando la shell andrà a cercare se esiste un eseguibile
+  con lo stesso nome del comando nelle directory indicate dalla variabile
+  \texttt{PATH}. \medskip
+
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ echo $PATH
+/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/l
+ib/jvm/default/bin:/usr/bin/site_perl
+[mattia@pirandello prove]$
+\end{lstlisting}
+    \caption{Percorsi nella variabile \texttt{PATH}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Variabili vs Variabili d'ambiente}
+  Abbiamo visto degli esempi di semplici variabili, come tutte quelle che abbiamo creato, e di variabili d'ambiente, tipo \texttt{\$PATH}.
+  
+  Alla fine non c'è molta differenza, di predefinito le variabili non sono propagate anche sui processi figli della shell. Le variabili d'ambiente invece sono proprio quelle che sono viste globalmente. \medskip
+
+  Se aprite una nuova shell e stampate una variabile che avete creato prima la vedrete vuota, invece \texttt{\$PATH}, come le altre variabili d'ambiente, sarà sempre visibile.
+\end{frame}
+
+\begin{frame}[fragile]{Export}
+  È possibile, e spesso necessario, esportare le variabili per renderle visibili dai processi figli della shell. (processo = attività di un programma svolta sul processore)\medskip
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ pippo=cane
+[mattia@pirandello prove]$ echo $pippo
+cane
+[mattia@pirandello prove]$ bash -c 'echo $pippo'
+
+[mattia@pirandello prove]$ export pippo=cane
+[mattia@pirandello prove]$ bash -c 'echo $pippo'
+cane
+\end{lstlisting}
+    \caption{Percorsi nella variabile \texttt{PATH}}
+  \end{figure}
+\end{frame}

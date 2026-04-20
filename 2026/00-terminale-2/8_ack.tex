@@ -1,0 +1,70 @@
+\section{ack - smart filtering}
+\begin{frame}[fragile]{ack - ricerca intelligente nel codice}
+  \texttt{ack} cerca testo nei file di codice in modo rapido e mirato.
+
+  \begin{itemize}
+    \item È pensato per lo sviluppo: di default evita file binari e cartelle non utili.
+    \item Supporta espressioni regolari (PCRE), quindi ricerche più potenti di \texttt{grep} base.
+    \item Riconosce i tipi di file e permette filtri pratici per linguaggio.
+  \end{itemize}
+
+  \medskip
+  Sintassi base: \code{ack "pattern" [percorso]}
+
+  \medskip
+  Esempi:
+  \begin{itemize}
+    \item \code{ack "TODO" .}
+    \item \code{ack --python "def test" .}
+    \item \code{ack -i "errore|warning" logs/}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{ack - filtri per tipo}
+  \texttt{ack} riconosce oltre 50 tipi di file comuni (es. perl, python, html, css) e permette di filtrare facilmente la ricerca per tipo.
+
+  \begin{itemize}
+	\item Inclusione specifica: Cerca solo in un determinato linguaggio (es. \texttt{--python}).
+	\item Esclusione specifica: Cerca ovunque tranne che in un determinato linguaggio (es. \texttt{--nocpp}).
+	\item Esplorazione tipi: Visualizza tutti i formati riconosciuti (\texttt{--type-list}).
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{ack - ricerca avanzata}
+  Oltre alla semplice ricerca di stringhe, \texttt{ack} supporta funzionalità avanzate per ricerche più intelligenti e contestuali sfruttando la potenza delle \textbf{espressioni regolari} (o \textit{regex}).
+
+  \begin{itemize}
+  \item Ricerca contestuale (Lookahead/Lookbehind): Trova parole solo se precedute/seguite da altre (es. \code{ack "User(?=Profile)" .}).
+  \item Parola esatta (\texttt{-w}): Evita i falsi positivi ignorando le sottostringhe (es. trova "root" ma non "bootstrap").
+  \item Case-insensitive (\texttt{-i}): Ignora la differenza tra maiuscole e minuscole.
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{ack - controllo dell'output}
+  \texttt{ack} offre diverse opzioni per \textbf{gestire e formattare i risultati} della ricerca, rendendo più facile l'analisi dei dati trovati.
+  \begin{itemize}
+  \item Pulizia visiva (\texttt{-l}): Restituisce solo i nomi dei file che contengono il match.
+  \item Statistiche (\texttt{-cl}): Conta le occorrenze del match all'interno di ogni file.
+  \item Contesto (\texttt{-B} e \texttt{-A}): Mostra un numero definito di righe prima (Before) e dopo (After) la stringa trovata.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{ack - integrazione e automazione}
+  \texttt{ack} è progettato per essere integrato in flussi di lavoro più ampi, permettendo di combinare la potenza della ricerca intelligente con altri strumenti e processi di sviluppo.
+
+  \begin{itemize}
+  \item Pipeline con altri comandi: Combinazione ideale con \texttt{xargs}, \texttt{sed} o \texttt{perl} per eseguire operazioni di "Trova e Sostituisci" in massa su interi progetti.
+  \item File di configurazione (\texttt{.ackrc}): Salva preferenze globali (es. \texttt{--sort-files}, \texttt{--smart-case}) e permette la creazione di gruppi di file personalizzati (es. \texttt{--type-add=web:ext:php,html,css}).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{ack - alternative e successori}
+  \texttt{ack} è stato uno dei primi strumenti a portare una ricerca intelligente e specifica per sviluppatori, ma negli ultimi anni sono emerse alternative più veloci e ottimizzate per codebase enormi.
+
+  \begin{itemize}
+	\item \texttt{ag} (The Silver Searcher): Scritto in C, è più veloce di \texttt{ack} su grandi codebase, ma con meno funzionalità di filtro.
+	\item \texttt{ripgrep} (\texttt{rg}): Scritto in Rust, è attualmente uno degli strumenti più veloci per la ricerca nei file di codice, con supporto nativo per Unicode e un sistema di filtro simile a \texttt{ack}.
+  \end{itemize}
+\end{frame}

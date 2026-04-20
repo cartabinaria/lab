@@ -1,0 +1,32 @@
+\section{Processi}
+\begin{frame}{htop}
+  Linux è sistema che permette l'esecuzione di più processi simultaneamente. 
+  \medskip
+
+  Per vedere i processi in esecuzione (e altre informazioni) è molto comodo il 
+  comando \texttt{top} o \texttt{htop} (la versione nuova). \medskip
+  
+  Se si vuole invece aver uno snapshot (istantanea) dei processi in esecuzione si può 
+  utilizzare il comando \texttt{ps}. \medskip
+
+  Per vedere tutti i processi su \texttt{ps} la flag è \texttt{-e}.
+\end{frame}
+
+\begin{frame}[fragile]{Pid e kill}
+  Per identificare in modo univoco un processo si utilizza un intero positivo
+  chiamato \textbf{pid}: Process IDentifier. Il pid può essere ottenuto attraverso il comando \texttt{ps}.\medskip
+  
+  Se per caso volessimo terminare un processo lo si può fare attraverso il 
+  comando \texttt{kill} passando il pid del processo da uccidere. \medskip
+
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ ps
+    PID TTY          TIME CMD
+   8239 pts/3    00:00:03 zsh
+  20813 pts/3    00:00:00 ps
+[mattia@pirandello prove]$ kill 8239
+\end{lstlisting}
+    \caption{Esempio di \texttt{kill}}
+  \end{figure}
+\end{frame}

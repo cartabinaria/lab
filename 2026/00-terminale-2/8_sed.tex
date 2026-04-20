@@ -1,0 +1,86 @@
+\section{sed - stream editor}
+\begin{frame}[fragile]{sed - stream editor}
+  \texttt{sed} è un potente strumento di manipolazione del testo che permette di 
+  eseguire modifiche complesse su file o flussi di testo in modo non interattivo.
+  \bigskip
+
+  È particolarmente utile per automatizzare la modifica di grandi quantità di testo, 
+  come file di configurazione, log o dati strutturati.
+
+  La sua filosofia è quella di lavorare riga per riga in modo non interattivo, rendendolo ideale per l'automazione di compiti di editing testuale.
+
+  Sintassi di base: \code{sed [opzioni] <comando> file}
+
+  Salvataggio (\texttt{-i}):
+  \begin{itemize}
+	\item \texttt{-i}: Applica le modifiche direttamente sul file originario (in-place).
+	\item \texttt{-i.bak}: Crea automaticamente una copia di backup prima di sovrascrivere.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{sed - selezione delle righe}
+  \texttt{sed} permette di selezionare specifiche righe su cui applicare i comandi, 
+  rendendo possibile eseguire modifiche mirate senza dover processare l'intero file.
+  \bigskip
+
+  \begin{itemize}
+	\item Per Numero: Es. \texttt{3,5} (Applica il comando solo dalla riga 3 alla 5).
+	\item Per Pattern (Regex): Es. \verb|/^#/| (Applica il comando solo alle righe che iniziano con \#).
+	\item Per Fine File (\verb|$|): Es. \verb|10,$| (Dalla riga 10 fino alla fine del documento).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{sed - sostituzione e regex}
+  L'uso più comune di \texttt{sed} è la sostituzione, che permette di 
+  modificare il testo in modo flessibile usando espressioni regolari.
+  \bigskip
+
+  Sintassi base: \code{s/vecchio/nuovo/} (Sostituisce il testo).
+
+  Opzioni avanzate:
+  \begin{itemize}
+	\item Espressioni Regolari Estese (\texttt{-E}): Evita l'uso eccessivo di backslash per caratteri speciali.
+	\item Gruppi di Cattura: Isolano parti di testo usando le parentesi tonde (...). Vengono richiamati nel nuovo testo con i backreference \verb|\1|, \verb|\2|, \verb|\3| ecc. (es. per invertire l'ordine di una data).
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{sed - comandi operativi}
+  Oltre alla sostituzione, \texttt{sed} offre una serie di comandi operativi che permettono di eseguire modifiche più complesse.
+  \bigskip
+
+	\begin{itemize}
+		\item \texttt{d} (Delete): Elimina le righe selezionate (es. rimuovere le righe vuote).
+		\item \texttt{p} (Print): Stampa le righe selezionate (si usa in combinazione con l'opzione \texttt{-n} per silenziare l'output automatico di tutto il resto).
+		\item \texttt{a} (Append): Aggiunge una nuova riga di testo \textit{dopo} l'occorrenza trovata.
+		\item \texttt{i} (Insert): Inserisce una nuova riga di testo \textit{prima} dell'occorrenza.
+	\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{sed - gestione della memoria}
+
+	\begin{itemize}
+		\item Pattern Space: L'area di lavoro principale dove viene caricata la riga attualmente in elaborazione. Tutti i comandi di modifica agiscono su questa area.
+		\item Hold Space: Un buffer secondario che funge da "appunti". Permette di salvare temporaneamente il contenuto del pattern space o di accumulare informazioni per operazioni più complesse.
+		\item Comandi di Interscambio: 
+		\begin{itemize}
+			\item \texttt{h} (hold): Copia il contenuto del pattern space nel hold space, sovrascrivendo qualsiasi cosa ci fosse prima.
+			\item \texttt{g} (get): Sostituisce il contenuto del pattern space con quello del hold space, sovrascrivendo la riga attualmente in elaborazione.
+			\item \texttt{G} (append get): Aggiunge il contenuto del hold space alla fine del pattern space, mantenendo la riga attualmente in elaborazione.
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{sed - trucchi avanzati e ottimizzazione}
+  \texttt{sed} è uno strumento estremamente potente, e con un po' di creatività è possibile sfruttarlo per eseguire operazioni complesse in modo efficiente.
+  \bigskip
+
+  \begin{itemize}
+	\item Delimitatori Custom: Si può sostituire lo slash / con altri caratteri (es. |) per rendere leggibili le modifiche ai percorsi o agli URL (es. \code{s|/usr/bin|/usr/local|}).
+	\item Concatenazione (\texttt{-e}): Permette di eseguire sequenze di comandi multipli in una sola passata (es. cancella i commenti *E* cancella le righe vuote contemporaneamente).
+  \end{itemize}
+\end{frame}

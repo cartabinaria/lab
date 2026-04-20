@@ -1,0 +1,42 @@
+\section{Gestione avanzata della history}
+\begin{frame}[fragile, allowframebreaks]{history - gestione avanzata}
+ La cronologia dei comandi è una potente funzionalità che permette di 
+ richiamare, modificare e gestire i comandi eseguiti in passato. Ecco alcune 
+ tecniche avanzate per sfruttarla al meglio:
+
+\begin{itemize}
+	\item Richiamo rapido (Event Designators): 
+	\begin{itemize}
+	\item \verb|!!| (Riesegue l'ultimo comando) \item \verb|!n| / \verb|!-n| (Riesegue per numero esatto o posizione all'indietro) \item \verb|!stringa| / \verb|!?stringa?| (Riesegue l'ultimo comando che inizia con o contiene la stringa).
+	\end{itemize} 
+	\item Recupero argomenti (Word Designators): 
+	\begin{itemize}
+	\item \verb|!$| (Recupera solo l'ultimo argomento del comando precedente) \item \verb|!:^| (Recupera solo il primo argomento) \item \verb|!:*| (Recupera tutti gli argomenti escludendo il comando base).
+	\end{itemize}
+	\item Ricerca interattiva (Scorciatoie da terminale):
+	\begin{itemize}
+	\item Ctrl + R (Avvia la "Reverse Search" per cercare digitando parte del comando all'indietro) \item Ctrl + G (Interrompe la ricerca senza eseguire nulla).
+	\end{itemize}
+	\item Configurazione ambiente (Variabili in \texttt{~/.bashrc}):
+	\begin{itemize}
+	\item HISTSIZE e HISTFILESIZE (Aumentano il limite dei comandi salvati in memoria e su disco) \item HISTCONTROL (Evita il salvataggio di duplicati o comandi preceduti da spazio) \item HISTTIMEFORMAT (Aggiunge data e ora ai log) \item PROMPT\_COMMAND (Con \texttt{history -a} salva i comandi in tempo reale senza attendere la fine della sessione).
+	\end{itemize}
+	\framebreak
+	\item Manutenzione manuale (Opzioni dirette del comando):
+	\begin{itemize}
+	\item \verb|-c| (Svuota la cronologia della sessione attuale) \item \verb|-w| (Forza la scrittura della cronologia sul file \verb|.bash_history|) \item \verb|-d <numero>| (Elimina chirurgicamente una singola riga dalla cronologia).
+	\end{itemize}
+	\item Trucchi avanzati (Privacy e Correzione):
+	\begin{itemize}
+	\item Trucco dello spazio (Digitare uno spazio prima del comando per non farlo registrare nei log, se abilitato da HISTCONTROL) \item Sostituzione Rapida \verb|^vecchio^nuovo| (Corregge al volo un errore di battitura nell'ultimo comando eseguito e lo lancia immediatamente).
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%  * 1. RICHIAMO RAPIDO (Event Designators): !! (Riesegue l'ultimo comando) | !n / !-n (Riesegue per numero esatto o posizione all'indietro) | !stringa / !?stringa? (Riesegue l'ultimo comando che inizia con o contiene la stringa).
+%  * 2. RECUPERO ARGOMENTI (Word Designators): !$ (Recupera solo l'ultimo argomento del comando precedente) | !:^ (Recupera solo il primo argomento) | !:* (Recupera tutti gli argomenti escludendo il comando base).
+%  * 3. RICERCA INTERATTIVA (Scorciatoie da terminale): Ctrl + R (Avvia la "Reverse Search" per cercare digitando parte del comando all'indietro) | Ctrl + G (Interrompe la ricerca senza eseguire nulla).
+%  * 4. CONFIGURAZIONE AMBIENTE (Variabili in ~/.bashrc): HISTSIZE e HISTFILESIZE (Aumentano il limite dei comandi salvati in memoria e su disco) | HISTCONTROL (Evita il salvataggio di duplicati o comandi preceduti da spazio) | HISTTIMEFORMAT (Aggiunge data e ora ai log) | PROMPT_COMMAND (Con history -a salva i comandi in tempo reale senza attendere la fine della sessione).
+%  * 5. MANUTENZIONE MANUALE (Opzioni dirette del comando): -c (Svuota la cronologia della sessione attuale) | -w (Forza la scrittura della cronologia sul file .bash_history) | -d <numero> (Elimina chirurgicamente una singola riga dalla cronologia).
+%  * 6. TRUCCHI AVANZATI (Privacy e Correzione): Trucco dello spazio (Digitare uno spazio prima del comando per non farlo registrare nei log, se abilitato da HISTCONTROL) | Sostituzione Rapida ^vecchio^nuovo (Corregge al volo un errore di battitura nell'ultimo comando eseguito e lo lancia immediatamente).

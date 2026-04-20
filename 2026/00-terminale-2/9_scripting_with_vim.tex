@@ -1,0 +1,76 @@
+\section{Uniamo Scripring a Vim}
+\begin{frame}[fragile]{Creiamo un nuovo script}
+  Apriamo un nuovo file .sh con vim:
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ vim newScript.sh
+\end{lstlisting}
+  \end{figure}
+  Iniziamo a scrivere entrando dalla Normal Mode alla Insert Mode con "i"
+
+  In prima riga mettiamo come sempre: 
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+#!/bin/bash
+\end{lstlisting}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Variabili d'ambiente e comandi}
+  Proviamo intanto a vedere se i comandi e le variabili d'ambiente che abbiamo usato funzionano: 
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+#!/bin/bash
+
+TIMESTART=$(date)
+
+echo "Script started by ${USER} at ${TIMESTART}"
+\end{lstlisting}
+  \end{figure}
+
+  Salviamo il file (\texttt{:wq})
+  
+  Rendiamo il file eseguibile (\texttt{chmod +x newScript.sh})
+  
+  E runniamolo (\texttt{./newScript.sh})
+\end{frame}
+
+\begin{frame}[fragile]{If - else}
+  Proviamo ad aggiungere una condizione. Le condizione sono valutate in due modi:
+  \begin{itemize}
+    \item \texttt{[]} esegue la condizione contenuta
+    \item \texttt{[[]]} supporta operatori come \texttt{\&\&}, \texttt{||} 
+  \end{itemize}
+
+  Li usiamo per if - then - elif - else:
+
+  \begin{itemize}
+    \item if [condizione] then ...
+    \item else ...
+  \end{itemize}
+  Proviamo ad usarli nel file di prima.
+
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ vim newScript.sh
+    \end{lstlisting}
+  \end{figure}
+
+  Con G andiamo in fondo al file, e con O scriviamo dalla riga seguente
+\end{frame}
+
+\begin{frame}[fragile]{If - else}
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+#!/bin/bash
+TIMESTART=$(date)
+echo "Script started by ${USER} at ${TIMESTART}"
+MESSAGE=$({ls /pollegsasso} 2>&1 )
+if [[ -n "${MESSAGE}" ]]; then
+    echo "Warning: Errors were detected during script execution."
+else
+    echo "Script completed successfully with no errors."
+fi
+\end{lstlisting}
+  \end{figure}
+\end{frame}
