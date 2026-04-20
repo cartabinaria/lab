@@ -34,14 +34,14 @@
     \begin{lstlisting}
 [mattia@pirandello prove]$ ls 
 capybara  castoro  criceto  file 
-[mattia@pirandello prove]$ ls > file1 > file2
+[mattia@pirandello prove]$ ls > file1
 [mattia@pirandello prove]$ ls 
-capybara  castoro  criceto  file  file1  file2 
+capybara  castoro  criceto  file  file1
 [mattia@pirandello prove]$ cat file1 
-capybara  castoro  criceto  file  file1  file2 
-[mattia@pirandello prove]$ cat file2 
-capybara  castoro  criceto  file  file1  file2 
-[mattia@pirandello prove]$
+capybara  castoro  criceto  file  file1 
+[mattia@pirandello prove]$ ls c* -d > file1
+[mattia@pirandello prove]$ cat file1 
+capybara  castoro  criceto 
 \end{lstlisting}
   \end{figure}
 \end{frame}

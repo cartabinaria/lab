@@ -3,7 +3,7 @@
   IDEA: Non cercare contenuti, cerca i contenitori.
 \begin{figure}
 \begin{lstlisting}
-		find [PERCORSO] [FILTRI] [AZIONE]
+find [PERCORSO] [FILTRI] [AZIONE]
 \end{lstlisting}
 \end{figure}
 
@@ -48,10 +48,10 @@
 \begin{frame}[fragile]{find - il vero potere in azione}
 	È possibile manipolare i risultati di find usando l'opzione di esecuzione dei comandi sui file trovati (\texttt{-exec})
  \begin{itemize}
-	\item \texttt{\{\}}: Il segnaposto che rappresenta il file trovato.
-	\item \texttt{;}: Chiude il comando (lo esegue una volta per ogni file).
-	\item \texttt{+}: Chiude il comando accodando tutti i file (lo esegue una volta sola in blocco, molto più efficiente).
-	\item \texttt{-delete}: Eliminazione diretta dei file trovati (da usare con estrema cautela)
+	\item \texttt{\{\}} Il segnaposto che rappresenta il file trovato.
+	\item \texttt{;} Chiude il comando (lo esegue una volta per ogni file).
+	\item \texttt{+} Chiude il comando accodando tutti i file (lo esegue una volta sola in blocco, molto più efficiente).
+	\item \texttt{-delete} Eliminazione diretta dei file trovati (da usare con estrema cautela)
 \end{itemize}
 	Qualche esempio:
 \begin{itemize}
@@ -66,4 +66,7 @@
 	\item Utilizzo della Gestione Spazi (\texttt{-print0}): Stampa i risultati separandoli con un carattere nullo, fondamentale quando si passano i dati a \texttt{xargs -0} per non "rompere" i nomi di file con spazi.
 	\item Limiti di Ricerca ({\texttt{-maxdepth}}): 	Es. \texttt{-maxdepth 2} impedisce a find di scendere in un loop infinito di sottocartelle, fermandosi al secondo livello.
 \end{itemize}
+\medspace
+Un esempio: \code{find / -type f -size +100M -atime -30 -exec ls -lh {} \;}
 \end{frame}
+

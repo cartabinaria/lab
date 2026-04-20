@@ -59,22 +59,6 @@
 
 \end{frame}
 
-
-\begin{frame}[fragile]{sed - gestione della memoria}
-
-	\begin{itemize}
-		\item Pattern Space: L'area di lavoro principale dove viene caricata la riga attualmente in elaborazione. Tutti i comandi di modifica agiscono su questa area.
-		\item Hold Space: Un buffer secondario che funge da "appunti". Permette di salvare temporaneamente il contenuto del pattern space o di accumulare informazioni per operazioni più complesse.
-		\item Comandi di Interscambio: 
-		\begin{itemize}
-			\item \texttt{h} (hold): Copia il contenuto del pattern space nel hold space, sovrascrivendo qualsiasi cosa ci fosse prima.
-			\item \texttt{g} (get): Sostituisce il contenuto del pattern space con quello del hold space, sovrascrivendo la riga attualmente in elaborazione.
-			\item \texttt{G} (append get): Aggiunge il contenuto del hold space alla fine del pattern space, mantenendo la riga attualmente in elaborazione.
-		\end{itemize}
-	\end{itemize}
-
-\end{frame}
-
 \begin{frame}[fragile]{sed - trucchi avanzati e ottimizzazione}
   \texttt{sed} è uno strumento estremamente potente, e con un po' di creatività è possibile sfruttarlo per eseguire operazioni complesse in modo efficiente.
   \bigskip
