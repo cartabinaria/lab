@@ -1,0 +1,111 @@
+\section{Diagnostica e Configurazione di Rete}
+
+\begin{frame}[fragile]{Verifica della raggiungibilità: \texttt{ping}}
+  Il comando \texttt{ping} usa il protocollo ICMP per verificare se un host remoto è attivo e raggiungibile, misurando il tempo di andata e ritorno (\textit{Round Trip Time}, RTT).
+
+  Esecuzione continua (interrompere con \texttt{Ctrl+C}):
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+[mattia@pirandello ~]$ ping google.com
+\end{lstlisting}
+  \end{figure}
+
+  Limitare il numero di pacchetti inviati con il flag \texttt{-c}:
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+[mattia@pirandello ~]$ ping -c 4 8.8.8.8
+\end{lstlisting}
+    \caption{Invia esattamente 4 pacchetti prima di terminare}
+  \end{figure}\medskip
+
+  Mostra le statistiche sui pacchetti trasmessi/ricevuti e l'eventuale perdita di rete (\textit{packet loss}).
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{ping}: Errori comuni restituiti}
+  1. Problema di risoluzione nomi (DNS non configurato o non raggiungibile):
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+[mattia@pirandello ~]$ ping hostnonvalido.lan
+ping: hostnonvalido.lan: Name or service not known
+\end{lstlisting}
+  \end{figure}
+
+  2. Host spento, IP errato o pacchetto scartato silenziosamente da un firewall:
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+[mattia@pirandello ~]$ ping -c 2 192.168.1.250
+PING 192.168.1.250 (192.168.1.250) 56(84) bytes of data.
+\end{lstlisting}
+  \end{figure}
+
+  3. Manca la rotta locale oppure il router blocca attivamente il transito:
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+From 192.168.1.1: icmp_seq=1 Destination Host Unreachable
+\end{lstlisting}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Download di file: \texttt{wget}}
+  \texttt{wget} è utile per scaricare file via rete (supporta HTTP, HTTPS e FTP).
+
+  Scaricare un file salvandolo con il suo nome originale:
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+[mattia@pirandello ~]$ wget https://example.com/archivio.tar.gz
+\end{lstlisting}
+  \end{figure}
+
+  Specificare un nome file o percorso di output (\texttt{-O}):
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+[mattia@pirandello ~]$ wget -O setup.sh https://example.com/script.sh
+\end{lstlisting}
+  \end{figure}
+
+  Continuare un download interrotto con il flag \texttt{-c}:
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+[mattia@pirandello ~]$ wget -c https://example.com/grande_file.iso
+\end{lstlisting}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Richieste HTTP con \texttt{curl}}
+  \texttt{curl} è un tool versatile per trasferire dati da e verso un server. 
+
+  Visualizzare l'output a schermo:
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+[mattia@pirandello ~]$ curl https://example.com
+\end{lstlisting}
+  \end{figure}
+
+  Salvare la risposta su un file:
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+[mattia@pirandello ~]$ curl -o pagina.html https://example.com
+\end{lstlisting}
+  \end{figure}\medskip
+\end{frame}
+
+\begin{frame}[fragile]{Richieste HTTP con \texttt{curl}}
+  \texttt{curl} è solitamente utilizzato per interagire con le API REST e testare web service.
+
+  Ispezionare solo gli header HTTP di risposta (\texttt{-I}):
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+[mattia@pirandello ~]$ curl -I https://example.com
+\end{lstlisting}
+    \caption{Mostra status code (es. 200 OK), content-type, cookie, ecc.}
+  \end{figure}
+
+  Richieste in formato JSON:
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+[mattia@pirandello ~]$ curl -X POST https://api.example.com/utenti \
+    -H "Content-Type: application/json" \
+    -d '{"nome": "Mario", "ruolo": "studente"}'
+\end{lstlisting}
+  \end{figure}
+\end{frame}

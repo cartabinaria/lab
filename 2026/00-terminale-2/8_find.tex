@@ -56,7 +56,7 @@ find [PERCORSO] [FILTRI] [AZIONE]
 	Qualche esempio:
 \begin{itemize}
 	\item Pulizia automatica file vecchi \code{find /tmp -type f -mtime +30 -delete}
-	\item Rende eseguibili tutti gli script in massa \code{find . -name "*.sh" -exec chmod +x {} +}
+	\item Rende eseguibili tutti gli script in massa \code{find . -name "*.sh" -exec chmod +x \{\} +}
 \end{itemize}
 \end{frame}
 

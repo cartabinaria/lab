@@ -95,3 +95,125 @@ echo "Numero di programmi con 'ca' è $NUM"
     \caption{Esecuzione di uno script bash}
   \end{figure}
 \end{frame}
+
+\begin{frame}[fragile]{Creiamo un nuovo script}
+  Apriamo un nuovo file .sh:
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ nano newScript.sh
+\end{lstlisting}
+  \end{figure}
+
+  In prima riga mettiamo come sempre: 
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+#!/bin/bash
+\end{lstlisting}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Variabili d'ambiente e comandi}
+  Proviamo intanto a vedere se i comandi e le variabili d'ambiente che abbiamo usato funzionano: 
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+#!/bin/bash
+
+TIMESTART=$(date)
+
+echo "Script started by ${USER} at ${TIMESTART}"
+\end{lstlisting}
+  \end{figure}
+
+  Salviamo il file, 
+  
+  Rendiamo il file eseguibile (\texttt{chmod +x newScript.sh})
+  
+  E runniamolo (\texttt{./newScript.sh})
+\end{frame}
+
+\begin{frame}[fragile]{If - else}
+  Proviamo ad aggiungere una condizione. Le condizione sono valutate in due modi:
+  \begin{itemize}
+    \item \texttt{[]} esegue la condizione contenuta
+    \item \texttt{[[]]} supporta operatori come \texttt{\&\&}, \texttt{||} 
+  \end{itemize}
+
+  Li usiamo per if - then - elif - else:
+
+  \begin{itemize}
+    \item if [condizione] then ...
+    \item else ...
+  \end{itemize}
+  Proviamo ad usarli nel file di prima.
+
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello prove]$ nano newScript.sh
+    \end{lstlisting}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{If - else}
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+#!/bin/bash
+TIMESTART=$(date)
+echo "Script started by ${USER} at ${TIMESTART}"
+MESSAGE=$({ls /pollegsasso} 2>&1 )
+if [[ -n "${MESSAGE}" ]]; then
+    echo "Warning: Errors were detected during script execution."
+else
+    echo "Script completed successfully with no errors."
+fi
+\end{lstlisting}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Ciclo For}
+  Come in altri linguaggi, in bash possiamo iterare su liste, file o range di numeri utilizzando il ciclo \texttt{for}. \medskip
+
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+for Variable in {1..3}
+do
+    echo "$Variable"
+done
+\end{lstlisting}
+  \end{figure}\medskip
+
+  Questo semplice ciclo stamperà a schermo i numeri 1, 2 e 3 in sequenza.
+\end{frame}
+
+
+\begin{frame}[fragile]{Funzioni}
+  Per riutilizzare blocchi di codice, bash ci permette di definire delle funzioni.
+
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+function foo (){
+    echo "Arguments work just like script arguments: $@"
+    echo "And: $1 $2..."
+    echo "This is a function"
+    returnValue=0
+    # Variable values can be returned
+    return $returnValue
+}
+
+$ foo 1 2
+\end{lstlisting}
+  \end{figure}
+\end{frame}
+
+
+\begin{frame}[fragile]{C'è molto altro...}
+  Bash scripting è un vero e proprio linguaggio di programmazione. Ci sono molti altri costrutti e comandi utili che per brevità non abbiamo visto:
+  \medskip
+  
+  \begin{itemize}
+    \item \textbf{Ciclo While:} \texttt{while [ condizione ]; do ... done} 
+    \item \textbf{Costrutto Case:} \texttt{case \$VAR in ... esac}
+    \item \textbf{Comando read:} permette di leggere l'input inserito dall'utente da tastiera durante l'esecuzione.
+    \item \textbf{Array:} 
+    \item e molto altro...
+  \end{itemize}
+\end{frame}

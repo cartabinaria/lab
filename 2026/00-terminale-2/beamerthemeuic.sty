@@ -236,7 +236,7 @@
   }{}
   \ifstrequal{#2}{expowhite}{ % Also use blue text on expowhite background
     \setbeamercolor{frametitle}{fg=uicblue}
-    \setbeamercolor{normal text}{fg=uicblue,bg=#2}
+    \setbeamercolor{normal text}{fg=white,bg=#2}
   }{ % otherwise use white text
     \setbeamercolor{frametitle}{fg=white}
     \setbeamercolor{normal text}{fg=white,bg=#2}
@@ -260,6 +260,37 @@
   \endgroup
   \usebeamercolor[fg]{normal text}
 }
+
+% \newenvironment{chapter}[2][]{% Args: [subtitle/optional], {frame title}
+%   \begingroup
+%   \footlinecolor{expowhite} % Mantiene o ripristina la footline verde
+%   \setbeamercolor{frametitle}{fg=white}
+%   \setbeamercolor{normal text}{fg=white,bg=steelgray}
+  
+%   % Disegna la fascia di accento verde ADM a sinistra
+%   \setbeamertemplate{background}{%
+%     \begin{tikzpicture}[remember picture,overlay]
+%       \fill[expowhite] (current page.south west) rectangle ([xshift=1.2cm]current page.north west);
+%     \end{tikzpicture}%
+%   }
+
+%   \setbeamertemplate{frametitle}{%
+%     \vspace*{8ex}
+%     \hspace*{1.8cm}% Margine per superare la fascia verde
+%     \begin{beamercolorbox}[wd=0.7\textwidth]{frametitle}
+%       \usebeamerfont{frametitle}{\Huge \bfseries \insertframetitle}\\[0.5em]
+%       \ifstrempty{#1}{}{%
+%         {\usebeamerfont{framesubtitle}\textcolor{expowhite!30!white}{\Large #1}}%
+%       }
+%     \end{beamercolorbox}
+%   }
+%   \begin{frame}
+% }{%
+%   \end{frame}
+%   \endgroup
+%   \themecolor{lightnologo}
+%   \footlinecolor{expowhite}
+% }
 
 \newenvironment{sidepic}[2]{% Args: image, frame title
   \begingroup

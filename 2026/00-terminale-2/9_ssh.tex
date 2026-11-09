@@ -1,0 +1,92 @@
+\section{SSH e Connessioni Remote}
+
+\begin{frame}[fragile]{SSH: Secure Shell}
+  SSH è un protocollo che permette di stabilire una connessione sicura e cifrata verso un computer remoto, accedendo alla shell.
+
+  Per connettersi a un server, si usa il comando \texttt{ssh} specificando l'utente e l'indirizzo (IP o dominio):
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+[mattia@pirandello ~]$ ssh utente@192.168.1.10
+[mattia@pirandello ~]$ ssh nome.cognome@bettina.cs.unibo.it
+\end{lstlisting}
+  \end{figure}\medskip
+
+  Al primo accesso, verrà chiesto di accettare il \textit{fingerprint} (impronta digitale) del server. Successivamente, verrà richiesta la password dell'utente remoto.
+\end{frame}
+
+
+\begin{frame}[fragile]{Autenticazione con chiavi SSH}
+  Per evitare di inserire la password ad ogni login, è molto più comodo (e sicuro) usare l'autenticazione a chiavi asimmetriche.
+
+  1. Creazione della coppia di chiavi (da eseguire sulla propria macchina):
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+[mattia@pirandello ~]$ ssh-keygen -t ed25519 -C "mail@example.com"
+\end{lstlisting}
+  \end{figure}
+
+  2. Copia della chiave pubblica sul server remoto:
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+[mattia@pirandello ~]$ ssh-copy-id utente@192.168.1.10
+\end{lstlisting}
+  \end{figure}
+  Ora il server riconoscerà la nostra chiave e ci farà entrare senza chiedere la password.
+\end{frame}
+
+
+\begin{frame}[fragile]{SCP: Secure Copy Protocol}
+  Basato su SSH, \texttt{scp} permette di trasferire file e cartelle in modo sicuro tra computer diversi.
+
+  Da locale a remoto:
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+[mattia@pirandello ~]$ scp \
+    file.txt utente@192.168.1.10:/percorso/remoto/
+\end{lstlisting}
+  \end{figure}
+
+  Da remoto a locale (nota il \texttt{./} per copiare nella cartella corrente):
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+[mattia@pirandello ~]$ scp \
+    utente@192.168.1.10:/percorso/remoto/file.txt ./
+\end{lstlisting}
+  \end{figure}
+\end{frame}
+
+
+\begin{frame}[fragile]{Port Forwarding (Tunneling)}
+  SSH permette di creare dei \textit{tunnel} per inoltrare il traffico di una porta locale verso una porta sul server remoto (o viceversa).
+
+  \textbf{Local Port Forwarding:} utile per accedere a un servizio remoto esposto solo in locale sul server (es. un database o un web server di test).
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+[mattia@pirandello ~]$ ssh -L 8080:localhost:80 utente@192.168.1.10
+\end{lstlisting}
+    \caption{Inoltra la porta 80 del server sulla nostra porta locale 8080}
+  \end{figure}\medskip
+
+  Ora, aprendo \texttt{http://localhost:8080} sul nostro browser in locale, vedremo il sito che gira sul server remoto.
+\end{frame}
+
+
+\begin{frame}[fragile]{Configurazione client: ssh-config}
+  Per evitare di dover ricordare IP, nomi utente e altre opzioni (come il port forwarding e molto altro), possiamo creare dei comodi alias nel file \texttt{\textasciitilde/.ssh/config}.
+  \begin{figure}
+    \begin{lstlisting}
+[mattia@pirandello ~]$ nano ~/.ssh/config
+\end{lstlisting}
+  \end{figure}
+
+  Esempio di configurazione:
+  \begin{figure}
+    \begin{lstlisting}[backgroundcolor=\color{expowhite!50!white}]
+Host mioserver
+    HostName 192.168.1.10
+    User utente
+\end{lstlisting}
+  \end{figure}\medskip
+
+  Ora per connettersi basterà digitare semplicemente: \texttt{ssh mioserver}.
+\end{frame}
